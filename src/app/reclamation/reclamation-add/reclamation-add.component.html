@@ -1,0 +1,115 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0">Ajouter une réclamation</h3>
+        </div>
+        <div class="card-body">
+          <div *ngIf="error" class="alert alert-danger">
+            {{ error }}
+          </div>
+
+          <form [formGroup]="reclamationForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="titre" class="form-label"
+                >Titre <span class="text-danger">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="titre"
+                formControlName="titre"
+                [ngClass]="{ 'is-invalid': submitted && f['titre'].errors }"
+                placeholder="Titre de la réclamation"
+              />
+              <div
+                *ngIf="submitted && f['titre'].errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f['titre'].errors['required']">
+                  Le titre est requis
+                </div>
+                <div *ngIf="f['titre'].errors['minlength']">
+                  Le titre doit contenir au moins 3 caractères
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="description" class="form-label"
+                >Description <span class="text-danger">*</span></label
+              >
+              <textarea
+                class="form-control"
+                id="description"
+                formControlName="description"
+                [ngClass]="{
+                  'is-invalid': submitted && f['description'].errors
+                }"
+                rows="5"
+                placeholder="Détaillez votre réclamation ici..."
+              ></textarea>
+              <div
+                *ngIf="submitted && f['description'].errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f['description'].errors['required']">
+                  La description est requise
+                </div>
+                <div *ngIf="f['description'].errors['minlength']">
+                  La description doit contenir au moins 10 caractères
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="priorite" class="form-label"
+                >Priorité <span class="text-danger">*</span></label
+              >
+              <select
+                class="form-select"
+                id="priorite"
+                formControlName="priorite"
+                [ngClass]="{ 'is-invalid': submitted && f['priorite'].errors }"
+              >
+                <option *ngFor="let priorite of priorites" [value]="priorite">
+                  {{ priorite }}
+                </option>
+              </select>
+              <div
+                *ngIf="submitted && f['priorite'].errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f['priorite'].errors['required']">
+                  La priorité est requise
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                routerLink="/reclamations"
+              >
+                <i class="bi bi-arrow-left"></i> Retour
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="loading"
+              >
+                <span
+                  *ngIf="loading"
+                  class="spinner-border spinner-border-sm me-1"
+                ></span>
+                <i *ngIf="!loading" class="bi bi-save me-1"></i> Enregistrer
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,14 +1,21 @@
 import { RouteInfo } from './sidebar.metadata';
 
 export const ROUTES: RouteInfo[] = [
- 
   {
     path: '/dashboard',
     title: 'Dashboard',
     icon: 'bi bi-speedometer2',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
+  },
+  {
+    path: '/reclamations',
+    title: 'Réclamations',
+    icon: 'bi bi-exclamation-circle',
+    class: '',
+    extralink: false,
+    submenu: [],
   },
   {
     path: '/component/alert',
@@ -16,7 +23,7 @@ export const ROUTES: RouteInfo[] = [
     icon: 'bi bi-bell',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
   },
   {
     path: '/component/badges',
@@ -24,7 +31,7 @@ export const ROUTES: RouteInfo[] = [
     icon: 'bi bi-patch-check',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
   },
   {
     path: '/component/buttons',
@@ -32,7 +39,7 @@ export const ROUTES: RouteInfo[] = [
     icon: 'bi bi-hdd-stack',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
   },
   {
     path: '/component/card',
@@ -40,7 +47,7 @@ export const ROUTES: RouteInfo[] = [
     icon: 'bi bi-card-text',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
   },
   {
     path: '/component/dropdown',
@@ -48,7 +55,7 @@ export const ROUTES: RouteInfo[] = [
     icon: 'bi bi-menu-app',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
   },
   {
     path: '/component/pagination',
@@ -56,7 +63,7 @@ export const ROUTES: RouteInfo[] = [
     icon: 'bi bi-dice-1',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
   },
   {
     path: '/component/nav',
@@ -64,7 +71,7 @@ export const ROUTES: RouteInfo[] = [
     icon: 'bi bi-pause-btn',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
   },
   {
     path: '/component/table',
@@ -72,7 +79,7 @@ export const ROUTES: RouteInfo[] = [
     icon: 'bi bi-layout-split',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
   },
   {
     path: '/about',
@@ -80,6 +87,6 @@ export const ROUTES: RouteInfo[] = [
     icon: 'bi bi-people',
     class: '',
     extralink: false,
-    submenu: []
-  }
+    submenu: [],
+  },
 ];
