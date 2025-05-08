@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { topcard } from './top-cards-data';
+import { topcard } from './top-cards-data'; // Ensure this is in your data file
 import { StatsService } from 'src/app/services/stats.service';
 
 @Component({
@@ -10,13 +10,13 @@ export class TopCardsComponent implements OnInit {
   topcards: topcard[] = [
     {
       bgcolor: 'success',
-      icon: 'bi bi-bar-chart-line', // More representative of commits
+      icon: 'bi bi-bar-chart-line', 
       title: '...',
       subtitle: 'Total Commits'
     },
     {
       bgcolor: 'danger',
-      icon: 'bi bi-journal-code', // More suited to represent repositories
+      icon: 'bi bi-journal-code',
       title: '...',
       subtitle: 'Total Repositories'
     },
@@ -30,11 +30,10 @@ export class TopCardsComponent implements OnInit {
       bgcolor: 'info',
       icon: 'bi bi-people-fill', 
       title: '...',
-      subtitle: 'Collaborators'
+      subtitle: 'Total Active Collaborators'
     }
   ];
   
-
   constructor(private statsService: StatsService) {}
 
   ngOnInit(): void {
@@ -45,6 +44,13 @@ export class TopCardsComponent implements OnInit {
     this.statsService.getTotalBranches().subscribe(res => {
       this.topcards[2].title = res.distinctBranchCount?.toString() ?? '0';
     });
+    
+    this.statsService.getActiveCollaboratorsCount().subscribe(res => {
+      this.topcards[3].title = res.authorsCount?.toString() ?? '0'; 
+    });
+    
+    this.statsService.getDistinctRepositories().subscribe(res => {
+      this.topcards[1].title = res.repositoryCount?.toString() ?? '0'; // Update repository count
+    });
   }
-  
-}  
+}
