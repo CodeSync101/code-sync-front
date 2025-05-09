@@ -20,7 +20,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: '/component/badges',
-    title: 'Smiri',
+    title: 'Walid',
     icon: 'bi bi-patch-check',
     class: '',
     extralink: false,
