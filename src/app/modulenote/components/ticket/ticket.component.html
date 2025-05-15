@@ -1,0 +1,36 @@
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Tickets</h4>
+
+    <form (submit)="addOrUpdateTicket(); $event.preventDefault()">
+      <input type="text" [(ngModel)]="newTicket.description" name="desc" placeholder="Description" required />
+      <input type="number" [(ngModel)]="newTicket.note" name="note" placeholder="Note" required />
+      <button type="submit" class="btn btn-primary">
+        {{ selectedTicketId ? 'Update' : 'Add' }}
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="resetForm()">Reset</button>
+    </form>
+
+    <table class="table mt-3">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Description</th>
+        <th>Note</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let ticket of tickets; index as i">
+        <td>{{ i + 1 }}</td>
+        <td>{{ ticket.description }}</td>
+        <td>{{ ticket.note }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm" (click)="editTicket(ticket)">Edit</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteTicket(ticket.id!)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

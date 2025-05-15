@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { FullComponent } from './layouts/full/full.component';
+import {MatieresComponent} from "./matieres/matieres.component";
+import {TachesComponent} from "./taches/taches.component";
 
 export const Approutes: Routes = [
   {
@@ -20,9 +21,26 @@ export const Approutes: Routes = [
       {
         path: 'component',
         loadChildren: () => import('./component/component.module').then(m => m.ComponentsModule)
-      }
+      },
+      {
+        path: 'note',
+        loadChildren: () => import('./modulenote/modulenote.module').then(m => m.ModulenoteModule)
+      },
+      {
+        path: 'matieres',
+        loadChildren: () => import('./matieres/matieres.module').then(m => m.MatieresModule)
+      },
+      {
+        path: 'taches',
+        loadChildren: () => import('./taches/taches.module').then(m => m.TachesModule)
+      },
+
+
+
+
     ]
   },
+
   {
     path: '**',
     redirectTo: '/starter'

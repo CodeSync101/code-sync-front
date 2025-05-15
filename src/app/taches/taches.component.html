@@ -1,0 +1,77 @@
+<div class="page-header pt-3 mb-0">
+  <div class="row align-items-center">
+    <div class="col">
+      <input [(ngModel)]="searchText" (input)="filterTaches($event)" class="form-control" type="text" placeholder="Rechercher une tâche" />
+    </div>
+    <div class="col-auto">
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tache_modal" (click)="openAddForm()">
+        Nouvelle tâche
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="card mt-3">
+  <div class="card-body table-responsive">
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Titre</th>
+        <th>Status</th>
+        <th>notetache</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let tache of filteredTaches">
+        <td>{{ tache.id }}</td>
+        <td>{{ tache.titre  }}</td>
+        <td>{{ tache.status }}</td>
+        <td>{{ tache.notetache }}</td>
+
+        <td>
+          <!--          <div (click)="actionProvenance(f.id)">-->
+          <i class="bi bi-list-ol" style="font-size: 25px; cursor: pointer;"></i>
+          <!--          </div>-->
+        </td>
+
+
+        <td>
+          <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#tache_modal" (click)="populateForm(tache)">Modifier</button>
+          <button class="btn btn-sm btn-danger" (click)="deleteTache(tache.id)">Supprimer</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal d'ajout / modification -->
+<div class="modal fade" id="tache_modal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form [formGroup]="tacheForm" (ngSubmit)="handleTache()" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ formType }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="titre">Titre</label>
+          <input id="titre" type="text" class="form-control" formControlName="titre" />
+        </div>
+        <div class="form-group">
+          <label for="status">status</label>
+          <textarea id="status" class="form-control" formControlName="status"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="notetache">notetache</label>
+          <textarea id="notetache" class="form-control" formControlName="notetache"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" [disabled]="tacheForm.invalid">Sauvegarder</button>
+      </div>
+    </form>
+  </div>
+</div>

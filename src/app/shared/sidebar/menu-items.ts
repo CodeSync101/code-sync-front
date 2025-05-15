@@ -1,7 +1,7 @@
 import { RouteInfo } from './sidebar.metadata';
 
 export const ROUTES: RouteInfo[] = [
- 
+
   {
     path: '/dashboard',
     title: 'Dashboard',
@@ -81,5 +81,24 @@ export const ROUTES: RouteInfo[] = [
     class: '',
     extralink: false,
     submenu: []
-  }
+  },
+
+  {
+    path: '/note',
+    title: 'Note',
+    icon: 'bi bi-file-earmark-text',
+    class: 'note-item',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: '/matieres',
+    title: 'Matières',
+    icon: 'bi bi-book',
+    class: '',
+    extralink: false,
+    submenu: []  // Pas de sous-menu ici
+  },
+
+
 ];
