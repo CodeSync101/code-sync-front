@@ -46,7 +46,7 @@ export class SalesRatioComponent implements OnInit {
       series: [],
       chart: {
         fontFamily: 'Rubik,sans-serif',
-        height: 450,
+        height: 400,
         type: 'line',
         toolbar: { show: true },
         zoom: { enabled: true }
