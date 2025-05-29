@@ -20,6 +20,7 @@ export class TachesService {
     return this.http.post<any>(`${this.apiUrl}/createTache`, tache);
   }
 
+
   updateTache(id: number, tache: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/update/${id}`, tache);
   }
@@ -27,4 +28,13 @@ export class TachesService {
   deleteTache(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/delete/${id}`);
   }
+
+  getDataByMatiere(id : any): Observable<any> {
+
+    return this.http.get<any>(`${this.apiUrl}/getTacheByMatiere/${id}`);
+
+  }
+
+
+
 }

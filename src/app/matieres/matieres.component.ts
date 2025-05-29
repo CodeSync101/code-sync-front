@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { MatiereService } from '../services/matiere.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-matiere',
   templateUrl: './matieres.component.html',
@@ -19,7 +20,8 @@ export class MatieresComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private matiereService: MatiereService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router : Router
   ) {
     this.matiereForm = this.fb.group({
       libelle: ['', Validators.required],
@@ -48,14 +50,14 @@ export class MatieresComponent implements OnInit {
 
 
   openAddForm() {
-    this.formType = 'Ajouter Matière';
+    this.formType = 'Ajouter Projet';
     this.matiereForm.reset();
     this.currentMatiereId = null;
   }
 
   // Remplir le formulaire avec les données d'une matière existante pour modification
   populateForm(matiere: any) {
-    this.formType = 'Modifier Matière';
+    this.formType = 'Modifier Projet';
     this.currentMatiereId = matiere.id;
     this.matiereForm.patchValue({
       libelle : matiere.libelle,
@@ -106,6 +108,11 @@ export class MatieresComponent implements OnInit {
         );
       }
     });
+  }
+
+
+  actionTache(id:any){
+    this.router.navigateByUrl(`taches/`+ id);
   }
 
 }

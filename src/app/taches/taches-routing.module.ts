@@ -2,12 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TachesComponent } from './taches.component';  // Import
 
-const routes: Routes = [
-  {
-    path: '',
-    component: TachesComponent
-  }
-];
+const routes: Routes = [{ path: ':id', component: TachesComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes),],  // Load this module's routes

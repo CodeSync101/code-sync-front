@@ -20,6 +20,7 @@
         <th>Titre</th>
         <th>Status</th>
         <th>notetache</th>
+        <th>ticket</th>
         <th>Actions</th>
       </tr>
       </thead>
@@ -31,11 +32,11 @@
         <td>{{ tache.notetache }}</td>
 
         <td>
-          <!--          <div (click)="actionProvenance(f.id)">-->
-          <i class="bi bi-list-ol" style="font-size: 25px; cursor: pointer;"></i>
-          <!--          </div>-->
-        </td>
 
+          <div (click)="actionTicket(tache.id)">
+            <i class="bi bi-list-ol" style="font-size: 25px; cursor: pointer;"></i>
+          </div>
+        </td>
 
         <td>
           <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#tache_modal" (click)="populateForm(tache)">Modifier</button>
@@ -60,13 +61,18 @@
           <label for="titre">Titre</label>
           <input id="titre" type="text" class="form-control" formControlName="titre" />
         </div>
+
         <div class="form-group">
-          <label for="status">status</label>
-          <textarea id="status" class="form-control" formControlName="status"></textarea>
+          <label for="status">Status</label>
+          <select id="status" class="form-control" formControlName="status">
+            <option value="En cours">En cours</option>
+            <option value="Terminé">Terminé</option>
+          </select>
         </div>
+
         <div class="form-group">
           <label for="notetache">notetache</label>
-          <textarea id="notetache" class="form-control" formControlName="notetache"></textarea>
+          <textarea id="notetache" class="form-control" formControlName="notetache" [readonly]="formType === 'Modifier Tâche'"></textarea>
         </div>
       </div>
       <div class="modal-footer">

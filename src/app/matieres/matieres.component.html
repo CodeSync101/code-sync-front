@@ -2,11 +2,11 @@
 <div class="page-header pt-3 mb-0">
   <div class="row align-items-center">
     <div class="col">
-      <input [(ngModel)]="searchText" (input)="filterMatieres($event)" class="form-control" type="text" placeholder="Rechercher une matière" />
+      <input [(ngModel)]="searchText" (input)="filterMatieres($event)" class="form-control" type="text" placeholder="Rechercher un projet" />
     </div>
     <div class="col-auto">
       <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#matiere_modal" (click)="openAddForm()">
-        Nouvelle Matière
+        Nouveau Projet
       </button>
     </div>
   </div>
@@ -30,9 +30,10 @@
         <td>{{ matiere.libelle  }}</td>
         <td>{{ matiere.description }}</td>
         <td>
-<!--          <div (click)="actionProvenance(f.id)">-->
+
+        <div (click)="actionTache(matiere.id)">
             <i class="bi bi-list-ol" style="font-size: 25px; cursor: pointer;"></i>
-<!--          </div>-->
+          </div>
         </td>
 
 
@@ -56,7 +57,7 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label for="libelle">libelle  de la matière</label>
+          <label for="libelle">libelle  du projet</label>
           <input id="libelle" type="text" class="form-control" formControlName="libelle" />
         </div>
         <div class="form-group">

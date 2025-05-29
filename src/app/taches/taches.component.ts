@@ -3,9 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 import {TachesService} from "../services/taches.service";
+import { Router } from '@angular/router';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-taches',
   templateUrl: './taches.component.html',
@@ -14,35 +15,46 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 export class TachesComponent implements OnInit {
 
+
+
   matieres: any[] = [];
   filteredTaches: any[] = [];
   tacheForm: FormGroup;
   formType = 'Ajouter Tache';
+  id: string = '';
   currentTacheId: number | null = null;
   searchText = '';
 
   constructor(
     private fb: FormBuilder,
     private tachesService: TachesService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private route: ActivatedRoute,
+    private router : Router
   ) {
     this.tacheForm = this.fb.group({
+      notetache: [0],
       titre: ['', Validators.required],
       status: ['', Validators.required],
+      matiereId: [this.id]
+
     });
   }
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.params['id'];
     this.getAllTaches();
   }
 
   getAllTaches() {
-    this.tachesService.getAllTaches().subscribe((data: any[]) => {
+    this.tachesService.getDataByMatiere(this.id).subscribe((data: any[]) => {
       console.log(data); // structure de vos données ici
       this.matieres = data;
       this.filteredTaches = data;
     });
   }
+
+
 
   filterTaches(event: Event) {
     const search = (event.target as HTMLInputElement).value.toLowerCase();
@@ -53,7 +65,7 @@ export class TachesComponent implements OnInit {
 
 
   openAddForm() {
-    this.formType = 'Ajouter Tâche';
+    this.formType = 'Tâche';
     this.tacheForm.reset();
     this.currentTacheId = null;
   }
@@ -73,6 +85,7 @@ export class TachesComponent implements OnInit {
   handleTache() {
     const tacheData = this.tacheForm.value;
 
+    tacheData.matiereId = this.id;
     if (this.currentTacheId) {
 
       this.tachesService.updateTache(this.currentTacheId, tacheData).subscribe(() => {
@@ -112,6 +125,11 @@ export class TachesComponent implements OnInit {
         );
       }
     });
+  }
+
+
+  actionTicket(id:any){
+    this.router.navigateByUrl(`tickets/`+ id);
   }
 
 }

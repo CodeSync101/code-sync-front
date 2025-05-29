@@ -93,7 +93,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: '/matieres',
-    title: 'Matières',
+    title: 'Projets',
     icon: 'bi bi-book',
     class: '',
     extralink: false,

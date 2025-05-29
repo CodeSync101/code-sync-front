@@ -34,6 +34,10 @@ export const Approutes: Routes = [
         path: 'taches',
         loadChildren: () => import('./taches/taches.module').then(m => m.TachesModule)
       },
+      {
+        path: 'tickets',
+        loadChildren: () => import('./tickets/tickets.module').then(m => m.TicketsModule)
+      }
 
 
 

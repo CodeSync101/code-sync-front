@@ -1,18 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import {
-  CommonModule, LocationStrategy,
-  PathLocationStrategy
-} from '@angular/common';
+import {CommonModule, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
-
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrModule } from 'ngx-toastr'; // Import de ToastrModule
-
+import { ToastrModule } from 'ngx-toastr';
 import { FullComponent } from './layouts/full/full.component';
 import { NavigationComponent } from './shared/header/navigation.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
@@ -30,7 +23,6 @@ import { SpinnerComponent } from './shared/spinner.component';
   ],
   imports: [
     CommonModule,
-    //MatieresModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
