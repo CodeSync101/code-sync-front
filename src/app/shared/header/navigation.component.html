@@ -1,3 +1,4 @@
+<!-- navigation.component.html -->
 <!-- ============================================================== -->
 <!-- toggle and nav items -->
 <!-- ============================================================== -->
@@ -12,9 +13,6 @@
 <!-- Right side toggle and nav items -->
 <!-- ============================================================== -->
 <ul class="navbar-nav float-end">
-  <!-- ============================================================== -->
-  <!-- User profile and search -->
-  <!-- ============================================================== -->
   <li class="nav-item" ngbDropdown placement="bottom-end">
     <a
       ngbDropdownToggle
@@ -31,18 +29,27 @@
         width="31"
       />
       <span class="ms-2"> Admin</span>
+      <span class="ms-2">{{ selectedOrganization || 'Select Organization' }}</span>
     </a>
     <div class="dropdown-menu-right" ngbDropdownMenu>
-      <a class="dropdown-item" href="javascript:void(0)"> My Profile</a>
-      <a class="dropdown-item" href="javascript:void(0)"> My Balance</a>
-      <a class="dropdown-item" href="javascript:void(0)"> Inbox</a>
+      <a 
+        class="dropdown-item" 
+        *ngFor="let org of organizations" 
+        href="javascript:void(0)"
+        (click)="selectOrganization(org)"
+        [class.active]="selectedOrganization === org"
+      >
+        {{ org }}
+        <i *ngIf="selectedOrganization === org" class="fas fa-check float-end"></i>
+      </a>
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="javascript:void(0)"> Account Setting</a>
+      <a class="dropdown-item" href="javascript:void(0)">My Profile</a>
+      <a class="dropdown-item" href="javascript:void(0)">My Balance</a>
+      <a class="dropdown-item" href="javascript:void(0)">Inbox</a>
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="javascript:void(0)"> Logout</a>
+      <a class="dropdown-item" href="javascript:void(0)">Account Setting</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="javascript:void(0)">Logout</a>
     </div>
   </li>
-  <!-- ============================================================== -->
-  <!-- User profile and search -->
-  <!-- ============================================================== -->
 </ul>

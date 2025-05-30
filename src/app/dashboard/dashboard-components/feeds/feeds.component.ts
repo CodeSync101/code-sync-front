@@ -45,14 +45,20 @@ export class FeedsComponent implements OnInit {
     });
   }
 
-  private mapCommitToFeed(commit: any): Feed {
-    return {
-      class: 'bg-success',
-      icon: 'bi bi-git',
-      task: `<span style="color:red;">Commit</span> pushed by <b>${commit.author}</b>.`,
-      time: commit.date,
-    };
-  }
+private mapCommitToFeed(commit: any): Feed {
+  return {
+    class: 'bg-success',
+    icon: 'bi bi-git',
+    task: `
+      <span style="color:red;">Commit</span> pushed by <b>${commit.author}</b>.
+      <a href="${commit.htmlUrl}" target="_blank" rel="noopener noreferrer" style="margin-left:8px; color:#000;">
+        <i class="bi bi-box-arrow-up-right" title="View Commit"></i>
+      </a>
+    `,
+    time: commit.date,
+  };
+}
+
 
   private mapPullToFeed(pull: any): Feed {
     const state = pull.state === 'open' ? 'opened' : 'closed';
