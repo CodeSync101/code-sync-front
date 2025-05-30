@@ -1,34 +1,248 @@
-<app-top-cards></app-top-cards>
-<!-- ============================================================== -->
-<!-- Sales chart -->
-<!-- ============================================================== -->
-<div class="row">
-  <div class="col-lg-7">
-    <app-sales-ratio></app-sales-ratio>
+<div class="chat-container">
+  <div class="chat-header">
+    <div class="bot-avatar">
+      <img src="assets/images/bot.gif" alt="Bot Avatar">
+    </div>
+    <h2>Chat with Esprit</h2>
+    <p>Your friendly AI assistant</p>
   </div>
-  <div class="col-lg-5">
-    <app-feeds></app-feeds>
+  <div class="chat-body" id="chatBody">
+    <div *ngFor="let message of messages; let i = index" class="message-wrapper" [@fadeIn]>
+      <div class="message" [ngClass]="{'user-message': message.isUser, 'bot-message': !message.isUser}">
+        <div class="avatar">
+          <img [src]="message.isUser ? 'assets/images/user.gif' : 'assets/images/bot1.gif'" [alt]="message.isUser ? 'User Avatar' : 'Bot Avatar'">
+        </div>
+        <div class="message-content">
+          <p>{{ message.text }}</p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isBotTyping" class="message-wrapper bot-message">
+      <div class="avatar">
+        <img src="assets/images/bot.gif" alt="Bot Avatar">
+      </div>
+      <div class="message-content typing-indicator">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+  <div class="chat-footer">
+    <input type="text" [(ngModel)]="userMessage" (keyup.enter)="sendMessage()" placeholder="Type your message..." class="chat-input">
+    <button (click)="sendMessage()" class="send-button" [disabled]="!userMessage.trim()">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M5 12l6-6M5 12l6 6"/>
+      </svg>
+    </button>
   </div>
 </div>
-<!-- ============================================================== -->
-<!-- Sales chart -->
-<!-- ============================================================== -->
-<!-- ============================================================== -->
-<!-- Table -->
-<!-- ============================================================== -->
-<div class="row">
-  <!-- column -->
-  <div class="col-12">
-    <app-top-selling></app-top-selling>
-  </div>
-</div>
-<!-- ============================================================== -->
-<!-- Table -->
-<!-- ============================================================== -->
-<!-- ============================================================== -->
-<!-- cards -->
-<!-- ============================================================== -->
-<app-blog-cards></app-blog-cards>
-<!-- ============================================================== -->
-<!-- cards -->
-<!-- ============================================================== -->
+
+<style>
+.chat-container {
+  max-width: 700px;
+  margin: 30px auto;
+  background: linear-gradient(135deg, #f0f4ff 0%, #e6efff 100%);
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+.chat-header {
+  background: #ffffff;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid #e0e4ff;
+}
+
+.chat-header .bot-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.chat-header h2 {
+  font-size: 1.8rem;
+  color: #1a1a3d;
+  margin: 0;
+}
+
+.chat-header p {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 5px 0 0;
+}
+
+.chat-body {
+  height: 500px;
+  overflow-y: auto;
+  padding: 20px;
+  background: #fafcff;
+  scrollbar-width: thin;
+  scrollbar-color: #c0c4ff #fafcff;
+}
+
+.chat-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-body::-webkit-scrollbar-track {
+  background: #fafcff;
+}
+
+.chat-body::-webkit-scrollbar-thumb {
+  background: #c0c4ff;
+  border-radius: 4px;
+}
+
+.message-wrapper {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.message {
+  display: flex;
+  align-items: flex-start;
+  max-width: 80%;
+}
+
+.user-message {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+
+.bot-message {
+  margin-right: auto;
+}
+
+.avatar img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin: 0 10px;
+}
+
+.message-content {
+  padding: 12px 18px;
+  border-radius: 18px;
+  position: relative;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.user-message .message-content {
+  background: #4a6cfa;
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.bot-message .message-content {
+  background: #ffffff;
+  color: #1a1a3d;
+  border-bottom-left-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.message-content p {
+  margin: 0;
+}
+
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.typing-indicator span {
+  width: 8px;
+  height: 8px;
+  background: #666;
+  border-radius: 50%;
+  margin: 0 3px;
+  animation: typing 1.2s infinite;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.chat-footer {
+  display: flex;
+  padding: 15px;
+  background: #ffffff;
+  border-top: 1px solid #e0e4ff;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 12px 18px;
+  border: 1px solid #d0d4ff;
+  border-radius: 25px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.chat-input:focus {
+  border-color: #4a6cfa;
+}
+
+.send-button {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: #4a6cfa;
+  border: none;
+  margin-left: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.send-button svg {
+  width: 22px;
+  height: 22px;
+  stroke: white;
+  transform: rotate(-45deg);
+}
+
+.send-button:hover:not(:disabled) {
+  background: #3a5be8;
+  transform: scale(1.1);
+}
+
+.send-button:disabled {
+  background: #c0c4ff;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .chat-container {
+    margin: 15px;
+    border-radius: 15px;
+  }
+
+  .chat-body {
+    height: 400px;
+  }
+
+  .chat-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .message-content {
+    font-size: 0.9rem;
+  }
+}
+</style>
