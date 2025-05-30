@@ -1,0 +1,268 @@
+// Page Title
+.page-title {
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 1.75rem;
+}
+
+// Breadcrumb
+.breadcrumb {
+  margin-bottom: 0;
+  
+  .breadcrumb-item {
+    font-size: 0.875rem;
+    
+    a {
+      color: #6c757d;
+      text-decoration: none;
+      transition: color 0.2s ease;
+      
+      &:hover {
+        color: #0d6efd;
+      }
+    }
+  }
+}
+
+// Card Styles
+.card {
+  background: #ffffff;
+  transition: all 0.3s ease;
+  border: none;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08) !important;
+  }
+}
+
+// Table Styles
+.table {
+  th {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 1rem;
+  }
+
+  td {
+    font-size: 0.9375rem;
+    vertical-align: middle;
+    padding: 1rem;
+  }
+
+  tbody tr {
+    transition: background-color 0.2s ease;
+    
+    &:hover {
+      background-color: rgba(13, 110, 253, 0.04);
+    }
+  }
+}
+
+// Avatar Circle
+.avatar-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: transform 0.2s ease;
+  
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+// Badges
+.badge {
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  padding: 0.5em 0.75em;
+  transition: all 0.2s ease;
+  
+  i {
+    font-size: 0.75rem;
+    margin-right: 0.25rem;
+  }
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+// Form Controls
+.form-floating {
+  > .form-control {
+    height: calc(3.5rem + 2px);
+    line-height: 1.25;
+    border-radius: 0.5rem;
+    border: 1px solid #dee2e6;
+    transition: all 0.2s ease;
+    
+    &:focus {
+      border-color: #86b7fe;
+      box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1);
+    }
+  }
+  
+  > label {
+    padding: 1rem 0.75rem;
+    color: #6c757d;
+  }
+}
+
+.form-check-input {
+  width: 2.5em;
+  height: 1.25em;
+  margin-top: 0.25em;
+  vertical-align: top;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  appearance: none;
+  color-adjust: exact;
+  transition: background-position 0.15s ease-in-out;
+  
+  &:checked {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+  }
+  
+  &:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1);
+  }
+}
+
+// Toast Notifications
+.toast {
+  border: none;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  border-radius: 0.5rem;
+  
+  .toast-header {
+    border-bottom: none;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    
+    strong {
+      font-weight: 600;
+    }
+  }
+  
+  .toast-body {
+    padding: 1rem;
+  }
+}
+
+// Buttons
+.btn {
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: all 0.2s ease;
+  
+  &.btn-sm {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+  }
+  
+  &.rounded-pill {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  &.btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    
+    &:hover {
+      background-color: #0b5ed7;
+      border-color: #0a58ca;
+      transform: translateY(-1px);
+    }
+    
+    &:focus {
+      box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+  }
+  
+  &.btn-light {
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+    
+    &:hover {
+      background-color: #e2e6ea;
+      border-color: #dae0e5;
+      transform: translateY(-1px);
+    }
+  }
+  
+  &.btn-danger {
+    &:hover {
+      transform: translateY(-1px);
+    }
+  }
+}
+
+// Modal
+.modal-content {
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+  padding: 1.5rem 1.5rem 0.75rem;
+  
+  .modal-title {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 1.25rem;
+  }
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.modal-footer {
+  padding: 0.75rem 1.5rem 1.5rem;
+}
+
+// Loading Spinner
+.spinner-grow {
+  color: #0d6efd;
+  width: 3rem;
+  height: 3rem;
+}
+
+// Form Validation Messages
+.text-danger {
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+// Responsive Adjustments
+@media (max-width: 768px) {
+  .table {
+    th, td {
+      padding: 0.75rem;
+    }
+  }
+  
+  .modal-body {
+    padding: 1rem;
+  }
+  
+  .form-floating > .form-control {
+    height: calc(3rem + 2px);
+  }
+}

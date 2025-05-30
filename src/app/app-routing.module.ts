@@ -19,7 +19,7 @@ export const Approutes: Routes = [
       },
       {
         path: 'component',
-        loadChildren: () => import('./component/component.module').then(m => m.ComponentsModule)
+        loadChildren: () => import('./component/component.module').then(m => m.ComponentModule)
       }
     ]
   },
@@ -28,3 +28,9 @@ export const Approutes: Routes = [
     redirectTo: '/starter'
   }
 ];
+
+@NgModule({
+  imports: [RouterModule.forRoot(Approutes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

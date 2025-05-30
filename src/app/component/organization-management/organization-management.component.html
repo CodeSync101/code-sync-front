@@ -1,0 +1,264 @@
+<div class="container-fluid">
+  <!-- Page Header -->
+  <div class="row mb-3">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <nav aria-label="breadcrumb" class="mb-1">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Sub-Class</li>
+            </ol>
+          </nav>
+          <h2 class="page-title mb-0">Sub-Class</h2>
+        </div>
+        <button class="btn btn-primary rounded-pill shadow-hover" (click)="openModal(organizationModal)">
+          <i class="bi bi-plus-circle-fill me-2"></i>New Sub-Class
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alert Messages -->
+  <div class="position-fixed top-0 end-0 p-3" style="z-index: 1050">
+    <div *ngIf="error" class="toast show bg-danger text-white" role="alert">
+      <div class="toast-header bg-danger text-white border-0">
+        <i class="bi bi-exclamation-circle-fill me-2"></i>
+        <strong class="me-auto">Error</strong>
+        <button type="button" class="btn-close btn-close-white" (click)="error = ''"></button>
+      </div>
+      <div class="toast-body">{{ error }}</div>
+    </div>
+    <div *ngIf="success" class="toast show bg-success text-white" role="alert">
+      <div class="toast-header bg-success text-white border-0">
+        <i class="bi bi-check-circle-fill me-2"></i>
+        <strong class="me-auto">Success</strong>
+        <button type="button" class="btn-close btn-close-white" (click)="success = ''"></button>
+      </div>
+      <div class="toast-body">{{ success }}</div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="row">
+    <div class="col-12">
+      <!-- Loading State -->
+      <div *ngIf="isLoading" class="loading-container">
+        <div class="loading-content">
+          <div class="spinner-grow text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="mt-3 mb-0">Loading organizations...</p>
+        </div>
+      </div>
+
+      <!-- Organizations Grid -->
+      <div class="organizations-grid" *ngIf="!isLoading">
+        <!-- Organization Card -->
+        <div class="organization-card" *ngFor="let org of organizations">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="d-flex align-items-center mb-4">
+                <div class="avatar-circle">
+                  {{ org.org_name[0] }}
+                </div>
+                <div class="ms-3">
+                  <h4 class="card-title mb-1">{{ org.org_name }}</h4>
+                  <p class="text-muted mb-0 small">Created by {{ org.org_owner }}</p>
+                </div>
+              </div>
+              
+              <div class="info-list">
+                <div class="info-item">
+                  <i class="bi bi-envelope-fill"></i>
+                  <span>{{ org.org_email }}</span>
+                </div>
+                <div class="info-item">
+                  <i class="bi bi-people-fill"></i>
+                  <span>{{ org.groupRepos?.length || 0 }} Groups</span>
+                </div>
+                <div class="info-item" *ngIf="org.classRoomId">
+                  <i class="bi bi-mortarboard-fill"></i>
+                  <span>Classroom {{ org.classRoomId }}</span>
+                </div>
+              </div>
+
+              <div class="mt-4">
+                <div class="d-flex align-items-center justify-content-between">
+                  <div class="member-avatars">
+                    <div class="member-avatar" style="background-image: url('assets/images/avatar1.jpg')"></div>
+                    <div class="member-avatar" style="background-image: url('assets/images/avatar2.jpg')"></div>
+                    <div class="member-avatar" style="background-image: url('assets/images/avatar3.jpg')"></div>
+                    <div class="member-avatar more"></div>
+                  </div>
+                  <div class="action-buttons">
+                    <button class="btn btn-light btn-sm rounded-pill me-2" (click)="openModal(organizationModal, org)">
+                      <i class="bi bi-pencil-fill"></i>
+                      <span>Edit</span>
+                    </button>
+                    <button class="btn btn-primary btn-sm rounded-pill" (click)="openDetailsModal(organizationDetailsModal, org)">
+                      <i class="bi bi-box-arrow-in-right"></i>
+                      <span>Enter</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+              
+        <!-- Empty State -->
+        <div class="empty-state" *ngIf="organizations.length === 0">
+          <div class="empty-state-content">
+            <div class="empty-state-icon">
+              <i class="bi bi-building-fill"></i>
+            </div>
+            <h3>No Organizations Yet</h3>
+            <p>Create your first organization to start collaborating with your team</p>
+            <button class="btn btn-primary btn-lg rounded-pill mt-3" (click)="openModal(organizationModal)">
+              <i class="bi bi-plus-circle-fill me-2"></i>Create Organization
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Organization Modal -->
+<ng-template #organizationModal let-modal>
+  <div class="modal-header">
+    <div>
+      <h4 class="modal-title mb-1" id="modal-basic-title">
+        {{ editingOrganization ? 'Edit Organization' : 'New Organization' }}
+      </h4>
+      <p class="text-muted mb-0 small">
+        {{ editingOrganization ? 'Update organization details' : 'Create a new organization to collaborate with your team' }}
+      </p>
+    </div>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="organizationForm" (ngSubmit)="onSubmit()">
+      <div class="row g-4">
+        <div class="col-12">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="org_name" formControlName="org_name" placeholder="Organization Name">
+            <label for="org_name">Organization Name</label>
+            <div class="invalid-feedback" *ngIf="organizationForm.get('org_name')?.invalid && organizationForm.get('org_name')?.touched">
+              Organization name is required
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="form-floating">
+            <input type="email" class="form-control" id="org_email" formControlName="org_email" placeholder="Email">
+            <label for="org_email">Email</label>
+            <div class="invalid-feedback" *ngIf="organizationForm.get('org_email')?.invalid && organizationForm.get('org_email')?.touched">
+              Please enter a valid email address
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="org_owner" formControlName="org_owner" placeholder="Owner">
+            <label for="org_owner">Owner</label>
+            <div class="invalid-feedback" *ngIf="organizationForm.get('org_owner')?.invalid && organizationForm.get('org_owner')?.touched">
+              Owner is required
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer border-0 pt-4">
+        <button type="button" class="btn btn-light btn-lg rounded-pill px-4" (click)="modal.dismiss()">Cancel</button>
+        <button type="submit" class="btn btn-primary btn-lg rounded-pill px-4" [disabled]="organizationForm.invalid || isLoading">
+          <i class="bi" [ngClass]="isLoading ? 'bi-arrow-repeat spin' : 'bi-check-circle-fill'"></i>
+          {{ isLoading ? 'Saving...' : (editingOrganization ? 'Update' : 'Create') }}
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<!-- Organization Details Modal -->
+<ng-template #organizationDetailsModal let-modal>
+  <div class="modal-header">
+    <div>
+      <h4 class="modal-title mb-1" id="modal-details-title">
+        {{ selectedOrganization?.org_name }}
+      </h4>
+      <p class="text-muted mb-0 small">
+        Sub-Class Details and Groups
+      </p>
+    </div>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <div class="organization-details">
+      <!-- Organization Info -->
+      <div class="info-section mb-4">
+        <h5 class="section-title">Organization Information</h5>
+        <div class="info-list">
+          <div class="info-item">
+            <i class="bi bi-envelope-fill"></i>
+            <span>{{ selectedOrganization?.org_email }}</span>
+          </div>
+          <div class="info-item">
+            <i class="bi bi-person-fill"></i>
+            <span>Owner: {{ selectedOrganization?.org_owner }}</span>
+          </div>
+          <div class="info-item" *ngIf="selectedOrganization?.classRoomId">
+            <i class="bi bi-mortarboard-fill"></i>
+            <span>Classroom: {{ selectedOrganization?.classRoomId }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Groups Section -->
+      <div class="groups-section">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="section-title mb-0">Groups</h5>
+          <button class="btn btn-primary btn-sm rounded-pill" (click)="openModal(organizationModal, selectedOrganization)">
+            <i class="bi bi-plus-circle-fill me-1"></i>Add Group
+          </button>
+        </div>
+        
+        <div class="groups-list">
+          <div *ngIf="selectedOrganization?.groupRepos?.length === 0" class="empty-state p-4 text-center">
+            <i class="bi bi-folder-x text-muted" style="font-size: 2rem;"></i>
+            <p class="mt-2 mb-0 text-muted">No groups found</p>
+          </div>
+          
+          <div *ngFor="let group of selectedOrganization?.groupRepos" class="group-card mb-3">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h6 class="card-title mb-1">{{ group.group_name }}</h6>
+                    <p class="text-muted mb-0 small">{{ group.group_description }}</p>
+                    <div class="mt-2">
+                      <span class="badge bg-light text-dark me-2">
+                        <i class="bi bi-tag-fill me-1"></i>{{ group.group_type }}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="group-actions">
+                    <button class="btn btn-light btn-sm rounded-pill me-2" (click)="editGroup(group)">
+                      <i class="bi bi-pencil-fill"></i>
+                    </button>
+                    <button class="btn btn-danger btn-sm rounded-pill" (click)="deleteGroup(group)">
+                      <i class="bi bi-trash-fill"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

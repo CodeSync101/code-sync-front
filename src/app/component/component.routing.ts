@@ -8,12 +8,27 @@ import { BadgeComponent } from './badge/badge.component';
 import { NgbdButtonsComponent } from './buttons/buttons.component';
 import { CardsComponent } from './card/card.component';
 import { TableComponent } from './table/table.component';
+import { UsersManagementComponent } from './users-management/users-management.component';
+import { RepositoryManagementComponent } from './repository-management/repository-management.component';
+import { OrganizationManagementComponent } from './organization-management/organization-management.component';
 
 
 export const ComponentsRoutes: Routes = [
 	{
 		path: '',
 		children: [
+			{
+				path: 'users',
+				loadChildren: () => import('./users-management/users-management.module').then(m => m.UsersManagementModule)
+			},
+			{
+				path: 'organizations',
+				loadChildren: () => import('./organization-management/organization-management.module').then(m => m.OrganizationManagementModule)
+			},
+			{
+				path: 'repositories',
+				loadChildren: () => import('./repository-management/repository-management.module').then(m => m.RepositoryManagementModule)
+			},
 			{
 				path: 'table',
 				component: TableComponent
