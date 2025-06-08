@@ -1,76 +1,40 @@
-<!-- navigation.component.html -->
-<!-- ============================================================== -->
-<!-- toggle and nav items -->
-<!-- ============================================================== -->
-<ul class="navbar-nav float-start me-auto">
-  <li class="nav-item">
-    <a class="nav-link waves-effect waves-dark" href="/dashboard"> Starter </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link waves-effect waves-dark" href="/about"> About </a>
-  </li>
-  <!-- ============================================================== -->
-  <!-- create new -->
-  <!-- ============================================================== -->
-  <li class="nav-item d-none d-md-block" ngbDropdown placement="bottom-end">
-    <a
-      ngbDropdownToggle
-      class="nav-link waves-effect waves-dark"
-      href="javascript:void(0)"
-      data-toggle="dropdown"
-      aria-haspopup="true"
-      aria-expanded="false"
-    >
-      <span>Create New</span>
-    </a>
-    <div ngbDropdownMenu>
-      <a class="dropdown-item" href="#">Action</a>
-      <a class="dropdown-item" href="#">Another action</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">Something else here</a>
-    </div>
-  </li>
-</ul>
-<!-- ============================================================== -->
-<!-- Right side toggle and nav items -->
-<!-- ============================================================== -->
 <ul class="navbar-nav float-end">
   <li class="nav-item" ngbDropdown placement="bottom-end">
     <a
       ngbDropdownToggle
-      class="nav-link waves-effect waves-dark pro-pic"
+      class="nav-link waves-effect waves-dark pro-pic d-flex align-items-center"
       href="javascript:void(0)"
       data-toggle="dropdown"
       aria-haspopup="true"
       aria-expanded="false"
+      style="gap: 10px;"
     >
       <img
         src="assets/images/users/user1.jpg"
         alt="user"
-        class="rounded-circle"
+        class="rounded-circle border border-2 border-primary"
         width="31"
+        height="31"
+        style="object-fit: cover;"
       />
-      <span class="ms-2">{{ selectedOrganization || 'Select Organization' }}</span>
+      <span class="ms-2 fw-semibold text-primary">
+        {{ selectedOrganization || 'Select Organization' }}
+      </span>
+      <i class="fas fa-chevron-down ms-1 text-secondary"></i>
     </a>
-    <div class="dropdown-menu-right" ngbDropdownMenu>
+    <div class="dropdown-menu dropdown-menu-end shadow-sm p-2" ngbDropdownMenu>
       <a 
-        class="dropdown-item" 
+        class="dropdown-item d-flex justify-content-between align-items-center rounded mb-1"
         *ngFor="let org of organizations" 
         href="javascript:void(0)"
         (click)="selectOrganization(org)"
         [class.active]="selectedOrganization === org"
+        [ngClass]="{'bg-primary text-white': selectedOrganization === org}"
+        style="transition: background 0.2s;"
       >
-        {{ org }}
-        <i *ngIf="selectedOrganization === org" class="fas fa-check float-end"></i>
+        <span>{{ org }}</span>
+        <i *ngIf="selectedOrganization === org" class="fas fa-check"></i>
       </a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="javascript:void(0)">My Profile</a>
-      <a class="dropdown-item" href="javascript:void(0)">My Balance</a>
-      <a class="dropdown-item" href="javascript:void(0)">Inbox</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="javascript:void(0)">Account Setting</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="javascript:void(0)">Logout</a>
     </div>
   </li>
 </ul>

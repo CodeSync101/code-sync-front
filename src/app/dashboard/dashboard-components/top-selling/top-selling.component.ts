@@ -1,23 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { StatsService } from 'src/app/services/stats.service';
+import { OrganizationService } from 'src/app/services/organization.service';
 import { Contributor } from './Contributor'; // or wherever your interface is defined
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-top-selling',
   templateUrl: './top-selling.component.html',
   styleUrls: ['./top-selling.component.css']
 })
-export class TopSellingComponent implements OnInit {
+export class TopSellingComponent implements OnInit, OnDestroy {
 
   topContributors: Contributor[] = [];
   totalContributions: number = 0;
   isLoading: boolean = false;
   hasError: boolean = false;
+  private orgSubscription: Subscription = new Subscription();
 
-  constructor(private statsService: StatsService) {}
+  constructor(
+    private statsService: StatsService,
+    private organizationService: OrganizationService
+  ) {}
 
   ngOnInit(): void {
-    this.loadTopContributors();
+    this.orgSubscription = this.organizationService.getCurrentOrganization().subscribe(org => {
+      if (org) {
+        this.loadTopContributors();
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.orgSubscription) {
+      this.orgSubscription.unsubscribe();
+    }
   }
 
   loadTopContributors(): void {

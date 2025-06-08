@@ -1,10 +1,8 @@
 // navigation.component.ts
-import { Component, AfterViewInit, EventEmitter, Output } from '@angular/core';
-import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit } from '@angular/core';
+import { OrganizationService } from 'src/app/services/organization.service';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
-import { OrganizationService } from '../../services/organization.service';
-
-declare var $: any;
 
 @Component({
   selector: 'app-navigation',
@@ -12,35 +10,33 @@ declare var $: any;
   imports: [NgbDropdownModule, CommonModule],
   templateUrl: './navigation.component.html'
 })
-export class NavigationComponent implements AfterViewInit {
-  @Output() toggleSidebar = new EventEmitter<void>();
+export class NavigationComponent implements OnInit {
+  organizations: string[] = [];
+  selectedOrganization: string = '';
 
-  public showSearch = false;
-  public organizations: string[] = [];
-  public selectedOrganization: string = '';
+  constructor(private organizationService: OrganizationService) {}
 
-  constructor(
-    private modalService: NgbModal,
-    private orgService: OrganizationService
-  ) {}
-
-  ngAfterViewInit() {
+  ngOnInit() {
     this.loadOrganizations();
+    this.organizationService.getCurrentOrganization().subscribe(org => {
+      this.selectedOrganization = org;
+    });
   }
 
   loadOrganizations() {
-    this.orgService.getOrganizations().subscribe((data: string[]) => {
-      this.organizations = data;
-      // Set first organization as default if available
-      if (data.length > 0) {
-        this.selectedOrganization = data[0];
-      }
+    this.organizationService.getOrganizations().subscribe({
+      next: (orgs) => {
+        this.organizations = orgs;
+        if (orgs.length > 0 && !this.selectedOrganization) {
+          this.selectOrganization(orgs[0]);
+        }
+      },
+      error: (error) => console.error('Error loading organizations:', error)
     });
   }
 
   selectOrganization(org: string) {
     this.selectedOrganization = org;
+    this.organizationService.setCurrentOrganization(org);
   }
-
-
 }
