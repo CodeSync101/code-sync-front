@@ -1,6 +1,7 @@
 {
   "name": "nice-angular-lite",
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -27,6 +28,7 @@
     "apexcharts": "^3.40.0",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.5",
+    "keycloak-js": "^26.2.0",
     "ng-apexcharts": "^1.7.6",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

@@ -11,12 +11,25 @@ import { TableComponent } from './table/table.component';
 import { UsersManagementComponent } from './users-management/users-management.component';
 import { RepositoryManagementComponent } from './repository-management/repository-management.component';
 import { OrganizationManagementComponent } from './organization-management/organization-management.component';
+import { ProfileComponent } from './profile/profile.component';
+import { SettingsComponent } from './settings/settings.component';
+import { AuthGuard } from '../guards/auth.guard';
 
 
 export const ComponentsRoutes: Routes = [
 	{
 		path: '',
 		children: [
+			{
+				path: 'profile',
+				component: ProfileComponent,
+				canActivate: [AuthGuard]
+			},
+			{
+				path: 'settings',
+				component: SettingsComponent,
+				canActivate: [AuthGuard]
+			},
 			{
 				path: 'users',
 				loadChildren: () => import('./users-management/users-management.module').then(m => m.UsersManagementModule)

@@ -1,21 +1,39 @@
 import { Component, AfterViewInit, EventEmitter, Output } from '@angular/core';
 import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { JwtService } from '../../services/jwt.service';
+import { RouterModule, Router } from '@angular/router';
+import { KeycloakService } from '../../services/keycloak.service';
 
 declare var $: any;
 
 @Component({
   selector: 'app-navigation',
   standalone: true,
-  imports:[NgbDropdownModule],
+  imports:[NgbDropdownModule, RouterModule],
   templateUrl: './navigation.component.html'
 })
 export class NavigationComponent implements AfterViewInit {
   @Output() toggleSidebar = new EventEmitter<void>();
-
-
   public showSearch = false;
+  public userName: string = '';
+  public userRole: string = '';
 
-  constructor(private modalService: NgbModal) {
+  constructor(
+    private modalService: NgbModal,
+    private jwtService: JwtService,
+    private router: Router,
+    private keycloakService: KeycloakService
+  ) {
+    this.userName = this.jwtService.getUserName();
+    this.userRole = this.jwtService.getUserRole();
+  }
+
+  navigateToProfile() {
+    this.router.navigate(['/component/profile']);
+  }
+
+  logout() {
+    this.keycloakService.logout();
   }
 
   // This is for Notifications
