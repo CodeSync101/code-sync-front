@@ -1,13 +1,15 @@
 export enum Statut {
   EN_ATTENTE = 'EN_ATTENTE',
+  EN_COURS = 'EN_COURS',
   TRAITEE = 'TRAITEE',
-  REFUSEE = 'REFUSEE',
+  REJETEE = 'REJETEE',
 }
 
 export enum Priorite {
   BASSE = 'BASSE',
   MOYENNE = 'MOYENNE',
   HAUTE = 'HAUTE',
+  URGENTE = 'URGENTE',
 }
 
 export interface User {
@@ -20,7 +22,12 @@ export interface Reclamation {
   titre: string;
   description: string;
   statut: Statut;
-  priorite: Priorite;
-  dateCreation: Date;
-  user?: User;
+  priorite?: Priorite;
+  dateCreation?: Date;
+  traitee?: boolean;
+  userId?: number;
+  matiereId?: number;
+  matiereNom?: string;
+  userNom?: string;
+  userEmail?: string;
 }

@@ -63,30 +63,6 @@
               </div>
             </div>
 
-            <div class="mb-3">
-              <label for="priorite" class="form-label"
-                >Priorité <span class="text-danger">*</span></label
-              >
-              <select
-                class="form-select"
-                id="priorite"
-                formControlName="priorite"
-                [ngClass]="{ 'is-invalid': submitted && f['priorite'].errors }"
-              >
-                <option *ngFor="let priorite of priorites" [value]="priorite">
-                  {{ priorite }}
-                </option>
-              </select>
-              <div
-                *ngIf="submitted && f['priorite'].errors"
-                class="invalid-feedback"
-              >
-                <div *ngIf="f['priorite'].errors['required']">
-                  La priorité est requise
-                </div>
-              </div>
-            </div>
-
             <div class="d-flex justify-content-between mt-4">
               <button
                 type="button"

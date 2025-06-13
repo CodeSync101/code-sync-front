@@ -17,10 +17,11 @@ export class ReclamationService {
 
   ajouterReclamation(
     reclamation: Reclamation,
-    userId: number
+    userId: number,
+    matiereId: number = 1
   ): Observable<Reclamation> {
     return this.http.post<Reclamation>(
-      `${this.apiUrl}/add/${userId}`,
+      `${this.apiUrl}/add/${userId}/${matiereId}`,
       reclamation
     );
   }
@@ -47,5 +48,11 @@ export class ReclamationService {
       `${this.apiUrl}/statut/${id}/${action}`,
       {}
     );
+  }
+
+  traiterReclamation(id: number, message: string): Observable<Reclamation> {
+    return this.http.put<Reclamation>(`${this.apiUrl}/traiter/${id}`, {
+      message,
+    });
   }
 }

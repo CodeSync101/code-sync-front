@@ -1,0 +1,209 @@
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div
+          class="card-header bg-primary text-white d-flex justify-content-between align-items-center"
+        >
+          <h4 class="mb-0">Mes Notes</h4>
+          <span class="badge bg-info">Étudiant ID: {{ currentUserId }}</span>
+        </div>
+        <div class="card-body">
+          <div *ngIf="loading" class="text-center p-5">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Chargement...</span>
+            </div>
+          </div>
+
+          <div *ngIf="error" class="alert alert-danger">
+            {{ error }}
+          </div>
+
+          <div
+            *ngIf="!loading && !error && notes.length === 0"
+            class="alert alert-info"
+          >
+            <i class="bi bi-info-circle-fill me-2"></i> Aucune note disponible.
+          </div>
+
+          <div *ngIf="!loading && notes.length > 0" class="table-responsive">
+            <table class="table table-hover table-striped">
+              <thead class="table-light">
+                <tr>
+                  <th>Matière</th>
+                  <th>Tâche</th>
+                  <th class="text-center">Note</th>
+                  <th>Commentaire</th>
+                  <th>Date</th>
+                  <th class="text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let note of notes">
+                  <td>
+                    <strong>{{ note.matiereNom || "Non spécifié" }}</strong>
+                  </td>
+                  <td>{{ note.tacheNom || "Non spécifié" }}</td>
+                  <td class="text-center">
+                    <span
+                      class="badge rounded-pill fs-6"
+                      [ngClass]="note.valeur >= 10 ? 'bg-success' : 'bg-danger'"
+                    >
+                      {{ note.valeur }}/20
+                    </span>
+                  </td>
+                  <td>
+                    <small class="text-muted">{{
+                      note.commentaire || "Aucun commentaire"
+                    }}</small>
+                  </td>
+                  <td>{{ note.dateCreation | date : "dd/MM/yyyy" }}</td>
+                  <td class="text-center">
+                    <button
+                      class="btn btn-sm btn-warning"
+                      (click)="openReclamationModal(note)"
+                    >
+                      <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                      Réclamer
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de réclamation -->
+<div
+  class="modal fade show"
+  tabindex="-1"
+  role="dialog"
+  [ngClass]="{ 'd-block': selectedNote, 'd-none': !selectedNote }"
+  [ngStyle]="{
+    'background-color': selectedNote ? 'rgba(0,0,0,0.5)' : 'transparent'
+  }"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" *ngIf="selectedNote">
+      <div class="modal-header bg-warning text-dark">
+        <h5 class="modal-title">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+          Réclamation pour la note de
+          {{ selectedNote.tacheNom || "l'évaluation" }}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="closeReclamationModal()"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3 p-3 bg-light rounded">
+          <div class="row">
+            <div class="col-md-6">
+              <p class="mb-1">
+                <strong>Matière:</strong>
+                {{ selectedNote.matiereNom || "Non spécifié" }}
+              </p>
+              <p class="mb-1">
+                <strong>Tâche:</strong>
+                {{ selectedNote.tacheNom || "Non spécifié" }}
+              </p>
+            </div>
+            <div class="col-md-6 text-md-end">
+              <p class="mb-1">
+                <strong>Note:</strong>
+                <span
+                  [ngClass]="
+                    selectedNote.valeur >= 10 ? 'text-success' : 'text-danger'
+                  "
+                  >{{ selectedNote.valeur }}/20</span
+                >
+              </p>
+              <p class="mb-1">
+                <strong>Date:</strong>
+                {{ selectedNote.dateCreation | date : "dd/MM/yyyy" }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="reclamationSuccess" class="alert alert-success">
+          <i class="bi bi-check-circle-fill me-2"></i>
+          Votre réclamation a été envoyée avec succès.
+        </div>
+
+        <form [formGroup]="reclamationForm" (ngSubmit)="onSubmitReclamation()">
+          <div class="mb-3">
+            <label for="titre" class="form-label">Titre*</label>
+            <input
+              type="text"
+              class="form-control"
+              id="titre"
+              formControlName="titre"
+            />
+            <div
+              *ngIf="f['titre'].touched && f['titre'].invalid"
+              class="text-danger mt-1"
+            >
+              <small *ngIf="f['titre'].errors?.['required']"
+                ><i class="bi bi-exclamation-circle me-1"></i>Le titre est
+                requis.</small
+              >
+              <small *ngIf="f['titre'].errors?.['minlength']"
+                ><i class="bi bi-exclamation-circle me-1"></i>Le titre doit
+                contenir au moins 3 caractères.</small
+              >
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="description" class="form-label">Description*</label>
+            <textarea
+              class="form-control"
+              id="description"
+              formControlName="description"
+              rows="4"
+              placeholder="Détaillez votre réclamation. Par exemple: erreur de calcul, note incorrecte, etc."
+            ></textarea>
+            <div
+              *ngIf="f['description'].touched && f['description'].invalid"
+              class="text-danger mt-1"
+            >
+              <small *ngIf="f['description'].errors?.['required']"
+                ><i class="bi bi-exclamation-circle me-1"></i>La description est
+                requise.</small
+              >
+              <small *ngIf="f['description'].errors?.['minlength']"
+                ><i class="bi bi-exclamation-circle me-1"></i>La description
+                doit contenir au moins 10 caractères.</small
+              >
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end mt-4">
+            <button
+              type="button"
+              class="btn btn-secondary me-2"
+              (click)="closeReclamationModal()"
+            >
+              <i class="bi bi-x-circle me-1"></i> Annuler
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="reclamationForm.invalid || reclamationSuccess"
+            >
+              <i class="bi bi-send me-1"></i> Envoyer
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

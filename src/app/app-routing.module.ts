@@ -33,6 +33,11 @@ export const Approutes: Routes = [
             (m) => m.ReclamationModule
           ),
       },
+      {
+        path: 'notes',
+        loadChildren: () =>
+          import('./notes/notes.module').then((m) => m.NotesModule),
+      },
     ],
   },
   {

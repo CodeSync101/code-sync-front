@@ -2,17 +2,25 @@ import { RouteInfo } from './sidebar.metadata';
 
 export const ROUTES: RouteInfo[] = [
   {
-    path: '/dashboard',
-    title: 'Dashboard',
-    icon: 'bi bi-speedometer2',
+    path: '/notes',
+    title: 'Mes Notes',
+    icon: 'bi bi-mortarboard-fill',
     class: '',
     extralink: false,
     submenu: [],
   },
   {
     path: '/reclamations',
-    title: 'Réclamations',
-    icon: 'bi bi-exclamation-circle',
+    title: 'Liste des réclamations',
+    icon: 'bi bi-list-ul',
+    class: '',
+    extralink: false,
+    submenu: [],
+  },
+  {
+    path: '/reclamations/add',
+    title: 'Ajouter une réclamation',
+    icon: 'bi bi-plus-circle',
     class: '',
     extralink: false,
     submenu: [],

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Reclamation, Priorite, Statut } from '../../models/reclamation.model';
+import { Reclamation, Statut } from '../../models/reclamation.model';
 import { ReclamationService } from '../../services/reclamation.service';
 
 @Component({
@@ -14,7 +14,6 @@ export class ReclamationAddComponent implements OnInit {
   loading = false;
   error = '';
   submitted = false;
-  priorites = Object.values(Priorite);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,7 +23,6 @@ export class ReclamationAddComponent implements OnInit {
     this.reclamationForm = this.formBuilder.group({
       titre: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(10)]],
-      priorite: [Priorite.MOYENNE, Validators.required],
     });
   }
 
@@ -49,7 +47,6 @@ export class ReclamationAddComponent implements OnInit {
     const reclamation: Reclamation = {
       titre: this.f['titre'].value,
       description: this.f['description'].value,
-      priorite: this.f['priorite'].value,
       statut: Statut.EN_ATTENTE,
       dateCreation: new Date(),
     };

@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  CommonModule, LocationStrategy,
-  PathLocationStrategy
+  CommonModule,
+  LocationStrategy,
+  PathLocationStrategy,
 } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -13,7 +14,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { FullComponent } from './layouts/full/full.component';
 
-
 import { NavigationComponent } from './shared/header/navigation.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 
@@ -22,10 +22,7 @@ import { AppComponent } from './app.component';
 import { SpinnerComponent } from './shared/spinner.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SpinnerComponent,
-  ],
+  declarations: [AppComponent, SpinnerComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -42,9 +39,9 @@ import { SpinnerComponent } from './shared/spinner.component';
   providers: [
     {
       provide: LocationStrategy,
-      useClass: PathLocationStrategy
+      useClass: PathLocationStrategy,
     },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
