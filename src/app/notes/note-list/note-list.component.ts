@@ -4,6 +4,8 @@ import { NoteService } from '../../services/note.service';
 import { ReclamationService } from '../../services/reclamation.service';
 import { Reclamation, Statut } from '../../models/reclamation.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Matiere } from '../../models/matiere.model';
+import { MatiereService } from '../../services/matiere.service';
 
 @Component({
   selector: 'app-note-list',
@@ -11,18 +13,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./note-list.component.scss'],
 })
 export class NoteListComponent implements OnInit {
-  notes: Note[] = [];
+  matieres: Matiere[] = [];
   loading = false;
   error = '';
   reclamationForm: FormGroup;
-  selectedNote: Note | null = null;
+  selectedMatiere: Matiere | null = null;
   reclamationSuccess = false;
 
   // Pour simuler l'utilisateur connecté
   currentUserId = 2;
 
   constructor(
-    private noteService: NoteService,
+    private matiereService: MatiereService,
     private reclamationService: ReclamationService,
     private formBuilder: FormBuilder
   ) {
@@ -33,33 +35,31 @@ export class NoteListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadNotes();
+    this.loadMatieres();
   }
 
-  loadNotes(): void {
+  loadMatieres(): void {
     this.loading = true;
-    this.noteService.getNotesByUser(this.currentUserId).subscribe({
+    // TEMP : utiliser l'API /all pour debug
+    this.matiereService.getAllMatieres().subscribe({
       next: (data) => {
-        console.log("Notes reçues de l'API:", data);
-        this.notes = data;
+        this.matieres = data;
         this.loading = false;
       },
       error: (error) => {
-        this.error = 'Erreur lors du chargement des notes';
+        this.error = 'Erreur lors du chargement des matières';
         console.error('Erreur détaillée:', error);
         this.loading = false;
       },
     });
   }
 
-  openReclamationModal(note: Note): void {
-    this.selectedNote = note;
+  openReclamationModal(matiere: Matiere): void {
+    this.selectedMatiere = matiere;
     this.reclamationForm.reset();
 
     // Préremplir le titre avec des informations pertinentes
-    const titrePropose = `Réclamation pour la note de ${
-      note.tacheNom || "l'évaluation"
-    }`;
+    const titrePropose = `Réclamation pour la matière ${matiere.libelle}`;
     this.reclamationForm.patchValue({
       titre: titrePropose,
     });
@@ -68,7 +68,7 @@ export class NoteListComponent implements OnInit {
   }
 
   closeReclamationModal(): void {
-    this.selectedNote = null;
+    this.selectedMatiere = null;
   }
 
   // Getter pour accéder facilement aux champs du formulaire
@@ -77,7 +77,7 @@ export class NoteListComponent implements OnInit {
   }
 
   onSubmitReclamation(): void {
-    if (this.reclamationForm.invalid || !this.selectedNote) {
+    if (this.reclamationForm.invalid || !this.selectedMatiere) {
       return;
     }
 
@@ -88,8 +88,8 @@ export class NoteListComponent implements OnInit {
       dateCreation: new Date(),
     };
 
-    // Utiliser l'ID de matière de la note sélectionnée
-    const matiereId = this.selectedNote.matiereId || 1;
+    // Utiliser l'ID de matière sélectionnée
+    const matiereId = this.selectedMatiere.id || 1;
 
     this.reclamationService
       .ajouterReclamation(reclamation, this.currentUserId, matiereId)

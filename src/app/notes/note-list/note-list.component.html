@@ -5,7 +5,7 @@
         <div
           class="card-header bg-primary text-white d-flex justify-content-between align-items-center"
         >
-          <h4 class="mb-0">Mes Notes</h4>
+          <h4 class="mb-0">Mes Matières et Notes</h4>
           <span class="badge bg-info">Étudiant ID: {{ currentUserId }}</span>
         </div>
         <div class="card-body">
@@ -20,48 +20,43 @@
           </div>
 
           <div
-            *ngIf="!loading && !error && notes.length === 0"
+            *ngIf="!loading && !error && matieres.length === 0"
             class="alert alert-info"
           >
-            <i class="bi bi-info-circle-fill me-2"></i> Aucune note disponible.
+            <i class="bi bi-info-circle-fill me-2"></i> Aucune matière
+            disponible.
           </div>
 
-          <div *ngIf="!loading && notes.length > 0" class="table-responsive">
+          <div *ngIf="!loading && matieres.length > 0" class="table-responsive">
             <table class="table table-hover table-striped">
               <thead class="table-light">
                 <tr>
-                  <th>Matière</th>
-                  <th>Tâche</th>
+                  <th>Libellé</th>
+                  <th>Description</th>
                   <th class="text-center">Note</th>
-                  <th>Commentaire</th>
-                  <th>Date</th>
                   <th class="text-center">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let note of notes">
+                <tr *ngFor="let matiere of matieres">
                   <td>
-                    <strong>{{ note.matiereNom || "Non spécifié" }}</strong>
+                    <strong>{{ matiere.libelle }}</strong>
                   </td>
-                  <td>{{ note.tacheNom || "Non spécifié" }}</td>
+                  <td>{{ matiere.description }}</td>
                   <td class="text-center">
                     <span
                       class="badge rounded-pill fs-6"
-                      [ngClass]="note.valeur >= 10 ? 'bg-success' : 'bg-danger'"
+                      [ngClass]="
+                        matiere.noteMatiere >= 10 ? 'bg-success' : 'bg-danger'
+                      "
                     >
-                      {{ note.valeur }}/20
+                      {{ matiere.noteMatiere }}/20
                     </span>
                   </td>
-                  <td>
-                    <small class="text-muted">{{
-                      note.commentaire || "Aucun commentaire"
-                    }}</small>
-                  </td>
-                  <td>{{ note.dateCreation | date : "dd/MM/yyyy" }}</td>
                   <td class="text-center">
                     <button
                       class="btn btn-sm btn-warning"
-                      (click)="openReclamationModal(note)"
+                      (click)="openReclamationModal(matiere)"
                     >
                       <i class="bi bi-exclamation-triangle-fill me-1"></i>
                       Réclamer
@@ -82,18 +77,17 @@
   class="modal fade show"
   tabindex="-1"
   role="dialog"
-  [ngClass]="{ 'd-block': selectedNote, 'd-none': !selectedNote }"
+  [ngClass]="{ 'd-block': selectedMatiere, 'd-none': !selectedMatiere }"
   [ngStyle]="{
-    'background-color': selectedNote ? 'rgba(0,0,0,0.5)' : 'transparent'
+    'background-color': selectedMatiere ? 'rgba(0,0,0,0.5)' : 'transparent'
   }"
 >
   <div class="modal-dialog" role="document">
-    <div class="modal-content" *ngIf="selectedNote">
+    <div class="modal-content" *ngIf="selectedMatiere">
       <div class="modal-header bg-warning text-dark">
         <h5 class="modal-title">
           <i class="bi bi-exclamation-triangle-fill me-2"></i>
-          Réclamation pour la note de
-          {{ selectedNote.tacheNom || "l'évaluation" }}
+          Réclamation pour la matière {{ selectedMatiere.libelle }}
         </h5>
         <button
           type="button"
@@ -108,11 +102,11 @@
             <div class="col-md-6">
               <p class="mb-1">
                 <strong>Matière:</strong>
-                {{ selectedNote.matiereNom || "Non spécifié" }}
+                {{ selectedMatiere.libelle }}
               </p>
               <p class="mb-1">
-                <strong>Tâche:</strong>
-                {{ selectedNote.tacheNom || "Non spécifié" }}
+                <strong>Description:</strong>
+                {{ selectedMatiere.description }}
               </p>
             </div>
             <div class="col-md-6 text-md-end">
@@ -120,14 +114,12 @@
                 <strong>Note:</strong>
                 <span
                   [ngClass]="
-                    selectedNote.valeur >= 10 ? 'text-success' : 'text-danger'
+                    selectedMatiere.noteMatiere >= 10
+                      ? 'text-success'
+                      : 'text-danger'
                   "
-                  >{{ selectedNote.valeur }}/20</span
+                  >{{ selectedMatiere.noteMatiere }}/20</span
                 >
-              </p>
-              <p class="mb-1">
-                <strong>Date:</strong>
-                {{ selectedNote.dateCreation | date : "dd/MM/yyyy" }}
               </p>
             </div>
           </div>

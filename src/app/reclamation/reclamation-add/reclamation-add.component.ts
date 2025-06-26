@@ -55,15 +55,17 @@ export class ReclamationAddComponent implements OnInit {
     // Dans une application réelle, vous récupéreriez l'ID de l'utilisateur connecté
     const userId = 1;
 
-    this.reclamationService.ajouterReclamation(reclamation, userId).subscribe({
-      next: () => {
-        this.router.navigate(['/reclamations']);
-      },
-      error: (error) => {
-        this.error = "Erreur lors de l'ajout de la réclamation";
-        console.error(error);
-        this.loading = false;
-      },
-    });
+    this.reclamationService
+      .ajouterReclamationSimple(reclamation, userId)
+      .subscribe({
+        next: () => {
+          this.router.navigate(['/reclamations']);
+        },
+        error: (error) => {
+          this.error = "Erreur lors de l'ajout de la réclamation";
+          console.error(error);
+          this.loading = false;
+        },
+      });
   }
 }

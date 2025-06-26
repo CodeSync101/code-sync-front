@@ -55,4 +55,14 @@ export class ReclamationService {
       message,
     });
   }
+
+  ajouterReclamationSimple(
+    reclamation: Reclamation,
+    userId: number
+  ): Observable<Reclamation> {
+    return this.http.post<Reclamation>(
+      `${this.apiUrl}/add-simple/${userId}`,
+      reclamation
+    );
+  }
 }
