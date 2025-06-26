@@ -6,13 +6,17 @@ import Keycloak from 'keycloak-js';
   providedIn: 'root'
 })
 export class KeycloakService {
-  private readonly keycloakLogoutUrl = 'http://localhost:8080/realms/codesync-auth/protocol/openid-connect/logout';
+  private readonly keycloakLogoutUrl = 'http://localhost:8080/realms/codesync-auth/protocol/openid-connect/logout'; // end_session_endpoint
 
   constructor(private router: Router) {}
 
   logout() {
     // Get the ID token before clearing storage
     const idToken = localStorage.getItem('id_token');
+    
+    if (!idToken) {
+      console.warn('No id_token found in localStorage. id_token_hint will not be sent to Keycloak logout endpoint.');
+    }
     
     // Clear local storage
     localStorage.removeItem('access_token');
@@ -22,8 +26,11 @@ export class KeycloakService {
     // Get the current URL to use as redirect URI
     const redirectUri = encodeURIComponent(window.location.origin + '/authentication/login');
     
-    // Redirect to Keycloak logout endpoint with id_token_hint
-    const logoutUrl = `${this.keycloakLogoutUrl}?post_logout_redirect_uri=${redirectUri}${idToken ? `&id_token_hint=${idToken}` : ''}`;
+    // Always include id_token_hint if available
+    let logoutUrl = `${this.keycloakLogoutUrl}?post_logout_redirect_uri=${redirectUri}`;
+    if (idToken) {
+      logoutUrl += `&id_token_hint=${idToken}`;
+    }
     window.location.href = logoutUrl;
   }
 }

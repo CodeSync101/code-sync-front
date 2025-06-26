@@ -15,7 +15,8 @@ export const ROUTES: RouteInfo[] = [
     icon: 'bi bi-people',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
+    roles: ['ADMIN']
   },
   {
     path: '/component/organizations',
@@ -23,7 +24,8 @@ export const ROUTES: RouteInfo[] = [
     icon: 'bi bi-building',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
+    roles: ['ADMIN', 'FIELD_MANAGER']
   },
   {
     path: '/component/repositories',
@@ -31,7 +33,8 @@ export const ROUTES: RouteInfo[] = [
     icon: 'bi bi-git',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
+    roles: ['ADMIN', 'FIELD_MANAGER', 'TEACHER']
   },
   {
     path: '/component/alert',

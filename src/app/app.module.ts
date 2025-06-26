@@ -10,11 +10,13 @@ import { AppComponent } from './app.component';
 import { SpinnerComponent } from './shared/spinner.component';
 import { Approutes } from './app-routing.module';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { DashboardComponent } from './features/admin/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    DashboardComponent
   ],
   imports: [
     CommonModule,

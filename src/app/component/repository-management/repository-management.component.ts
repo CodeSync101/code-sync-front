@@ -65,6 +65,7 @@ export class RepositoryManagementComponent implements OnInit {
         console.log('Repository groups loaded:', groups);
         this.repositoryGroups = groups;
         this.isLoading = false;
+        this.error = '';
       },
       error: (error) => {
         console.error('Error loading repository groups:', error);

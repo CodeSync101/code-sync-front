@@ -1,8 +1,73 @@
-// Page Title
+// Modern management container
+.management-container {
+  background: #f6fafe;
+  min-height: 100vh;
+  padding: 32px 24px;
+  font-family: 'Rubik', sans-serif;
+}
+
+.card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(44, 62, 80, 0.08);
+  transition: box-shadow 0.2s, transform 0.2s;
+  &:hover {
+    box-shadow: 0 8px 32px rgba(44, 62, 80, 0.12);
+    transform: translateY(-2px) scale(1.01);
+  }
+}
+
 .page-title {
-  color: #2c3e50;
-  font-weight: 600;
-  font-size: 1.75rem;
+  color: #232946;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.01em;
+}
+
+.table {
+  border-radius: 12px;
+  overflow: hidden;
+  th {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #232946;
+    background: #eebbc3;
+    letter-spacing: 0.5px;
+    padding: 1rem;
+    border: none;
+  }
+  td {
+    font-size: 1rem;
+    vertical-align: middle;
+    padding: 1rem;
+    border: none;
+    background: #fff;
+  }
+  tbody tr {
+    transition: background-color 0.2s;
+    &:hover {
+      background-color: #f3f6fd;
+    }
+  }
+}
+
+.btn {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+  &.btn-primary {
+    background: #232946;
+    color: #fff;
+    border: none;
+    &:hover {
+      background: #b8c1ec;
+      color: #232946;
+      box-shadow: 0 2px 8px rgba(44, 62, 80, 0.10);
+      transform: translateY(-1px);
+    }
+  }
 }
 
 // Breadcrumb
@@ -20,44 +85,6 @@
       &:hover {
         color: #0d6efd;
       }
-    }
-  }
-}
-
-// Card Styles
-.card {
-  background: #ffffff;
-  transition: all 0.3s ease;
-  border: none;
-  
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08) !important;
-  }
-}
-
-// Table Styles
-.table {
-  th {
-    font-weight: 600;
-    font-size: 0.875rem;
-    color: #6c757d;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 1rem;
-  }
-
-  td {
-    font-size: 0.9375rem;
-    vertical-align: middle;
-    padding: 1rem;
-  }
-
-  tbody tr {
-    transition: background-color 0.2s ease;
-    
-    &:hover {
-      background-color: rgba(13, 110, 253, 0.04);
     }
   }
 }
@@ -160,55 +187,6 @@
   
   .toast-body {
     padding: 1rem;
-  }
-}
-
-// Buttons
-.btn {
-  font-weight: 500;
-  padding: 0.5rem 1rem;
-  transition: all 0.2s ease;
-  
-  &.btn-sm {
-    padding: 0.25rem 0.75rem;
-    font-size: 0.875rem;
-  }
-  
-  &.rounded-pill {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-  
-  &.btn-primary {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
-    
-    &:hover {
-      background-color: #0b5ed7;
-      border-color: #0a58ca;
-      transform: translateY(-1px);
-    }
-    
-    &:focus {
-      box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-    }
-  }
-  
-  &.btn-light {
-    background-color: #f8f9fa;
-    border-color: #f8f9fa;
-    
-    &:hover {
-      background-color: #e2e6ea;
-      border-color: #dae0e5;
-      transform: translateY(-1px);
-    }
-  }
-  
-  &.btn-danger {
-    &:hover {
-      transform: translateY(-1px);
-    }
   }
 }
 

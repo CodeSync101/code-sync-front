@@ -32,7 +32,6 @@ export class UsersManagementComponent implements OnInit {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.minLength(8)]],
       groupName: [''],
       githubUsername: [''],
       role: ['student', [Validators.required]],
@@ -93,7 +92,6 @@ export class UsersManagementComponent implements OnInit {
         locked: user.locked,
         role: user.role || 'student'
       });
-      this.userForm.get('password')?.setValidators([]);
       this.userForm.get('role')?.clearValidators();
     } else {
       this.editingUser = null;
@@ -102,14 +100,12 @@ export class UsersManagementComponent implements OnInit {
         firstName: '',
         lastName: '',
         email: '',
-        password: '',
         groupName: '',
         githubUsername: '',
         role: 'student',
         enabled: true,
         locked: false
       });
-      this.userForm.get('password')?.setValidators([Validators.required, Validators.minLength(8)]);
       this.userForm.get('role')?.setValidators([Validators.required]);
     }
     this.userForm.updateValueAndValidity();
@@ -136,7 +132,6 @@ export class UsersManagementComponent implements OnInit {
         firstName: formValue.firstName,
         lastName: formValue.lastName,
         email: formValue.email,
-        password: formValue.password || undefined,
         groupName: formValue.groupName || undefined,
         githubUsername: formValue.githubUsername || undefined,
         locked: formValue.locked,
@@ -163,7 +158,6 @@ export class UsersManagementComponent implements OnInit {
         firstName: formValue.firstName,
         lastName: formValue.lastName,
         email: formValue.email,
-        password: formValue.password,
         groupName: formValue.groupName || undefined,
         githubUsername: formValue.githubUsername || undefined,
         role: formValue.role,

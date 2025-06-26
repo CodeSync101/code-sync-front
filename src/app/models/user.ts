@@ -19,6 +19,9 @@ export interface User {
   enabled: boolean;
   githubUsername: string | null;
   groups: GroupRepoDTO[];
+  roles?: ('STUDENT' | 'TEACHER' | 'ADMIN' | 'FIELD_MANAGER')[];
+  teacherGroups?: GroupRepoDTO[];
+  managedOrganizations?: Organization[];
   role?: string;
 }
 
@@ -27,7 +30,7 @@ export interface UserRequest {
   firstName: string;
   lastName: string;
   email: string;
-  password: string;
+  password?: string;
   locked?: boolean;
   enabled?: boolean;
   groupName?: string;
