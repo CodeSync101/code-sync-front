@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Contributor } from '../dashboard/dashboard-components/top-selling/Contributor';
+import { Contributor } from '../dashboard/dashboard-components/top-contributions/Contributor';
 import { OrganizationService } from './organization.service';
 
 @Injectable({

@@ -5,11 +5,11 @@ import { Contributor } from './Contributor'; // or wherever your interface is de
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-top-selling',
-  templateUrl: './top-selling.component.html',
-  styleUrls: ['./top-selling.component.css']
+  selector: 'top-contribution',
+  templateUrl:'./top-contributions.component.html',
+  styleUrls: ['./top-contributions.component.css']
 })
-export class TopSellingComponent implements OnInit, OnDestroy {
+export class TopContributionComponent implements OnInit, OnDestroy {
 
   topContributors: Contributor[] = [];
   totalContributions: number = 0;

@@ -4,7 +4,7 @@ import { StatsService } from 'src/app/services/stats.service';
 
 @Component({
   selector: 'app-top-cards',
-  templateUrl: './top-cards.component.html'
+  templateUrl: '/top-cards.component.html',
 })
 export class TopCardsComponent implements OnInit {
   topcards: topcard[] = [

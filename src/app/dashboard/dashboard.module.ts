@@ -4,11 +4,11 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Routes, RouterModule } from "@angular/router";
 import { NgApexchartsModule } from "ng-apexcharts";
 import { DashboardComponent } from "./dashboard.component";
-import { SalesRatioComponent } from "./dashboard-components/sales-ratio/sales-ratio.component";
+import { ContributionChartComponent } from "./dashboard-components/contributions-chart/contribution-chat-component";
 import { FeedsComponent } from "./dashboard-components/feeds/feeds.component";
-import { TopSellingComponent } from "./dashboard-components/top-selling/top-selling.component";
+import { TopContributionComponent } from "./dashboard-components/top-contributions/top-contributions.component";
 import { TopCardsComponent } from "./dashboard-components/top-cards/top-cards.component";
-import { BlogCardsComponent } from "./dashboard-components/blog-cards/blog-cards.component";
+import { EventsCardsComponent } from "./dashboard-components/events-cards/events-cards.component";
 import { OrganizationHeaderComponent } from "../shared/header/organization-header.component";
 
 
@@ -33,11 +33,11 @@ const routes: Routes = [
   ],
   declarations: [
     DashboardComponent,
-    SalesRatioComponent,
+    ContributionChartComponent,
     FeedsComponent,
-    TopSellingComponent,
+    TopContributionComponent,
     TopCardsComponent,
-    BlogCardsComponent,
+    EventsCardsComponent,
     OrganizationHeaderComponent
   ],
 })
