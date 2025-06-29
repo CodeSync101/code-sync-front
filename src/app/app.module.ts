@@ -13,12 +13,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Approutes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SpinnerComponent } from './shared/spinner.component';
+import { CommitsComponent } from './commits/commits.component';
+import { RepositoryListComponent } from './repository-list/repository-list.component';
+import { TaskListComponent } from './task-list/task-list.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     SpinnerComponent,
+    RepositoryListComponent,
+    TaskListComponent
 
   ],
   imports: [
@@ -33,8 +39,7 @@ import { SpinnerComponent } from './shared/spinner.component';
     ToastrModule.forRoot(),
     FullComponent,
     NavigationComponent,
-    SidebarComponent,
-    // Ajout de ToastrModule avec la configuration globale
+    SidebarComponent
   ],
   providers: [
     {

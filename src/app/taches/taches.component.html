@@ -4,79 +4,122 @@
       <input [(ngModel)]="searchText" (input)="filterTaches($event)" class="form-control" type="text" placeholder="Rechercher une tâche" />
     </div>
     <div class="col-auto">
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tache_modal" (click)="openAddForm()">
-        Nouvelle tâche
+      <button class="btn btn-primary" (click)="openAddForm()">
+        <i class="bi bi-plus-lg"></i> Nouvelle tâche
       </button>
     </div>
   </div>
 </div>
 
-<div class="card mt-3">
-  <div class="card-body table-responsive">
-    <table class="table table-bordered">
-      <thead>
-      <tr>
-        <th>Id</th>
-        <th>Titre</th>
-        <th>Status</th>
-        <th>notetache</th>
-        <th>ticket</th>
-        <th>Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let tache of filteredTaches">
-        <td>{{ tache.id }}</td>
-        <td>{{ tache.titre  }}</td>
-        <td>{{ tache.status }}</td>
-        <td>{{ tache.notetache }}</td>
+<div class="container-kanban mt-3">
+  <div class="kanban-board">
+    <div class="column">
+      <div class="column-header todo-header">
+        <span>À FAIRE</span>
+        <span class="badge">{{ tachesAFaire.length }}</span>
+      </div>
+      <div class="column-content">
+        <div *ngFor="let tache of tachesAFaire"
+             class="task-card"
+             (click)="populateForm(tache)">
 
-        <td>
-
-          <div (click)="actionTicket(tache.id)">
-            <i class="bi bi-list-ol" style="font-size: 25px; cursor: pointer;"></i>
+          <div class="task-title">{{ tache.titre }}</div>
+          <div class="task-note">{{ tache.notetache }}</div>
+          <div class="task-actions">
+            <i class="bi bi-list-ol action-icon" title="Voir les tickets" (click)="actionTicket(tache.id); $event.stopPropagation()"></i>
           </div>
-        </td>
+        </div>
+        <div *ngIf="tachesAFaire.length === 0" class="empty-state-column">
+          Aucune tâche à faire
+        </div>
+      </div>
+    </div>
 
-        <td>
-          <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#tache_modal" (click)="populateForm(tache)">Modifier</button>
-          <button class="btn btn-sm btn-danger" (click)="deleteTache(tache.id)">Supprimer</button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+    <div class="column">
+      <div class="column-header progress-header">
+        <span>EN COURS</span>
+        <span class="badge">{{ tachesEnCours.length }}</span>
+      </div>
+      <div class="column-content">
+        <div *ngFor="let tache of tachesEnCours"
+             class="task-card"
+             (click)="populateForm(tache)">
+          <div class="task-title">{{ tache.titre }}</div>
+          <div class="task-note">{{ tache.notetache }}</div>
+          <div class="task-actions">
+            <i class="bi bi-list-ol action-icon" title="Voir les tickets" (click)="actionTicket(tache.id); $event.stopPropagation()"></i>
+          </div>
+        </div>
+        <div *ngIf="tachesEnCours.length === 0" class="empty-state-column">
+          Aucune tâche en cours
+        </div>
+      </div>
+    </div>
+
+    <div class="column">
+      <div class="column-header done-header">
+        <span>TERMINÉ</span>
+        <span class="badge">{{ tachesTermine.length }}</span>
+      </div>
+      <div class="column-content">
+        <div *ngFor="let tache of tachesTermine"
+             class="task-card"
+             (click)="populateForm(tache)">
+          <div class="task-title">{{ tache.titre }}</div>
+          <div class="task-note">{{ tache.notetache }}</div>
+          <div class="task-actions">
+            <i class="bi bi-list-ol action-icon" title="Voir les tickets" (click)="actionTicket(tache.id); $event.stopPropagation()"></i>
+          </div>
+        </div>
+        <div *ngIf="tachesTermine.length === 0" class="empty-state-column">
+          Aucune tâche terminée
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="allTaches.length === 0 && searchText === ''" class="empty-state-global">
+    <p>Aucune tâche trouvée pour cette matière.</p>
   </div>
 </div>
 
-<!-- Modal d'ajout / modification -->
-<div class="modal fade" id="tache_modal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="tache_modal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
   <div class="modal-dialog">
     <form [formGroup]="tacheForm" (ngSubmit)="handleTache()" class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">{{ formType }}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="form-group">
-          <label for="titre">Titre</label>
+        <div class="mb-3">
+          <label for="titre" class="form-label">Titre</label>
           <input id="titre" type="text" class="form-control" formControlName="titre" />
         </div>
 
-        <div class="form-group">
-          <label for="status">Status</label>
-          <select id="status" class="form-control" formControlName="status">
+        <div class="mb-3">
+          <label for="status" class="form-label">Statut</label>
+          <select id="status" class="form-select" formControlName="status">
+            <option value="À faire">À faire</option>
             <option value="En cours">En cours</option>
             <option value="Terminé">Terminé</option>
           </select>
         </div>
 
-        <div class="form-group">
-          <label for="notetache">notetache</label>
-          <textarea id="notetache" class="form-control" formControlName="notetache" [readonly]="formType === 'Modifier Tâche'"></textarea>
+        <div class="mb-3">
+          <label for="notetache" class="form-label">Note</label>
+          <textarea id="notetache" class="form-control" formControlName="notetache"></textarea>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" [disabled]="tacheForm.invalid">Sauvegarder</button>
+      <div class="modal-footer justify-content-between">
+        <button *ngIf="currentTacheId" type="button" class="btn btn-danger" (click)="deleteTache(currentTacheId)">
+          Supprimer
+        </button>
+        <div *ngIf="!currentTacheId"></div>
+
+        <div>
+          <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Annuler</button>
+          <button type="submit" class="btn btn-primary" [disabled]="tacheForm.invalid">Sauvegarder</button>
+        </div>
       </div>
     </form>
   </div>

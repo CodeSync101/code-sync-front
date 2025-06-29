@@ -1,9 +1,9 @@
 // tickets.component.ts
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { TicketsService } from '../services/tickets.service';
 
 @Component({
@@ -25,14 +25,32 @@ export class TicketsComponent implements OnInit {
     private fb: FormBuilder,
     private ticketsService: TicketsService,
     private toastr: ToastrService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
+
   ) {
     this.ticketForm = this.fb.group({
-      noteticket: [0],
+      noteTicket: ['', [
+        Validators.min(0),
+        Validators.max(20),
+        this.floatValidator.bind(this)
+      ]],
       titre: ['', Validators.required]
 
     });
   }
+  floatValidator(control: AbstractControl): ValidationErrors | null {
+    const val = control.value;
+    if (val === null || val === '') {
+      return null;  // Pas requis => vide est ok
+    }
+    const regex = /^\d+(\.\d+)?$/;
+    if (!regex.test(val)) {
+      return { notFloat: true };
+    }
+    return null;
+  }
+
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
@@ -41,6 +59,7 @@ export class TicketsComponent implements OnInit {
 
   getAllTickets() {
     this.ticketsService.getTicketsByTache(parseInt(this.id)).subscribe((data: any[]) => {
+      console.log("Tickets reçus :", data);
       this.matieres = data;
       this.filteredTickets = data;
     });
@@ -64,7 +83,7 @@ export class TicketsComponent implements OnInit {
     this.currentTicketId = ticket.id;
     this.ticketForm.patchValue({
       titre: ticket.titre,
-      noteticket: ticket.noteticket
+      noteTicket: ticket.noteTicket
     });
   }
 
@@ -111,5 +130,9 @@ export class TicketsComponent implements OnInit {
         );
       }
     });
+  }
+
+  actioncommits(id: any): void {
+    this.router.navigateByUrl('/commits');
   }
 }

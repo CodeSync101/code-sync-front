@@ -1,43 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
-import {TachesService} from "../services/taches.service";
-import { Router } from '@angular/router';
-import {HttpClientModule} from "@angular/common/http";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { ActivatedRoute } from '@angular/router';
+import { TachesService } from "../services/taches.service";
+import { Router, ActivatedRoute } from '@angular/router';
+import * as bootstrap from 'bootstrap';
+
 @Component({
   selector: 'app-taches',
   templateUrl: './taches.component.html',
   styleUrls: ['./taches.component.scss']
 })
 
-export class TachesComponent implements OnInit {
+export class TachesComponent implements OnInit, AfterViewInit, OnDestroy {
+  allTaches: any[] = [];
+  tachesAFaire: any[] = [];
+  tachesEnCours: any[] = [];
+  tachesTermine: any[] = [];
 
-
-
-  matieres: any[] = [];
-  filteredTaches: any[] = [];
   tacheForm: FormGroup;
-  formType = 'Ajouter Tache';
+  formType = 'Nouvelle Tâche';
   id: string = '';
   currentTacheId: number | null = null;
   searchText = '';
+  private tacheModal: bootstrap.Modal | undefined;
 
   constructor(
     private fb: FormBuilder,
     private tachesService: TachesService,
     private toastr: ToastrService,
     private route: ActivatedRoute,
-    private router : Router
+    private router: Router
   ) {
     this.tacheForm = this.fb.group({
-      notetache: [0],
       titre: ['', Validators.required],
-      status: ['', Validators.required],
-      matiereId: [this.id]
-
+      status: ['À faire', Validators.required],
+      notetache: [''],
     });
   }
 
@@ -46,91 +44,127 @@ export class TachesComponent implements OnInit {
     this.getAllTaches();
   }
 
+  ngAfterViewInit(): void {
+    const modalElement = document.getElementById('tache_modal');
+    if (modalElement) {
+      this.tacheModal = new bootstrap.Modal(modalElement);
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.tacheModal) {
+      this.tacheModal.dispose();
+    }
+  }
+
   getAllTaches() {
     this.tachesService.getDataByMatiere(this.id).subscribe((data: any[]) => {
-      console.log(data); // structure de vos données ici
-      this.matieres = data;
-      this.filteredTaches = data;
+      this.allTaches = data;
+      this.filterTaches();
     });
   }
 
+  filterTaches(event?: Event) {
+    if (event) {
+      this.searchText = (event.target as HTMLInputElement).value.toLowerCase();
+    }
 
+    let filtered: any[] = [];
+    if (!this.searchText) {
+      filtered = [...this.allTaches];
+    } else {
+      filtered = this.allTaches.filter((tache) =>
+        tache.titre.toLowerCase().includes(this.searchText)
+      );
+    }
 
-  filterTaches(event: Event) {
-    const search = (event.target as HTMLInputElement).value.toLowerCase();
-    this.filteredTaches = this.matieres.filter((m) =>
-      m.titre.toLowerCase().includes(search)
-    );
+    this.tachesAFaire = filtered.filter(t => t.status === 'À faire');
+    this.tachesEnCours = filtered.filter(t => t.status === 'En cours');
+    this.tachesTermine = filtered.filter(t => t.status === 'Terminé');
   }
 
 
   openAddForm() {
-    this.formType = 'Tâche';
-    this.tacheForm.reset();
+    this.formType = 'Nouvelle Tâche';
     this.currentTacheId = null;
+    this.tacheForm.reset({ status: 'À faire', titre: '', notetache: '' });
+    this.tacheModal?.show(); // <-- CHANGED
   }
 
-  // Remplir le formulaire avec les données d'une matière existante pour modification
   populateForm(tache: any) {
     this.formType = 'Modifier Tâche';
     this.currentTacheId = tache.id;
-    this.tacheForm.patchValue({
-      titre : tache.titre,
-      status: tache.status,
-      notetache: tache.notetache,
-    });
+    this.tacheForm.patchValue(tache);
+    this.tacheModal?.show();
   }
 
-  // Gérer l'ajout ou la modification d'une matière
   handleTache() {
-    const tacheData = this.tacheForm.value;
+    if (this.tacheForm.invalid) {
+      this.toastr.error('Veuillez remplir tous les champs obligatoires.');
+      return;
+    }
+    const tacheData = { ...this.tacheForm.value, matiereId: this.id };
 
-    tacheData.matiereId = this.id;
     if (this.currentTacheId) {
-
-      this.tachesService.updateTache(this.currentTacheId, tacheData).subscribe(() => {
-        this.toastr.success('Tâche modifiée avec succès');
-        this.getAllTaches();
+      this.tachesService.updateTache(this.currentTacheId, tacheData).subscribe({
+        next: (updatedTache) => {
+          const index = this.allTaches.findIndex(t => t.id === this.currentTacheId);
+          if (index !== -1) {
+            this.allTaches[index] = updatedTache;
+            this.filterTaches(); // Refresh the view
+          }
+          this.toastr.success('Tâche modifiée avec succès');
+          this.closeModal();
+        },
+        error: (err) => {
+          this.toastr.error('Erreur lors de la modification.', 'Erreur');
+          console.error('API Error:', err);
+          this.closeModal();
+        }
       });
     } else {
-      // Ajout d'une nouvelle matière
-      this.tachesService.createTache(tacheData).subscribe(() => {
-        this.toastr.success('Matière ajoutée avec succès');
-        this.getAllTaches();
+      this.tachesService.createTache(tacheData).subscribe({
+        next: (newlyCreatedTache) => {
+          this.allTaches.push(newlyCreatedTache);
+          this.filterTaches(); // Refresh the view
+          this.toastr.success('Tâche ajoutée avec succès');
+          this.closeModal();
+        },
+        error: (err) => {
+          this.toastr.error('Erreur lors de l\'ajout.', 'Erreur');
+          console.error('API Error:', err);
+          this.closeModal();
+        }
       });
     }
-
-    document.querySelector<HTMLButtonElement>('.btn-close')?.click();
   }
 
-  async deleteTache(id: number): Promise<void> {
-    Swal.fire({
-      title: 'Êtes-vous sûr(e) ?',
-      text: 'Vous ne pourrez pas revenir en arrière !',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Oui, supprimer !'
-    }).then((result) => {
+  async deleteTache(id: number | null): Promise<void> {
+    if (id === null) return;
+
+    this.closeModal();
+    setTimeout(async () => {
+      const result = await Swal.fire({ });
       if (result.isConfirmed) {
-        this.tachesService.deleteTache(id).subscribe(
-          () => {
-            this.getAllTaches();
+        this.tachesService.deleteTache(id!).subscribe({
+          next: () => {
+            this.allTaches = this.allTaches.filter(t => t.id !== id);
+            this.filterTaches(); // Refresh the view
             this.toastr.success('Tâche supprimée avec succès', 'Succès');
           },
-          (error) => {
+          error: (err) => {
             this.toastr.error('Erreur lors de la suppression', 'Erreur');
           }
-        );
+        });
       }
-    });
+    }, 200);
   }
 
-
-  actionTicket(id:any){
-    this.router.navigateByUrl(`tickets/`+ id);
+  actionTicket(id: any) {
+    this.router.navigateByUrl(`tickets/` + id);
   }
 
+  private closeModal() {
+    this.tacheModal?.hide();
+  }
 }
-

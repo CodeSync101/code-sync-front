@@ -26,11 +26,13 @@
       <tr *ngFor="let ticket of filteredTickets">
         <td>{{ ticket.id }}</td>
         <td>{{ ticket.titre  }}</td>
-        <td>{{ ticket.noteticket }}</td>
+        <td>{{ ticket.noteTicket }}</td>
 
         <td>
           <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#ticket_modal" (click)="populateForm(ticket)">Modifier</button>
           <button class="btn btn-sm btn-danger" (click)="deleteTicket(ticket.id)">Supprimer</button>
+          <button class="btn btn-sm btn-success" (click)="actioncommits(ticket.id)">Commits</button>
+
         </td>
       </tr>
       </tbody>
@@ -53,8 +55,17 @@
         </div>
 
         <div class="form-group">
-          <label for="noteticket">noteticket</label>
-          <textarea id="noteticket" class="form-control" formControlName="noteticket" [readonly]="formType === 'Modifier Ticket'"></textarea>
+          <label for="noteTicket">noteTicket</label>
+          <textarea id="noteTicket" class="form-control" formControlName="noteTicket"></textarea>
+<!--          //<textarea id="noteTicket" class="form-control" formControlName="noteTicket" [readonly]="formType === 'Modifier Ticket'"></textarea>-->
+
+
+          <div *ngIf="ticketForm.get('noteTicket')?.touched && ticketForm.get('noteTicket')?.invalid" class="text-danger mt-1">
+            <div *ngIf="ticketForm.get('noteTicket')?.errors?.['min']">La note doit être ≥ 0.</div>
+            <div *ngIf="ticketForm.get('noteTicket')?.errors?.['max']">La note doit être ≤ 20.</div>
+            <div *ngIf="ticketForm.get('noteTicket')?.errors?.['notFloat']">La note doit être un nombre décimal valide.</div>
+          </div>
+
         </div>
       </div>
       <div class="modal-footer">

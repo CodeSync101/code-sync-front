@@ -28,6 +28,7 @@
       <tr *ngFor="let matiere of filteredMatieres">
         <td>{{ matiere.id }}</td>
         <td>{{ matiere.libelle  }}</td>
+        <td>{{ matiere.noteMatiere }}</td>
         <td>{{ matiere.description }}</td>
         <td>
 
@@ -60,6 +61,17 @@
           <label for="libelle">libelle  du projet</label>
           <input id="libelle" type="text" class="form-control" formControlName="libelle" />
         </div>
+        <div class="form-group">
+          <label for="noteMatiere">Note Matière</label>
+          <textarea id="noteMatiere" class="form-control" formControlName="noteMatiere"></textarea>
+          <div *ngIf="matiereForm.get('noteMatiere')?.touched && matiereForm.get('noteMatiere')?.invalid" class="text-danger mt-1">
+            <div *ngIf="matiereForm.get('noteMatiere')?.errors?.['min']">La note doit être ≥ 0.</div>
+            <div *ngIf="matiereForm.get('noteMatiere')?.errors?.['max']">La note doit être ≤ 20.</div>
+            <div *ngIf="matiereForm.get('noteMatiere')?.errors?.['notFloat']">La note doit être un nombre décimal valide.</div>
+          </div>
+
+        </div>
+
         <div class="form-group">
           <label for="description">Description</label>
           <textarea id="description" class="form-control" formControlName="description"></textarea>

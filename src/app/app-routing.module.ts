@@ -37,11 +37,11 @@ export const Approutes: Routes = [
       {
         path: 'tickets',
         loadChildren: () => import('./tickets/tickets.module').then(m => m.TicketsModule)
+      },
+      {
+        path: 'commits',
+        loadChildren: () => import('./commits/commits.module').then(m => m.CommitsModule)
       }
-
-
-
-
     ]
   },
 

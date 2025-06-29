@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators, ValidationErrors } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { MatiereService } from '../services/matiere.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-matiere',
   templateUrl: './matieres.component.html',
@@ -21,12 +22,30 @@ export class MatieresComponent implements OnInit {
     private fb: FormBuilder,
     private matiereService: MatiereService,
     private toastr: ToastrService,
-    private router : Router
+    private router: Router
   ) {
     this.matiereForm = this.fb.group({
       libelle: ['', Validators.required],
       description: ['', Validators.required],
+      noteMatiere: ['', [
+        Validators.min(0),
+        Validators.max(20),
+        this.floatValidator.bind(this)
+      ]],
     });
+  }
+
+  // Validateur personnalisé : vérifie si valeur vide ou float valide
+  floatValidator(control: AbstractControl): ValidationErrors | null {
+    const val = control.value;
+    if (val === null || val === '') {
+      return null;  // Pas requis => vide est ok
+    }
+    const regex = /^\d+(\.\d+)?$/;
+    if (!regex.test(val)) {
+      return { notFloat: true };
+    }
+    return null;
   }
 
   ngOnInit(): void {
@@ -35,7 +54,7 @@ export class MatieresComponent implements OnInit {
 
   getAllMatieres() {
     this.matiereService.getAllMatieres().subscribe((data: any[]) => {
-      console.log(data); // Vérifiez la structure de vos données ici
+      console.log(data);
       this.matieres = data;
       this.filteredMatieres = data;
     });
@@ -48,35 +67,31 @@ export class MatieresComponent implements OnInit {
     );
   }
 
-
   openAddForm() {
     this.formType = 'Ajouter Projet';
     this.matiereForm.reset();
     this.currentMatiereId = null;
   }
 
-  // Remplir le formulaire avec les données d'une matière existante pour modification
   populateForm(matiere: any) {
     this.formType = 'Modifier Projet';
     this.currentMatiereId = matiere.id;
     this.matiereForm.patchValue({
-      libelle : matiere.libelle,
+      libelle: matiere.libelle,
       description: matiere.description,
+      noteMatiere: matiere.noteMatiere,
     });
   }
 
-  // Gérer l'ajout ou la modification d'une matière
   handleMatiere() {
     const matiereData = this.matiereForm.value;
 
     if (this.currentMatiereId) {
-
       this.matiereService.updateMatiere(this.currentMatiereId, matiereData).subscribe(() => {
         this.toastr.success('Matière modifiée avec succès');
         this.getAllMatieres();
       });
     } else {
-      // Ajout d'une nouvelle matière
       this.matiereService.createMatiere(matiereData).subscribe(() => {
         this.toastr.success('Matière ajoutée avec succès');
         this.getAllMatieres();
@@ -110,9 +125,8 @@ export class MatieresComponent implements OnInit {
     });
   }
 
-
-  actionTache(id:any){
-    this.router.navigateByUrl(`taches/`+ id);
+  actionTache(id: any) {
+    this.router.navigateByUrl(`taches/` + id);
   }
 
 }
