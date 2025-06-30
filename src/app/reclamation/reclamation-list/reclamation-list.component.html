@@ -1,0 +1,231 @@
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div
+          class="card-header bg-primary text-white d-flex justify-content-between align-items-center"
+        >
+          <h4 class="mb-0">Liste des Réclamations</h4>
+          <span *ngIf="isTeacher" class="badge bg-info">Mode Enseignant</span>
+        </div>
+        <div class="card-body">
+          <div *ngIf="loading" class="text-center p-5">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Chargement...</span>
+            </div>
+          </div>
+
+          <div *ngIf="error" class="alert alert-danger">
+            {{ error }}
+          </div>
+
+          <div
+            *ngIf="!loading && !error && reclamations.length === 0"
+            class="alert alert-info"
+          >
+            <i class="bi bi-info-circle-fill me-2"></i> Aucune réclamation
+            disponible.
+          </div>
+
+          <div
+            *ngIf="!loading && reclamations.length > 0"
+            class="table-responsive"
+          >
+            <table class="table table-hover table-striped">
+              <thead class="table-light">
+                <tr>
+                  <th>ID</th>
+                  <th>Titre</th>
+                  <th>Description</th>
+                  <th>Matière</th>
+                  <th>Étudiant</th>
+                  <th>Statut</th>
+                  <th>Date</th>
+                  <th class="text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let reclamation of reclamations">
+                  <td>{{ reclamation.id }}</td>
+                  <td>{{ reclamation.titre }}</td>
+                  <td>
+                    <small class="text-muted"
+                      >{{ reclamation.description | slice : 0 : 50
+                      }}{{
+                        reclamation.description.length > 50 ? "..." : ""
+                      }}</small
+                    >
+                  </td>
+                  <td>{{ reclamation.matiereNom || "Non spécifié" }}</td>
+                  <td>{{ reclamation.userNom || "Non spécifié" }}</td>
+                  <td>
+                    <span
+                      class="badge"
+                      [ngClass]="getStatutClass(reclamation.statut)"
+                    >
+                      {{ reclamation.statut }}
+                    </span>
+                    <span
+                      *ngIf="reclamation.traitee"
+                      class="badge bg-success ms-1"
+                      >Traitée</span
+                    >
+                  </td>
+                  <td>{{ reclamation.dateCreation | date : "dd/MM/yyyy" }}</td>
+                  <td class="text-center">
+                    <div class="btn-group" role="group">
+                      <!-- Bouton Traiter (visible uniquement pour les enseignants) -->
+                      <button
+                        *ngIf="isTeacher && !reclamation.traitee"
+                        class="btn btn-sm btn-success me-1"
+                        (click)="openTraiterModal(reclamation)"
+                      >
+                        <i class="bi bi-check-circle-fill me-1"></i> Traiter
+                      </button>
+
+                      <!-- Boutons de changement de statut (visible uniquement pour les enseignants) -->
+                      <div *ngIf="isTeacher" class="btn-group" role="group">
+                        <button
+                          *ngIf="reclamation.statut === 'EN_ATTENTE'"
+                          class="btn btn-sm btn-info me-1"
+                          (click)="changerStatut(reclamation.id!, 'en-cours')"
+                        >
+                          <i class="bi bi-arrow-right-circle-fill me-1"></i> En
+                          cours
+                        </button>
+                        <button
+                          *ngIf="reclamation.statut === 'EN_COURS'"
+                          class="btn btn-sm btn-danger me-1"
+                          (click)="changerStatut(reclamation.id!, 'rejeter')"
+                        >
+                          <i class="bi bi-x-circle-fill me-1"></i> Rejeter
+                        </button>
+                      </div>
+
+                      <!-- Bouton de suppression (visible uniquement pour les enseignants) -->
+                      <button
+                        *ngIf="isTeacher"
+                        class="btn btn-sm btn-danger"
+                        (click)="supprimerReclamation(reclamation.id!)"
+                      >
+                        <i class="bi bi-trash-fill"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de traitement de réclamation -->
+<div
+  class="modal fade show"
+  tabindex="-1"
+  role="dialog"
+  [ngClass]="{ 'd-block': selectedReclamation, 'd-none': !selectedReclamation }"
+  [ngStyle]="{
+    'background-color': selectedReclamation ? 'rgba(0,0,0,0.5)' : 'transparent'
+  }"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" *ngIf="selectedReclamation">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title">
+          <i class="bi bi-check-circle-fill me-2"></i>
+          Traiter la réclamation
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="closeTraiterModal()"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3 p-3 bg-light rounded">
+          <div class="row">
+            <div class="col-md-6">
+              <p class="mb-1">
+                <strong>Titre:</strong> {{ selectedReclamation.titre }}
+              </p>
+              <p class="mb-1">
+                <strong>Matière:</strong>
+                {{ selectedReclamation.matiereNom || "Non spécifié" }}
+              </p>
+            </div>
+            <div class="col-md-6 text-md-end">
+              <p class="mb-1">
+                <strong>Étudiant:</strong>
+                {{ selectedReclamation.userNom || "Non spécifié" }}
+              </p>
+              <p class="mb-1">
+                <strong>Date:</strong>
+                {{ selectedReclamation.dateCreation | date : "dd/MM/yyyy" }}
+              </p>
+            </div>
+          </div>
+          <div class="mt-2">
+            <p class="mb-1"><strong>Description:</strong></p>
+            <p class="mb-0">{{ selectedReclamation.description }}</p>
+          </div>
+        </div>
+
+        <div *ngIf="traiterSuccess" class="alert alert-success">
+          <i class="bi bi-check-circle-fill me-2"></i>
+          La réclamation a été traitée avec succès. Un email a été envoyé à
+          l'étudiant.
+        </div>
+
+        <form [formGroup]="traiterForm" (ngSubmit)="traiterReclamation()">
+          <div class="mb-3">
+            <label for="message" class="form-label"
+              >Message à l'étudiant*</label
+            >
+            <textarea
+              class="form-control"
+              id="message"
+              formControlName="message"
+              rows="4"
+              placeholder="Écrivez un message à l'étudiant concernant le traitement de sa réclamation..."
+            ></textarea>
+            <div
+              *ngIf="f['message'].touched && f['message'].invalid"
+              class="text-danger mt-1"
+            >
+              <small *ngIf="f['message'].errors?.['required']"
+                ><i class="bi bi-exclamation-circle me-1"></i>Le message est
+                requis.</small
+              >
+              <small *ngIf="f['message'].errors?.['minlength']"
+                ><i class="bi bi-exclamation-circle me-1"></i>Le message doit
+                contenir au moins 10 caractères.</small
+              >
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end mt-4">
+            <button
+              type="button"
+              class="btn btn-secondary me-2"
+              (click)="closeTraiterModal()"
+            >
+              <i class="bi bi-x-circle me-1"></i> Annuler
+            </button>
+            <button
+              type="submit"
+              class="btn btn-success"
+              [disabled]="traiterForm.invalid || traiterSuccess"
+            >
+              <i class="bi bi-check-circle me-1"></i> Traiter et envoyer
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

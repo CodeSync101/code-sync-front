@@ -20,7 +20,21 @@ export const Approutes: Routes = [
       {
         path: 'component',
         loadChildren: () => import('./component/component.module').then(m => m.ComponentsModule)
-      }
+      },
+          {
+        path: 'reclamations',
+        loadChildren: () =>
+          import('./reclamation/reclamation.module').then(
+            (m) => m.ReclamationModule
+          ),
+      },
+      {
+        path: 'notes',
+        loadChildren: () =>
+          import('./notes/notes.module').then((m) => m.NotesModule),
+      },
+
+      
     ]
   },
   {
