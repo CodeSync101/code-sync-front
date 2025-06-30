@@ -20,11 +20,19 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { Approutes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SpinnerComponent } from './shared/spinner.component';
+import { MatieresComponentF } from './matieres/matieres-component-f.component';
+import { TicketsComponent } from './tickets/tickets.component';
+import { TachesComponent } from './taches/taches.component';
+import { CommitsComponent } from './commits/commits.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SpinnerComponent,
+    MatieresComponentF,
+    TicketsComponent,
+    TachesComponent,
+    CommitsComponent,
   ],
   imports: [
     CommonModule,
