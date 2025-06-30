@@ -1,12 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrganizationService {
-  private apiUrl = 'http://localhost:8888/api/organization/all';
+    private baseUrl = environment.apiUrl ;
+
+  private apiUrl = `${this.baseUrl}/reporting/api/organization/all` ;
   private currentOrganization = new BehaviorSubject<string>('');
 
   constructor(private http: HttpClient) {}

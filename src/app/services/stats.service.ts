@@ -16,10 +16,9 @@ export class StatsService {
     private http: HttpClient,
     private organizationService: OrganizationService
   ) { }
-
   getTotalCommits(organization?: string): Observable<any> {
     if (organization) {
-      return this.http.get(`${this.baseUrl}/commit/total-count`, { params: { organization } });
+      return this.http.get(`${this.baseUrl}/reporting/api/commit/total-count`, { params: { organization } });
     } else {
       return this.organizationService.getCurrentOrganization().pipe(
         switchMap(org => this.http.get(`${this.baseUrl}/commit/total-count`, { params: { organization: org } }))
@@ -30,20 +29,20 @@ export class StatsService {
   getTotalBranches(): Observable<any> {
     return this.organizationService.getCurrentOrganization().pipe(
       switchMap(org => {
-        return this.http.get(`${this.baseUrl}/branches/distinct-count?organization=${org}`);
+        return this.http.get(`${this.baseUrl}/reporting/api/branches/distinct-count?organization=${org}`);
       })
     );
   }
 
   getActiveCollaboratorsCount(organization?: string): Observable<any> {
     if (organization) {
-      return this.http.get(`${this.baseUrl}/commit/distinct-authors`, {
+      return this.http.get(`${this.baseUrl}/reporting/api/commit/distinct-authors`, {
         params: { organization }
       });
     } else {
       return this.organizationService.getCurrentOrganization().pipe(
         switchMap(org =>
-          this.http.get(`${this.baseUrl}/commit/distinct-authors`, {
+          this.http.get(`${this.baseUrl}/reporting/api/commit/distinct-authors`, {
             params: { organization: org }
           })
         )
@@ -53,13 +52,13 @@ export class StatsService {
 
   getDistinctRepositories(organization?: string): Observable<any> {
     if (organization) {
-      return this.http.get(`${this.baseUrl}/commit/distinct-repositories`, {
+      return this.http.get(`${this.baseUrl}/reporting/api/commit/distinct-repositories`, {
         params: { organization }
       });
     } else {
       return this.organizationService.getCurrentOrganization().pipe(
         switchMap(org =>
-          this.http.get(`${this.baseUrl}/commit/distinct-repositories`, {
+          this.http.get(`${this.baseUrl}/reporting/api/commit/distinct-repositories`, {
             params: { organization: org }
           })
         )
@@ -67,17 +66,17 @@ export class StatsService {
     }
   }
 getLatestCommits(organization: string) {
-  return this.http.get(`${this.baseUrl}/reporting/get-latest-commits`, {
+  return this.http.get(`${this.baseUrl}/reporting/api/reporting/get-latest-commits`, {
     params: { organization }
   });
 }
 
 getLatestPulls(): Observable<any> {
-  return this.http.get(`${this.baseUrl}/reporting/get-latest-pulls`);
+  return this.http.get(`${this.baseUrl}/reporting/api/reporting/get-latest-pulls`);
 }
 
 getLatestPushes(organization:string) {
-  return this.http.get(`${this.baseUrl}/reporting/get-latest-pushs`, {
+  return this.http.get(`${this.baseUrl}/reporting/api/reporting/get-latest-pushs`, {
     params: { organization }
   });
 }
@@ -87,7 +86,7 @@ getTopContributors(): Observable<{totalContributions: number, topContributors: C
   return this.organizationService.getCurrentOrganization().pipe(
     switchMap(org => {
       return this.http.get<{totalContributions: number, topContributors: Contributor[]}>(
-        `${this.baseUrl}/reporting/contribution-summary`, {
+        `${this.baseUrl}/reporting/api/reporting/contribution-summary`, {
           params: { organization: org }
         }
       );
