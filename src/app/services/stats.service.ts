@@ -21,7 +21,7 @@ export class StatsService {
       return this.http.get(`${this.baseUrl}/reporting/api/commit/total-count`, { params: { organization } });
     } else {
       return this.organizationService.getCurrentOrganization().pipe(
-        switchMap(org => this.http.get(`${this.baseUrl}/commit/total-count`, { params: { organization: org } }))
+        switchMap(org => this.http.get(`${this.baseUrl}/reporting/api/commit/total-count`, { params: { organization: org } }))
       );
     }
   }

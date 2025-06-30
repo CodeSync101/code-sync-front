@@ -12,8 +12,9 @@ export class CommitService {
   constructor(private http: HttpClient) {}
   
   getCommits(startDate: string, endDate: string, author: string, organization?: string): Observable<{[date: string]: number}> {
-    let url = `${this.baseUrl}/commit/commits-by-collaborator?startDate=${startDate}&endDate=${endDate}&author=${author}&organization=${organization}`;
+    let url = `${this.baseUrl}/reporting/api/commit/commits-by-collaborator?startDate=${startDate}&endDate=${endDate}&author=${author}&organization=${organization}`;
 
     return this.http.get<{[date: string]: number}>(url);
   }
 }
+
