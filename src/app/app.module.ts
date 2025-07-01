@@ -5,22 +5,17 @@ import {
   PathLocationStrategy
 } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ToastrModule } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 import { FullComponent } from './layouts/full/full.component';
-
-
 import { NavigationComponent } from './shared/header/navigation.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
-
 import { Approutes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SpinnerComponent } from './shared/spinner.component';
-import { MatieresComponentF } from './matieres/matieres-component-f.component';
 import { TicketsComponent } from './tickets/tickets.component';
 import { TachesComponent } from './taches/taches.component';
 import { CommitsComponent } from './commits/commits.component';
@@ -29,7 +24,6 @@ import { CommitsComponent } from './commits/commits.component';
   declarations: [
     AppComponent,
     SpinnerComponent,
-    MatieresComponentF,
     TicketsComponent,
     TachesComponent,
     CommitsComponent,
@@ -46,6 +40,7 @@ import { CommitsComponent } from './commits/commits.component';
     FullComponent,
     NavigationComponent,
     SidebarComponent,
+    ToastrModule.forRoot(),
   ],
   providers: [
     {

@@ -33,8 +33,11 @@ export const Approutes: Routes = [
         loadChildren: () =>
           import('./notes/notes.module').then((m) => m.NotesModule),
       },
+      {
+        path: 'matieres',
+        loadChildren: () => import('./matieres/matieres.module').then(m => m.MatieresModule)
+      },
 
-      
     ]
   },
   {

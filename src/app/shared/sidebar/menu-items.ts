@@ -35,8 +35,8 @@ export const ROUTES: RouteInfo[] = [
   },
 
   {
-    path: '/component/card',
-    title: 'Feten',
+    path: '/matieres',
+    title: 'Projet',
     icon: 'bi bi-card-text',
     class: '',
     extralink: false,
