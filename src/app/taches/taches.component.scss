@@ -1,0 +1,121 @@
+/* Fichier : taches.component.scss */
+
+/* Styles pour l'en-tête de la page (optionnel, mais recommandé) */
+.page-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 1rem;
+}
+
+/* Conteneur principal pour le Kanban */
+.container-kanban {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Grille pour le tableau Kanban */
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+/* Style de chaque colonne (À faire, En cours, Fini) */
+.column {
+  background-color: #f4f5f7;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* En-tête de chaque colonne */
+.column-header {
+  padding: 12px 15px;
+  font-weight: 600;
+  font-size: 1rem;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.todo-header { background-color: #4a90e2; }
+.progress-header { background-color: #f5a623; }
+.done-header { background-color: #7ed321; }
+
+.badge {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+}
+
+/* Contenu de la colonne où les cartes sont listées */
+.column-content {
+  padding: 10px;
+  flex-grow: 1;
+  min-height: 200px;
+  overflow-y: auto;
+}
+
+/* Style de chaque carte de tâche */
+.task-card {
+  background-color: #ffffff;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+  border-left: 5px solid transparent;
+}
+
+.task-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.task-title {
+  font-weight: 600;
+  color: #172b4d;
+  margin-bottom: 8px;
+}
+
+.task-note {
+  font-size: 0.9em;
+  color: #5e6c84;
+  margin-bottom: 10px;
+}
+
+.task-actions {
+  text-align: right;
+}
+
+.action-icon {
+  font-size: 1.2rem;
+  color: #6c757d;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.action-icon:hover {
+  color: #0d6efd;
+}
+
+/* Style pour les colonnes ou la page vide */
+.empty-state-column, .empty-state-global {
+  text-align: center;
+  padding: 20px;
+  color: #7a869a;
+  font-style: italic;
+}
+
+.empty-state-global {
+  margin-top: 30px;
+  font-size: 1.2rem;
+}

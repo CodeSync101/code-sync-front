@@ -52,7 +52,7 @@ export class MatieresComponentF implements OnInit {
   }
 
   getAllMatieresF() {
-    this.matiereService.getAllMatieres().subscribe((data: any[]) => {
+    this.matiereService.getAllMatieresF().subscribe((data: any[]) => {
       console.log(data);
       this.matieres = data;
       this.filteredMatieres = data;

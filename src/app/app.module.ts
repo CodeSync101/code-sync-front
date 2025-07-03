@@ -24,9 +24,7 @@ import { CommitsComponent } from './commits/commits.component';
   declarations: [
     AppComponent,
     SpinnerComponent,
-    TicketsComponent,
-    TachesComponent,
-    CommitsComponent,
+
   ],
   imports: [
     CommonModule,

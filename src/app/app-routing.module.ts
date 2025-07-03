@@ -37,6 +37,18 @@ export const Approutes: Routes = [
         path: 'matieres',
         loadChildren: () => import('./matieres/matieres.module').then(m => m.MatieresModule)
       },
+      {
+        path: 'taches',
+        loadChildren: () => import('./taches/taches.module').then(m => m.TachesModule)
+      },
+      {
+        path: 'tickets',
+        loadChildren: () => import('./tickets/tickets.module').then(m => m.TicketsModule)
+      },
+      {
+        path: 'commits',
+        loadChildren: () => import('./commits/commits.module').then(m => m.CommitsModule)
+      }
 
     ]
   },
