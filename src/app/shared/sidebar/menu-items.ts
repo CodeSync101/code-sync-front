@@ -1,83 +1,93 @@
 import { RouteInfo } from './sidebar.metadata';
 
 export const ROUTES: RouteInfo[] = [
- 
   {
     path: '/dashboard',
     title: 'Dashboard',
     icon: 'bi bi-speedometer2',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
+  },
+  {
+    path: '/component/users',
+    title: 'Users Management',
+    icon: 'bi bi-people',
+    class: '',
+    extralink: false,
+    submenu: [],
+    roles: ['ADMIN']
+  },
+  {
+    path: '/component/organizations',
+    title: 'Organizations',
+    icon: 'bi bi-building',
+    class: '',
+    extralink: false,
+    submenu: [],
+    roles: ['ADMIN', 'FIELD_MANAGER']
+  },
+  {
+    path: '/component/repositories',
+    title: 'Groups Management',
+    icon: 'bi bi-git',
+    class: '',
+    extralink: false,
+    submenu: [],
+    roles: ['ADMIN', 'FIELD_MANAGER', 'TEACHER']
   },
   {
     path: '/component/alert',
-    title: 'Alert',
+    title: 'Dridi',
     icon: 'bi bi-bell',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
   },
   {
     path: '/component/badges',
-    title: 'Badges',
+    title: 'Walid',
     icon: 'bi bi-patch-check',
     class: '',
     extralink: false,
-    submenu: []
-  },
-  {
-    path: '/component/buttons',
-    title: 'Button',
-    icon: 'bi bi-hdd-stack',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
-    path: '/component/card',
-    title: 'Card',
-    icon: 'bi bi-card-text',
-    class: '',
-    extralink: false,
-    submenu: []
+    submenu: [],
   },
   {
     path: '/component/dropdown',
-    title: 'Dropdown',
+    title: 'AbdRahim',
     icon: 'bi bi-menu-app',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
   },
   {
-    path: '/component/pagination',
-    title: 'Pagination',
-    icon: 'bi bi-dice-1',
+    path: '/matieres',
+    title: 'Projet',
+    icon: 'bi bi-card-text',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
   },
   {
-    path: '/component/nav',
-    title: 'Nav',
-    icon: 'bi bi-pause-btn',
+    path: '/notes',
+    title: 'Mes Notes',
+    icon: 'bi bi-mortarboard-fill',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
   },
   {
-    path: '/component/table',
-    title: 'Table',
-    icon: 'bi bi-layout-split',
+    path: '/reclamations',
+    title: 'Liste des réclamations',
+    icon: 'bi bi-list-ul',
     class: '',
     extralink: false,
-    submenu: []
+    submenu: [],
   },
   {
-    path: '/about',
-    title: 'About',
-    icon: 'bi bi-people',
+    path: '/reclamations/add',
+    title: 'Ajouter une réclamation',
+    icon: 'bi bi-plus-circle',
     class: '',
     extralink: false,
     submenu: []

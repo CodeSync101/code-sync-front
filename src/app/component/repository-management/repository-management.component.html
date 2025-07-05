@@ -1,0 +1,184 @@
+<div class="container-fluid">
+  <!-- Page Header -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h2 class="page-title mb-0">Repository Management</h2>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Repositories</li>
+            </ol>
+          </nav>
+        </div>
+        <button class="btn btn-primary rounded-pill shadow-sm" (click)="openModal(repoModal)">
+          <i class="bi bi-plus-circle-fill me-2"></i>Add New Group
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alert Messages -->
+  <div class="position-fixed top-0 end-0 p-3" style="z-index: 1050">
+    <div *ngIf="error" class="toast show bg-danger text-white" role="alert">
+      <div class="toast-header bg-danger text-white">
+        <i class="bi bi-exclamation-circle-fill me-2"></i>
+        <strong class="me-auto">Error</strong>
+        <button type="button" class="btn-close btn-close-white" (click)="error = ''"></button>
+      </div>
+      <div class="toast-body">{{ error }}</div>
+    </div>
+    <div *ngIf="success" class="toast show bg-success text-white" role="alert">
+      <div class="toast-header bg-success text-white">
+        <i class="bi bi-check-circle-fill me-2"></i>
+        <strong class="me-auto">Success</strong>
+        <button type="button" class="btn-close btn-close-white" (click)="success = ''"></button>
+      </div>
+      <div class="toast-body">{{ success }}</div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card shadow-sm border-0 rounded-3">
+        <div class="card-body p-0">
+          <!-- Loading State -->
+          <div *ngIf="isLoading" class="d-flex justify-content-center align-items-center py-5">
+            <div class="spinner-grow text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+
+          <!-- Groups Table -->
+          <div class="table-responsive" *ngIf="!isLoading">
+            <table class="table table-hover align-middle mb-0">
+              <thead class="bg-light">
+                <tr>
+                  <th class="border-0 rounded-start ps-4">Group</th>
+                  <th class="border-0">Sub-Class</th>
+                  <th class="border-0">Type</th>
+                  <th class="border-0">Description</th>
+                  <th class="border-0 rounded-end text-end pe-4">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let group of repositoryGroups">
+                  <td class="ps-4">
+                    <div class="d-flex align-items-center">
+                      <div class="avatar-circle bg-primary bg-opacity-10 text-primary me-3">
+                        {{ group.group_name[0] }}
+                      </div>
+                      <div>
+                        <h6 class="mb-0">{{ group.group_name }}</h6>
+                        <small class="text-muted">ID: {{ group.id }}</small>
+                      </div>
+                    </div>
+                  </td>
+                  <td>{{ getOrganizationName(group) }}</td>
+                  <td>
+                    <span class="badge rounded-pill" [class.bg-success]="group.group_type === 'public'" [class.bg-primary]="group.group_type === 'private'">
+                      <i class="bi" [class.bi-globe]="group.group_type === 'public'" [class.bi-lock-fill]="group.group_type === 'private'"></i>
+                      {{ group.group_type | titlecase }}
+                    </span>
+                  </td>
+                  <td>{{ group.group_description }}</td>
+                  <td class="text-end pe-4">
+                    <div class="d-flex justify-content-end gap-2">
+                      <button class="btn btn-light btn-sm rounded-pill" (click)="openModal(repoModal, group)">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button class="btn btn-danger btn-sm rounded-pill" (click)="deleteGroup(group)">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr *ngIf="repositoryGroups.length === 0">
+                  <td colspan="5" class="text-center py-5">
+                    <div class="text-muted">
+                      <i class="bi bi-folder-x fs-1 d-block mb-3"></i>
+                      No repository groups found
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Group Modal -->
+<ng-template #repoModal let-modal>
+  <div class="modal-header border-0 pb-0">
+    <div>
+      <h4 class="modal-title mb-1" id="modal-basic-title">
+        {{ editingGroup ? 'Edit Group' : 'Add New Group' }}
+      </h4>
+      <p class="text-muted mb-0 small">
+        {{ editingGroup ? 'Update group details' : 'Create a new repository group' }}
+      </p>
+    </div>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="repoForm" (ngSubmit)="onSubmit()">
+      <div class="row g-4">
+        <div class="col-12">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="groupName" formControlName="groupName" placeholder="Group Name">
+            <label for="groupName">Group Name</label>
+            <div class="text-danger small mt-1" *ngIf="repoForm.get('groupName')?.invalid && repoForm.get('groupName')?.touched">
+              Group name is required and must be at least 3 characters
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="form-floating">
+            <textarea class="form-control" id="groupDescription" formControlName="groupDescription" placeholder="Description" style="height: 100px"></textarea>
+            <label for="groupDescription">Description</label>
+            <div class="text-danger small mt-1" *ngIf="repoForm.get('groupDescription')?.invalid && repoForm.get('groupDescription')?.touched">
+              Description is required
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="form-floating">
+            <select class="form-select" id="groupType" formControlName="groupType">
+              <option value="private">Private</option>
+              <option value="public">Public</option>
+            </select>
+            <label for="groupType">Group Type</label>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="form-floating">
+            <select class="form-select" id="organizationId" formControlName="organizationId">
+              <option value="">Select an organization</option>
+              <option *ngFor="let org of organizations" [value]="org.id">{{ org.org_name }}</option>
+            </select>
+            <label for="organizationId">Organization</label>
+            <div class="text-danger small mt-1" *ngIf="repoForm.get('organizationId')?.invalid && repoForm.get('organizationId')?.touched">
+              Organization is required
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer border-0 pt-4">
+        <button type="button" class="btn btn-light btn-lg rounded-pill px-4" (click)="modal.dismiss()">Cancel</button>
+        <button type="submit" class="btn btn-primary btn-lg rounded-pill px-4" [disabled]="repoForm.invalid || isLoading">
+          <i class="bi" [class.bi-arrow-repeat]="isLoading" [class.bi-check-circle-fill]="!isLoading"></i>
+          {{ isLoading ? 'Saving...' : (editingGroup ? 'Update' : 'Create') }}
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>

@@ -3,12 +3,15 @@
 *******************/
 
 .topbar {
-  position: relative;
+  position: fixed;
   z-index: 100;
   transition: $transitions;
   box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.05);
   background: $topbar;
   height: $topbar-height;
+  width: 100%;
+  top: 0;
+  left: 0;
   .navbar-collapse {
     padding: 0px 10px 0 0;
   }

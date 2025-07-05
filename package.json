@@ -1,6 +1,7 @@
 {
   "name": "nice-angular-lite",
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -10,12 +11,14 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^16.0.0",
+    "@angular/animations": "^16.2.12",
+    "@angular/cdk": "^16.2.14",
     "@angular/common": "^16.0.0",
     "@angular/compiler": "^16.0.0",
     "@angular/core": "^16.0.0",
     "@angular/forms": "^16.0.0",
     "@angular/localize": "^16.0.3",
+    "@angular/material": "^16.2.14",
     "@angular/platform-browser": "^16.0.0",
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/platform-server": "^16.0.1",
@@ -25,8 +28,11 @@
     "apexcharts": "^3.40.0",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.5",
+    "keycloak-js": "^26.2.0",
     "ng-apexcharts": "^1.7.6",
+    "ngx-toastr": "^19.0.0",
     "rxjs": "~7.8.0",
+    "sweetalert2": "^11.22.2",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
   },
@@ -34,6 +40,7 @@
     "@angular-devkit/build-angular": "^16.0.1",
     "@angular/cli": "~16.0.1",
     "@angular/compiler-cli": "^16.0.0",
+    "@types/bootstrap": "^5.2.10",
     "@types/jasmine": "~4.3.0",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",

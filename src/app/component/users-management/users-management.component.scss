@@ -1,0 +1,246 @@
+// Modern management container
+.management-container {
+  background: #f6fafe;
+  min-height: 100vh;
+  padding: 32px 24px;
+  font-family: 'Rubik', sans-serif;
+}
+
+.card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(44, 62, 80, 0.08);
+  transition: box-shadow 0.2s, transform 0.2s;
+  &:hover {
+    box-shadow: 0 8px 32px rgba(44, 62, 80, 0.12);
+    transform: translateY(-2px) scale(1.01);
+  }
+}
+
+.page-title {
+  color: #232946;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.01em;
+}
+
+.table {
+  border-radius: 12px;
+  overflow: hidden;
+  th {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #232946;
+    background: #eebbc3;
+    letter-spacing: 0.5px;
+    padding: 1rem;
+    border: none;
+  }
+  td {
+    font-size: 1rem;
+    vertical-align: middle;
+    padding: 1rem;
+    border: none;
+    background: #fff;
+  }
+  tbody tr {
+    transition: background-color 0.2s;
+    &:hover {
+      background-color: #f3f6fd;
+    }
+  }
+}
+
+.btn {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+  &.btn-primary {
+    background: #232946;
+    color: #fff;
+    border: none;
+    &:hover {
+      background: #b8c1ec;
+      color: #232946;
+      box-shadow: 0 2px 8px rgba(44, 62, 80, 0.10);
+      transform: translateY(-1px);
+    }
+  }
+}
+
+// Breadcrumb
+.breadcrumb {
+  margin-bottom: 0;
+  
+  .breadcrumb-item {
+    font-size: 0.875rem;
+    
+    a {
+      color: #6c757d;
+      text-decoration: none;
+      transition: color 0.2s ease;
+      
+      &:hover {
+        color: #0d6efd;
+      }
+    }
+  }
+}
+
+// Avatar Circle
+.avatar-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: transform 0.2s ease;
+  
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+// Badges
+.badge {
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  padding: 0.5em 0.75em;
+  transition: all 0.2s ease;
+  
+  i {
+    font-size: 0.75rem;
+    margin-right: 0.25rem;
+  }
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+// Form Controls
+.form-floating {
+  > .form-control {
+    height: calc(3.5rem + 2px);
+    line-height: 1.25;
+    border-radius: 0.5rem;
+    border: 1px solid #dee2e6;
+    transition: all 0.2s ease;
+    
+    &:focus {
+      border-color: #86b7fe;
+      box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1);
+    }
+  }
+  
+  > label {
+    padding: 1rem 0.75rem;
+    color: #6c757d;
+  }
+}
+
+.form-check-input {
+  width: 2.5em;
+  height: 1.25em;
+  margin-top: 0.25em;
+  vertical-align: top;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  appearance: none;
+  color-adjust: exact;
+  transition: background-position 0.15s ease-in-out;
+  
+  &:checked {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+  }
+  
+  &:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1);
+  }
+}
+
+// Toast Notifications
+.toast {
+  border: none;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  border-radius: 0.5rem;
+  
+  .toast-header {
+    border-bottom: none;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    
+    strong {
+      font-weight: 600;
+    }
+  }
+  
+  .toast-body {
+    padding: 1rem;
+  }
+}
+
+// Modal
+.modal-content {
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+  padding: 1.5rem 1.5rem 0.75rem;
+  
+  .modal-title {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 1.25rem;
+  }
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.modal-footer {
+  padding: 0.75rem 1.5rem 1.5rem;
+}
+
+// Loading Spinner
+.spinner-grow {
+  color: #0d6efd;
+  width: 3rem;
+  height: 3rem;
+}
+
+// Form Validation Messages
+.text-danger {
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+// Responsive Adjustments
+@media (max-width: 768px) {
+  .table {
+    th, td {
+      padding: 0.75rem;
+    }
+  }
+  
+  .modal-body {
+    padding: 1rem;
+  }
+  
+  .form-floating > .form-control {
+    height: calc(3rem + 2px);
+  }
+}

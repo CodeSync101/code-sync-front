@@ -10,12 +10,12 @@ Main sidebar
 ******************/
 
 .left-sidebar {
-  position: absolute;
+  position: fixed;
   width: $sidebar-width-full;
-  height: 100%;
-  top: 0px;
+  height: calc(100% - #{$topbar-height});
+  top: $topbar-height;
   z-index: 99;
-  padding-top: 64px;
+  padding-top: 0;
   background: $sidebar;
   box-shadow: $shadow;
   transition: 0.2s ease-in;
