@@ -1,0 +1,44 @@
+<!-- ============================================================== -->
+<!-- Chat Interface -->
+<!-- ============================================================== -->
+<div class="row">
+  <div class="col-12">
+    <div class="chat-container">
+      <div class="chat-header">
+        <div class="bot-avatar">
+          <img src="assets/images/bot.gif" alt="Bot Avatar">
+        </div>
+        <h2>Chat with Esprit</h2>
+        <p>Your friendly AI assistant</p>
+      </div>
+      <div class="chat-body" id="chatBody">
+        <div *ngFor="let message of messages; let i = index" class="message-wrapper" [@fadeIn]>
+          <div class="message" [ngClass]="{'user-message': message.isUser, 'bot-message': !message.isUser}">
+            <div class="avatar">
+              <img [src]="message.isUser ? 'assets/images/user.gif' : 'assets/images/bot1.gif'" [alt]="message.isUser ? 'User Avatar' : 'Bot Avatar'">
+            </div>
+            <div class="message-content">
+              <p>{{ message.text }}</p>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="isBotTyping" class="message-wrapper bot-message">
+          <div class="avatar">
+            <img src="assets/images/bot.gif" alt="Bot Avatar">
+          </div>
+          <div class="message-content typing-indicator">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+      <div class="chat-footer">
+        <input type="text" [(ngModel)]="userMessage" (keyup.enter)="sendMessage()" placeholder="Type your message..." class="chat-input">
+        <button (click)="sendMessage()" class="send-button" [disabled]="!userMessage.trim()">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M5 12l6-6M5 12l6 6"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

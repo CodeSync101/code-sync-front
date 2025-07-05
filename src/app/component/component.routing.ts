@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { NgbdpaginationBasicComponent } from './pagination/pagination.component';
-import { NgbdAlertBasicComponent } from './alert/alert.component';
+
 
 import { NgbdDropdownBasicComponent } from './dropdown-collapse/dropdown-collapse.component';
 import { NgbdnavBasicComponent } from './nav/nav.component';
@@ -13,6 +13,7 @@ import { RepositoryManagementComponent } from './repository-management/repositor
 import { OrganizationManagementComponent } from './organization-management/organization-management.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
+import { ChatotComponent } from './chatot/chatot.component';
 import { AuthGuard } from '../guards/auth.guard';
 
 
@@ -58,10 +59,7 @@ export const ComponentsRoutes: Routes = [
 				path: 'badges',
 				component: BadgeComponent
 			},
-			{
-				path: 'alert',
-				component: NgbdAlertBasicComponent
-			},
+		
 			{
 				path: 'dropdown',
 				component: NgbdDropdownBasicComponent
@@ -73,6 +71,11 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'buttons',
 				component: NgbdButtonsComponent
+			},
+			{
+				path: 'chatbot',
+				component: ChatotComponent,
+				canActivate: [AuthGuard]
 			}
 		]
 	}

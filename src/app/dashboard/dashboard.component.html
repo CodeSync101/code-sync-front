@@ -1,27 +1,99 @@
-
-
-<app-organization-header></app-organization-header>
-<app-top-cards></app-top-cards>
-<!-- ============================================================== -->
-<!-- Sales chart -->
-<!-- ============================================================== -->
-<div class="row">
-  <div class="col-lg-7">
-    <app-sales-ratio></app-sales-ratio>
+<!-- Dashboard Container -->
+<div class="dashboard-container">
+  <!-- Header Section -->
+  <div class="dashboard-header">
+    <app-organization-header></app-organization-header>
   </div>
-  <div class="col-lg-5"> <!--  Top Contributor -->
-    <app-feeds></app-feeds>
+
+  <!-- Welcome Section -->
+  <div class="welcome-section">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="welcome-card">
+            <div class="welcome-content">
+              <h1 class="welcome-title">Welcome to CodeSync</h1>
+              <p class="welcome-subtitle">Your collaborative development platform</p>
+            </div>
+            <div class="welcome-decoration">
+              <div class="decoration-circle"></div>
+              <div class="decoration-circle"></div>
+              <div class="decoration-circle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Cards Section -->
+  <div class="stats-section">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <app-top-cards></app-top-cards>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="charts-section">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3 class="chart-title">
+                <i class="bi bi-graph-up"></i>
+                Contribution Analytics
+              </h3>
+              <p class="chart-subtitle">Track your team's development activity</p>
+            </div>
+            <div class="chart-content">
+              <app-sales-ratio></app-sales-ratio>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3 class="chart-title">
+                <i class="bi bi-activity"></i>
+                Recent Activity
+              </h3>
+              <p class="chart-subtitle">Latest updates and notifications</p>
+            </div>
+            <div class="chart-content">
+              <app-feeds></app-feeds>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contributors Section -->
+  <div class="contributors-section">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="contributors-card">
+            <div class="contributors-header">
+              <h3 class="contributors-title">
+                <i class="bi bi-trophy"></i>
+                Top Contributors
+              </h3>
+              <p class="contributors-subtitle">Recognizing outstanding team members</p>
+            </div>
+            <div class="contributors-content">
+              <top-contribution></top-contribution>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<!-- ============================================================== -->
-<!-- Sales chart -->
-<!-- ============================================================== -->
-<!-- ============================================================== -->
-<!-- Table -->
-<!-- ============================================================== -->
-<div class="row">
-  <!-- column -->
-  <div class="col-12">
-    <top-contribution></top-contribution>
-  </div>
-</div>
+
+

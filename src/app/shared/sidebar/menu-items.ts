@@ -10,6 +10,14 @@ export const ROUTES: RouteInfo[] = [
     submenu: [],
   },
   {
+    path: '/component/chatbot',
+    title: 'Chat with Esprit',
+    icon: 'bi bi-chat-dots',
+    class: '',
+    extralink: false,
+    submenu: [],
+  },
+  {
     path: '/component/users',
     title: 'Users Management',
     icon: 'bi bi-people',
@@ -37,20 +45,13 @@ export const ROUTES: RouteInfo[] = [
     roles: ['ADMIN', 'FIELD_MANAGER', 'TEACHER']
   },
   {
-    path: '/component/alert',
-    title: 'Dridi',
-    icon: 'bi bi-bell',
-    class: '',
-    extralink: false,
-    submenu: [],
-  },
-  {
     path: '/component/badges',
-    title: 'Walid',
+    title: 'Rapport',
     icon: 'bi bi-patch-check',
     class: '',
     extralink: false,
     submenu: [],
+    roles: ['ADMIN', 'FIELD_MANAGER', 'TEACHER']
   },
   {
     path: '/component/dropdown',

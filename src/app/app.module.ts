@@ -7,12 +7,12 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
-
+import { FullComponent } from './layouts/full/full.component';
+import { NgbdpaginationBasicComponent } from './component/pagination/pagination.component' 
+import { NavigationComponent } from './shared/header/navigation.component';
 import { AppComponent } from './app.component';
 import { SpinnerComponent } from './shared/spinner.component';
-import { NavigationComponent } from './shared/header/navigation.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
-import { FullComponent } from './layouts/full/full.component';
 import { DashboardComponent } from './features/admin/dashboard/dashboard.component';
 
 import { Approutes } from './app-routing.module';
