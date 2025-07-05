@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { StatsService } from 'src/app/services/stats.service';
-import { OrganizationService } from 'src/app/services/organization.service';
+import { StatsService } from '../../../services/stats.service';
+import { OrganizationService } from '../../../services/organization.service';
 import { Feed } from './feeds-data';
 import { Subscription } from 'rxjs';
 

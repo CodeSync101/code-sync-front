@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { topcard } from './top-cards-data'; // Ensure this is in your data file
-import { StatsService } from 'src/app/services/stats.service';
+import { StatsService } from '../../../services/stats.service';
 
 @Component({
   selector: 'app-top-cards',
-  templateUrl: '/top-cards.component.html',
+  templateUrl: './top-cards.component.html',
 })
 export class TopCardsComponent implements OnInit {
   topcards: topcard[] = [

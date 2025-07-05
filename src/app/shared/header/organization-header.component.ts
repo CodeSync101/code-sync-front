@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OrganizationService } from 'src/app/services/organization.service';
+import { OrganizationService } from '../../services/organization.service';
 
 @Component({
   selector: 'app-organization-header',

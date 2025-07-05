@@ -1,6 +1,6 @@
 // navigation.component.ts
 import { Component, OnInit, EventEmitter, Output, AfterViewInit } from '@angular/core';
-import { OrganizationService } from 'src/app/services/organization.service';
+import { OrganizationService } from '../../services/organization.service';
 import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { JwtService } from '../../services/jwt.service';
 import { RouterModule, Router } from '@angular/router';

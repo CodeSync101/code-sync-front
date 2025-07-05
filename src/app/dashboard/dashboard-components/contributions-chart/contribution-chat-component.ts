@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { CommitService } from 'src/app/services/commit.service';
-import { OrganizationService } from 'src/app/services/organization.service';
+import { CommitService } from '../../../services/commit.service';
+import { OrganizationService } from '../../../services/organization.service';
 import { Subscription, forkJoin } from 'rxjs';
 import {
   ApexAxisChartSeries,

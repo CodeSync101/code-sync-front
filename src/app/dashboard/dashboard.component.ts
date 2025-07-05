@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, OnDestroy } from '@angular/core';
 //declare var require: any;
-import { OrganizationService } from 'src/app/services/organization.service';
+import { OrganizationService } from '../services/organization.service';
 import { Subscription } from 'rxjs';
 
 @Component({
