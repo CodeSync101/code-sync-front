@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
   title = 'app';
   authenticated = false;
 
+  //just a comment to force push
   ngOnInit(): void {
     keycloak.init({ onLoad: 'login-required', pkceMethod: 'S256' })
       .then((authenticated: boolean) => {
