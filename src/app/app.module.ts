@@ -6,11 +6,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrModule } from 'ngx-toastr';
+
 import { AppComponent } from './app.component';
 import { SpinnerComponent } from './shared/spinner.component';
+import { NavigationComponent } from './shared/header/navigation.component';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { FullComponent } from './layouts/full/full.component';
+import { DashboardComponent } from './features/admin/dashboard/dashboard.component';
+
 import { Approutes } from './app-routing.module';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { DashboardComponent } from './features/admin/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +32,11 @@ import { DashboardComponent } from './features/admin/dashboard/dashboard.compone
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
-    RouterModule.forRoot(Approutes)
+    RouterModule.forRoot(Approutes, { useHash: false }),
+    ToastrModule.forRoot(),
+    NavigationComponent,
+    SidebarComponent,
+    FullComponent
   ],
   providers: [
     {

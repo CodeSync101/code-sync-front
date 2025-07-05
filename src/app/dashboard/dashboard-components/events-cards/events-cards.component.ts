@@ -3,9 +3,9 @@ import {blogcard,blogcards} from './blog-cards-data';
 
 @Component({
   selector: 'app-blog-cards',
-  templateUrl: './blog-cards.component.html'
+  templateUrl: './events-cards.component.html',
 })
-export class BlogCardsComponent implements OnInit {
+export class EventsCardsComponent implements OnInit {
 
   blogcards:blogcard[];
 

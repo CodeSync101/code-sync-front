@@ -12,23 +12,56 @@
 <!-- Right side toggle and nav items -->
 <!-- ============================================================== -->
 <ul class="navbar-nav float-end">
-  <!-- ============================================================== -->
-  <!-- User profile and search -->
-  <!-- ============================================================== -->
-  <li class="nav-item" ngbDropdown placement="bottom-end">
+  <!-- Organization Selector -->
+  <li class="nav-item me-3" ngbDropdown placement="bottom-end">
     <a
       ngbDropdownToggle
-      class="nav-link waves-effect waves-dark pro-pic"
+      class="nav-link waves-effect waves-dark d-flex align-items-center"
       href="javascript:void(0)"
       data-toggle="dropdown"
       aria-haspopup="true"
       aria-expanded="false"
+      style="gap: 10px;"
+    >
+      <span class="ms-2 fw-semibold text-primary">
+        {{ selectedOrganization || 'Select Organization' }}
+      </span>
+      <i class="fas fa-chevron-down ms-1 text-secondary"></i>
+    </a>
+    <div class="dropdown-menu dropdown-menu-end shadow-sm p-2" ngbDropdownMenu>
+      <a 
+        class="dropdown-item d-flex justify-content-between align-items-center rounded mb-1"
+        *ngFor="let org of organizations" 
+        href="javascript:void(0)"
+        (click)="selectOrganization(org)"
+        [class.active]="selectedOrganization === org"
+        [ngClass]="{'bg-primary text-white': selectedOrganization === org}"
+        style="transition: background 0.2s;"
+      >
+        <span>{{ org }}</span>
+        <i *ngIf="selectedOrganization === org" class="fas fa-check"></i>
+      </a>
+    </div>
+  </li>
+
+  <!-- Profile Dropdown -->
+  <li class="nav-item" ngbDropdown placement="bottom-end">
+    <a
+      ngbDropdownToggle
+      class="nav-link waves-effect waves-dark pro-pic d-flex align-items-center"
+      href="javascript:void(0)"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+      style="gap: 10px;"
     >
       <img
         src="assets/images/users/user1.jpg"
         alt="user"
-        class="rounded-circle"
+        class="rounded-circle border border-2 border-primary"
         width="31"
+        height="31"
+        style="object-fit: cover;"
       />
       <div class="ms-2 d-inline-block">
         <span class="ms-2">{{ userName }}</span>
@@ -49,7 +82,4 @@
       </a>
     </div>
   </li>
-  <!-- ============================================================== -->
-  <!-- User profile and search -->
-  <!-- ============================================================== -->
 </ul>

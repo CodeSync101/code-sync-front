@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Organization, OrganizationRequest } from '../models/organization';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -75,5 +76,28 @@ export class OrganizationService {
       }
     }
     return throwError(() => new Error(errorMessage));
+  }
+
+  private baseUrl = environment.apiUrl;
+
+  private reportingApiUrl = `${this.baseUrl}/reporting/api/organization/all`;
+  private currentOrganization = new BehaviorSubject<string>('');
+
+  getOrganizations(): Observable<string[]> {
+    return this.http.get<string[]>(this.reportingApiUrl).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  setCurrentOrganization(org: string): void {
+    this.currentOrganization.next(org);
+  }
+
+  getCurrentOrganization(): Observable<string> {
+    return this.currentOrganization.asObservable();
+  }
+
+  getCurrentOrganizationValue(): string {
+    return this.currentOrganization.value;
   }
 }
