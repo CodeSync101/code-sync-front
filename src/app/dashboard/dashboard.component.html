@@ -1,27 +1,108 @@
-
-
-<app-organization-header></app-organization-header>
-<app-top-cards></app-top-cards>
-<!-- ============================================================== -->
-<!-- Sales chart -->
-<!-- ============================================================== -->
-<div class="row">
-  <div class="col-lg-7">
-    <app-sales-ratio></app-sales-ratio>
+<!-- Modern Professional Dashboard Layout -->
+<div class="dashboard-container">
+  <!-- Header Section -->
+  <div class="dashboard-header">
+    <app-organization-header></app-organization-header>
   </div>
-  <div class="col-lg-5"> <!--  Top Contributor -->
-    <app-feeds></app-feeds>
+
+  <!-- Key Metrics Section -->
+  <div class="metrics-section">
+    <div class="section-header">
+      <h2 class="section-title">
+        <i class="fas fa-chart-pie"></i>
+        Key Performance Metrics
+      </h2>
+      <p class="section-subtitle">Real-time insights into your development activity</p>
+    </div>
+    <app-top-cards></app-top-cards>
   </div>
-</div>
-<!-- ============================================================== -->
-<!-- Sales chart -->
-<!-- ============================================================== -->
-<!-- ============================================================== -->
-<!-- Table -->
-<!-- ============================================================== -->
-<div class="row">
-  <!-- column -->
-  <div class="col-12">
-    <top-contribution></top-contribution>
+
+  <!-- Main Analytics Section -->
+  <div class="analytics-section">
+    <div class="row">
+      <!-- Primary Chart -->
+      <div class="col-lg-8">
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3 class="chart-title">
+              <i class="fas fa-chart-line"></i>
+              Development Activity Overview
+            </h3>
+            <p class="chart-subtitle">Sales ratio and contribution patterns</p>
+          </div>
+          <app-sales-ratio></app-sales-ratio>
+        </div>
+      </div>
+      
+      <!-- Activity Feed -->
+      <div class="col-lg-4">
+        <div class="feed-container">
+          <div class="feed-header">
+            <h3 class="feed-title">
+              <i class="fas fa-rss"></i>
+              Recent Activity
+            </h3>
+            <p class="feed-subtitle">Latest team interactions and events</p>
+          </div>
+          <app-feeds></app-feeds>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team Performance Section -->
+  <div class="performance-section">
+    <div class="section-header">
+      <h2 class="section-title">
+        <i class="fas fa-users"></i>
+        Team Performance
+      </h2>
+      <p class="section-subtitle">Individual contributions and team dynamics</p>
+    </div>
+    
+    <div class="row">
+      <!-- Top Contributors -->
+      <div class="col-12">
+        <div class="contributors-container">
+          <div class="contributors-header">
+            <h3 class="contributors-title">
+              <i class="fas fa-trophy"></i>
+              Top Contributors
+            </h3>
+            <p class="contributors-subtitle">Most active team members this period</p>
+          </div>
+          <top-contribution></top-contribution>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Development Insights Section -->
+  <div class="insights-section">
+    <div class="section-header">
+      <h2 class="section-title">
+        <i class="fas fa-lightbulb"></i>
+        Development Insights
+      </h2>
+      <p class="section-subtitle">Detailed analysis of coding patterns and repository activity</p>
+    </div>
+    
+    <div class="row">
+      <!-- Commit Frequency -->
+      <div class="col-12">
+        <div class="insight-container">
+          <app-commit-frequency></app-commit-frequency>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <!-- Top Repositories -->
+      <div class="col-12">
+        <div class="insight-container">
+          <app-top-repositories></app-top-repositories>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

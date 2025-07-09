@@ -26,7 +26,8 @@ import { TableComponent } from "./table/table.component";
     NgbdnavBasicComponent,
     NgbdButtonsComponent,
     CardsComponent,
-    TableComponent
+    TableComponent,
+
   ],
 })
 export class ComponentsModule { }

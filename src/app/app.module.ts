@@ -25,6 +25,7 @@ import { CommitsComponent } from './commits/commits.component';
     AppComponent,
     SpinnerComponent,
 
+
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,29 @@
+<div class="repo-dashboard">
+  <div class="loading-container" *ngIf="loading">
+    <div class="loading-spinner"></div>
+    <span class="loading-text">Discovering top repositories...</span>
+  </div>
+
+  <div class="repository-table-container" *ngIf="!loading">
+    <h2 class="dashboard-title">Repository Analytics</h2>
+    <table class="repository-table">
+      <thead>
+        <tr>
+          <th class="repo-header">Repository Name</th>
+          <th class="commit-header">Total Commits</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="repo-row" *ngFor="let repo of objectKeys(repositories)">
+          <td class="repo-name">
+            <span class="repo-icon">📁</span>
+            {{ repo }}
+          </td>
+          <td class="commit-count">
+            <span class="commit-badge">{{ repositories[repo] }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

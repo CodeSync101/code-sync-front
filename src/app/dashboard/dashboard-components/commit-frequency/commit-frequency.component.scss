@@ -1,0 +1,329 @@
+// Modern Professional Commit Frequency Component Styles
+
+.commit-frequency-container {
+  display: block;
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 20px;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.08),
+    0 8px 16px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+// Header Section
+.header-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem 2.5rem;
+  color: white;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.3;
+  }
+
+  .header-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .title-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+
+    .title-icon {
+      font-size: 1.5rem;
+      opacity: 0.9;
+    }
+
+    .component-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin: 0;
+    font-weight: 400;
+  }
+}
+
+// Loading State
+.loading-container {
+  padding: 4rem 2rem;
+  text-align: center;
+  background: white;
+
+  .loading-spinner {
+    margin-bottom: 1.5rem;
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #e2e8f0;
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+  }
+
+  .loading-text {
+    font-size: 1.1rem;
+    color: #64748b;
+    font-weight: 500;
+    margin: 0;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Data Section
+.data-section {
+  padding: 2rem 2.5rem;
+  background: white;
+
+  .table-container {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  }
+}
+
+// Table Styles
+.commit-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+
+  thead {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-bottom: 2px solid #e2e8f0;
+
+    tr th {
+      padding: 1.25rem 1.5rem;
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      i {
+        font-size: 0.875rem;
+        opacity: 0.7;
+      }
+    }
+  }
+
+  tbody {
+    .table-row {
+      border-bottom: 1px solid #f1f5f9;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      td {
+        padding: 1.25rem 1.5rem;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+
+// Cell Specific Styles
+.day-cell {
+  .day-name {
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 1rem;
+  }
+}
+
+.commits-cell {
+  .commits-badge {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    min-width: 80px;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+
+    .commits-count {
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .commits-label {
+      font-size: 0.75rem;
+      opacity: 0.9;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+  }
+}
+
+.activity-cell {
+  .activity-indicator {
+    .progress-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+
+      .progress-bar {
+        flex: 1;
+        height: 12px;
+        background: #e2e8f0;
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+
+        .progress-fill {
+          height: 100%;
+          background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+          border-radius: 8px;
+          transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+          position: relative;
+
+          &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
+            animation: shimmer 2s infinite;
+          }
+        }
+      }
+
+      .percentage {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #64748b;
+        min-width: 40px;
+        text-align: right;
+      }
+    }
+  }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .commit-frequency-container {
+    margin: 1rem;
+    border-radius: 16px;
+  }
+
+  .header-section {
+    padding: 1.5rem 1.5rem;
+
+    .title-section {
+      .component-title {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  .data-section {
+    padding: 1.5rem 1.5rem;
+  }
+
+  .commit-table {
+    thead tr th {
+      padding: 1rem 1rem;
+      font-size: 0.8rem;
+    }
+
+    tbody .table-row td {
+      padding: 1rem 1rem;
+    }
+  }
+
+  .commits-cell .commits-badge {
+    min-width: 60px;
+    padding: 0.4rem 0.8rem;
+
+    .commits-count {
+      font-size: 1.1rem;
+    }
+  }
+
+  .activity-cell .activity-indicator .progress-container {
+    gap: 0.75rem;
+
+    .percentage {
+      font-size: 0.8rem;
+      min-width: 35px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .header-section {
+    padding: 1.25rem 1.25rem;
+
+    .title-section {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+
+      .component-title {
+        font-size: 1.25rem;
+      }
+    }
+  }
+
+  .commit-table {
+    thead tr th {
+      padding: 0.75rem 0.75rem;
+      font-size: 0.75rem;
+    }
+
+    tbody .table-row td {
+      padding: 0.75rem 0.75rem;
+    }
+  }
+}

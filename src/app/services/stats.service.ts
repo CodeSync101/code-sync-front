@@ -94,6 +94,35 @@ getTopContributors(): Observable<{totalContributions: number, topContributors: C
   );
 }
 
+// src/app/services/stats.service.ts
+
+getCommitFrequencyByWeekday(organization?: string): Observable<Record<string, number>> {
+  if (organization) {
+    return this.http.get<Record<string, number>>(
+      `${this.baseUrl}/reporting/api/reporting/day-of-week`, { params: { organization } });
+  } else {
+    return this.organizationService.getCurrentOrganization().pipe(
+      switchMap(org => this.http.get<Record<string, number>>(
+        `${this.baseUrl}/reporting/api/reporting/day-of-week`, { params: { organization: org } })
+      )
+    );
+  }
+}
+
+getTopRepositoriesByCommitCount(organization?: string, limit = 5): Observable<Record<string, number>> {
+  if (organization) {
+    return this.http.get<Record<string, number>>(
+      `${this.baseUrl}/reporting/api/reporting/top-repositories`, { params: { organization, limit: limit.toString() } });
+  } else {
+    return this.organizationService.getCurrentOrganization().pipe(
+      switchMap(org => this.http.get<Record<string, number>>(
+        `${this.baseUrl}/reporting/api/reporting/top-repositories`, { params: { organization: org, limit: limit.toString() } })
+      )
+    );
+  }
+}
+
+
 
 
 }

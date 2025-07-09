@@ -4,7 +4,8 @@ import { OrganizationService } from 'src/app/services/organization.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  templateUrl: './dashboard.component.html'
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements AfterViewInit, OnDestroy {
   subtitle: string;

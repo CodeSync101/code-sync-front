@@ -10,7 +10,8 @@ import { TopContributionComponent } from "./dashboard-components/top-contributio
 import { TopCardsComponent } from "./dashboard-components/top-cards/top-cards.component";
 import { EventsCardsComponent } from "./dashboard-components/events-cards/events-cards.component";
 import { OrganizationHeaderComponent } from "../shared/header/organization-header.component";
-
+import { CommitFrequencyComponent } from "./dashboard-components/commit-frequency/commit-frequency.component";
+import { TopRepositoriesComponent } from "./dashboard-components/top-repositories/top-repositories.component";
 
 const routes: Routes = [
   {
@@ -38,7 +39,9 @@ const routes: Routes = [
     TopContributionComponent,
     TopCardsComponent,
     EventsCardsComponent,
-    OrganizationHeaderComponent
+    OrganizationHeaderComponent,
+    CommitFrequencyComponent,
+    TopRepositoriesComponent
   ],
 })
 export class DashboardModule {}
