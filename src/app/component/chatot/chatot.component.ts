@@ -43,7 +43,7 @@ export class ChatotComponent implements AfterViewInit, OnDestroy {
       this.isBotTyping = true;
       this.scrollToBottom();
       
-      this.http.post('http://localhost:8083/api/chatbot/prompt', messageToSend, {
+      this.http.post('http://localhost:8082/reporting/api/api/chatbot/prompt', messageToSend, {
         headers: { 'Content-Type': 'application/json' },
         responseType: 'text'  // <-- important pour recevoir du texte brut
       }).subscribe({
