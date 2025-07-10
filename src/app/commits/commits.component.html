@@ -1,18 +1,38 @@
 <div class="card">
   <div class="card-body">
-    <h4 class="card-title">Latest Events</h4>
-    <h6 class="card-subtitle text-muted">Users Interactions</h6>
-    <div class="feed-widget mt-4">
+    <h4 class="card-title">Latest Commits</h4>
+    <h6 class="card-subtitle text-muted">Recent commits from the organization</h6>
+
+
+    <div *ngIf="loading" class="text-center mt-4">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p>Loading commits...</p>
+    </div>
+
+    <div *ngIf="!loading && commits.length > 0" class="commit-list mt-4">
       <ul>
-        <li class="feed-item d-flex align-items-center mb-3" *ngFor="let feed of feeds">
-          <div class="feed-icon round round-sm text-white d-flex align-items-center justify-content-center rounded-circle {{feed.class}}">
-            <i class="{{feed.icon}}"></i>
+        <li *ngFor="let commit of commits" class="commit-item">
+          <div class="commit-icon">
+            <i class="bi bi-git"></i>
           </div>
-          <h5 class="mb-0 fw-normal ms-3" [innerHTML]="feed.task"></h5>
-          <span class="text-muted ms-auto fs-2">{{feed.time}}</span>
+          <div class="commit-details">
+            <p class="commit-message">{{ commit.message }}</p>
+            <small class="commit-info">
+              by <strong>{{ commit.author }}</strong> on {{ commit.date | date:'medium' }}
+              <a [href]="commit.htmlUrl" target="_blank" rel="noopener noreferrer" title="View on GitHub">
+                <i class="bi bi-box-arrow-up-right"></i>
+              </a>
+            </small>
+          </div>
         </li>
       </ul>
-
     </div>
+
+    <div *ngIf="!loading && commits.length === 0" class="text-center mt-4">
+      <p>No recent commits found.</p>
+    </div>
+
   </div>
 </div>
