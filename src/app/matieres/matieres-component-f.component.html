@@ -1,4 +1,3 @@
-<!-- Table des matières -->
 <div class="page-header pt-3 mb-0">
   <div class="row align-items-center">
     <div class="col">
@@ -14,33 +13,38 @@
 
 <div class="card mt-3">
   <div class="card-body table-responsive">
-    <table class="table table-bordered">
+
+    <div *ngIf="isLoading" class="text-center my-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
+    <table *ngIf="!isLoading" class="table table-bordered">
       <thead>
       <tr>
         <th>Id</th>
-        <th>libelle </th>
+        <th>Libellé</th>
+        <th>Note Matière</th>
         <th>Description</th>
-        <th>Tâche</th>
+        <th>Tâches</th>
         <th>Actions</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let matiere of filteredMatieres">
         <td>{{ matiere.id }}</td>
-        <td>{{ matiere.libelle  }}</td>
-        <td>{{ matiere.noteMatiere }}</td>
+        <td>{{ matiere.libelle }}</td>
+        <td>{{ matiere.noteMatiere || 'Pas de note' }}</td>
         <td>{{ matiere.description }}</td>
         <td>
-
-          <div (click)="actionTache(matiere.id)">
+          <div (click)="actionTache(matiere.id)" class="text-center">
             <i class="bi bi-list-ol" style="font-size: 25px; cursor: pointer;"></i>
           </div>
         </td>
-
-
         <td>
           <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#matiere_modal" (click)="populateForm(matiere)">Modifier</button>
-          <button class="btn btn-sm btn-danger" (click)="deleteMatiere(matiere.id)">Supprimer</button>
+          <button class="btn btn-sm btn-danger ms-2" (click)="deleteMatiere(matiere.id)">Supprimer</button>
         </td>
       </tr>
       </tbody>
@@ -48,36 +52,40 @@
   </div>
 </div>
 
-<!-- Modal d'ajout / modification -->
+<!-- Le Modal, qui permet toujours de choisir un groupe -->
 <div class="modal fade" id="matiere_modal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <form [formGroup]="matiereForm" (ngSubmit)="handleMatiere()" class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">{{ formType }}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="form-group">
-          <label for="libelle">libelle  du projet</label>
+        <div class="form-group mb-3">
+          <label for="libelle" class="form-label">Libellé du projet</label>
           <input id="libelle" type="text" class="form-control" formControlName="libelle" />
         </div>
-        <div class="form-group">
-          <label for="noteMatiere">Note Matière</label>
-          <textarea id="noteMatiere" class="form-control" formControlName="noteMatiere"></textarea>
-          <div *ngIf="matiereForm.get('noteMatiere')?.touched && matiereForm.get('noteMatiere')?.invalid" class="text-danger mt-1">
-            <div *ngIf="matiereForm.get('noteMatiere')?.errors?.['min']">La note doit être ≥ 0.</div>
-            <div *ngIf="matiereForm.get('noteMatiere')?.errors?.['max']">La note doit être ≤ 20.</div>
-            <div *ngIf="matiereForm.get('noteMatiere')?.errors?.['notFloat']">La note doit être un nombre décimal valide.</div>
+        <div class="form-group mb-3">
+          <label for="group" class="form-label">Groupe</label>
+          <select id="group" class="form-select" formControlName="groupId">
+            <option [ngValue]="null" disabled>Sélectionnez un groupe</option>
+            <option *ngFor="let group of groups" [value]="group.id">{{ group.group_name }}</option>
+          </select>
+          <div *ngIf="matiereForm.get('groupId')?.touched && matiereForm.get('groupId')?.errors?.['required']" class="text-danger mt-1">
+            Le choix d'un groupe est obligatoire.
           </div>
-
         </div>
-
-        <div class="form-group">
-          <label for="description">Description</label>
+        <div class="form-group mb-3">
+          <label for="description" class="form-label">Description</label>
           <textarea id="description" class="form-control" formControlName="description"></textarea>
+        </div>
+        <div class="form-group mb-3">
+          <label for="noteMatiere" class="form-label">Note Matière</label>
+          <input id="noteMatiere" type="text" class="form-control" formControlName="noteMatiere" />
         </div>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
         <button type="submit" class="btn btn-primary" [disabled]="matiereForm.invalid">Sauvegarder</button>
       </div>
     </form>
