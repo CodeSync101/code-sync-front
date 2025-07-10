@@ -1,6 +1,6 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, switchMap, throwError } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Contributor } from '../dashboard/dashboard-components/top-contributions/Contributor';
 import { OrganizationService } from './organization.service';
@@ -94,33 +94,35 @@ getTopContributors(): Observable<{totalContributions: number, topContributors: C
   );
 }
 
+// src/app/services/stats.service.ts
 
-  private handleError(error: HttpErrorResponse): Observable<never> {
-    let errorMessage = 'An unexpected error occurred. Please try again later.';
-    if (error.error instanceof ErrorEvent) {
-      // Client-side/network error
-      errorMessage = 'A network error occurred. Please check your internet connection.';
-    } else {
-      // Server-side error
-      switch (error.status) {
-        case 0:
-          errorMessage = 'Cannot connect to the server. Please check your internet connection or try again later.';
-          break;
-        case 404:
-          errorMessage = 'The requested resource was not found.';
-          break;
-        case 401:
-        case 403:
-          errorMessage = 'You are not authorized to perform this action.';
-          break;
-        default:
-          if (error.status >= 500) {
-            errorMessage = 'A server error occurred. Please try again later.';
-          } else if (error.error && error.error.message) {
-            errorMessage = error.error.message;
-          }
-      }
-    }
-    return throwError(() => new Error(errorMessage));
+getCommitFrequencyByWeekday(organization?: string): Observable<Record<string, number>> {
+  if (organization) {
+    return this.http.get<Record<string, number>>(
+      `${this.baseUrl}/reporting/api/reporting/day-of-week`, { params: { organization } });
+  } else {
+    return this.organizationService.getCurrentOrganization().pipe(
+      switchMap(org => this.http.get<Record<string, number>>(
+        `${this.baseUrl}/reporting/api/reporting/day-of-week`, { params: { organization: org } })
+      )
+    );
   }
+}
+
+getTopRepositoriesByCommitCount(organization?: string, limit = 5): Observable<Record<string, number>> {
+  if (organization) {
+    return this.http.get<Record<string, number>>(
+      `${this.baseUrl}/reporting/api/reporting/top-repositories`, { params: { organization, limit: limit.toString() } });
+  } else {
+    return this.organizationService.getCurrentOrganization().pipe(
+      switchMap(org => this.http.get<Record<string, number>>(
+        `${this.baseUrl}/reporting/api/reporting/top-repositories`, { params: { organization: org, limit: limit.toString() } })
+      )
+    );
+  }
+}
+
+
+
+
 }

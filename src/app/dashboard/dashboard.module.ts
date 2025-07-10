@@ -10,14 +10,15 @@ import { TopContributionComponent } from "./dashboard-components/top-contributio
 import { TopCardsComponent } from "./dashboard-components/top-cards/top-cards.component";
 import { EventsCardsComponent } from "./dashboard-components/events-cards/events-cards.component";
 import { OrganizationHeaderComponent } from "../shared/header/organization-header.component";
-import { HttpClientModule } from '@angular/common/http';
+import { CommitFrequencyComponent } from "./dashboard-components/commit-frequency/commit-frequency.component";
+import { TopRepositoriesComponent } from "./dashboard-components/top-repositories/top-repositories.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     data: {
-      title: 'Chatbot',
-      urls: [{ title: 'Chatbot', url: '/chatbot' }, { title: 'Chatbot' }],
+      title: "Dashboard",
+      urls: [{ title: "Dashboard", url: "/dashboard" }, { title: "Dashboard" }],
     },
     component: DashboardComponent,
   },
@@ -25,11 +26,11 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    CommonModule,
     FormsModule,
-    HttpClientModule,
+    ReactiveFormsModule,
+    CommonModule,
+    RouterModule.forChild(routes),
     NgApexchartsModule,
-    RouterModule.forChild(routes)
   ],
   declarations: [
     DashboardComponent,
@@ -38,9 +39,9 @@ const routes: Routes = [
     TopContributionComponent,
     TopCardsComponent,
     EventsCardsComponent,
-    OrganizationHeaderComponent
+    OrganizationHeaderComponent,
+    CommitFrequencyComponent,
+    TopRepositoriesComponent
   ],
-  exports: [
-  ]
 })
 export class DashboardModule {}

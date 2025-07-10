@@ -1,327 +1,327 @@
-// Dashboard Container
+// Modern Professional Dashboard Styles
+
 .dashboard-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 0;
-  margin: 0;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  padding: 2rem 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 // Dashboard Header
 .dashboard-header {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 1rem 0;
+  margin-bottom: 2rem;
 }
 
-// Welcome Section
-.welcome-section {
-  padding: 3rem 0 2rem;
-  
-  .welcome-card {
-    background: rgba(255, 255, 255, 0.95);
+// Section Headers
+.section-header {
+  margin-bottom: 2rem;
+  text-align: center;
+  padding: 0 1rem;
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    letter-spacing: -0.02em;
+
+    i {
+      font-size: 1.5rem;
+      color: #3b82f6;
+    }
+  }
+
+  .section-subtitle {
+    font-size: 1.1rem;
+    color: #64748b;
+    margin: 0;
+    font-weight: 400;
+  }
+}
+
+// Metrics Section
+.metrics-section {
+  margin-bottom: 3rem;
+  padding: 0 1rem;
+
+  .section-header {
+    margin-bottom: 1.5rem;
+  }
+}
+
+// Analytics Section
+.analytics-section {
+  margin-bottom: 3rem;
+  padding: 0 1rem;
+
+  .chart-container,
+  .feed-container {
+    background: white;
     border-radius: 20px;
-    padding: 2.5rem;
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.08),
+      0 8px 16px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    height: 100%;
+  }
+
+  .chart-header,
+  .feed-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1.5rem 2rem;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    
-    .welcome-content {
-      position: relative;
-      z-index: 2;
-      
-      .welcome-title {
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: #2d3748;
-        margin-bottom: 0.5rem;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-      
-      .welcome-subtitle {
-        font-size: 1.1rem;
-        color: #718096;
-        margin: 0;
-        font-weight: 400;
-      }
-    }
-    
-    .welcome-decoration {
+
+    &::before {
+      content: '';
       position: absolute;
       top: 0;
+      left: 0;
       right: 0;
-      width: 200px;
-      height: 100%;
-      
-      .decoration-circle {
-        position: absolute;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        opacity: 0.1;
-        
-        &:nth-child(1) {
-          width: 80px;
-          height: 80px;
-          top: 20px;
-          right: 20px;
-        }
-        
-        &:nth-child(2) {
-          width: 60px;
-          height: 60px;
-          top: 60px;
-          right: 80px;
-        }
-        
-        &:nth-child(3) {
-          width: 40px;
-          height: 40px;
-          top: 100px;
-          right: 40px;
-        }
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.3;
+    }
+
+    .chart-title,
+    .feed-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0 0 0.25rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+      z-index: 1;
+
+      i {
+        font-size: 1rem;
+        opacity: 0.9;
       }
     }
-  }
-}
 
-// Stats Section
-.stats-section {
-  padding: 2rem 0;
-  
-  // Override any existing card styles to match our design
-  ::ng-deep .card {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 15px;
-    border: none;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    .chart-subtitle,
+    .feed-subtitle {
+      font-size: 0.875rem;
+      opacity: 0.9;
+      margin: 0;
+      position: relative;
+      z-index: 1;
     }
   }
 }
 
-// Charts Section
-.charts-section {
-  padding: 2rem 0;
-  
-  .chart-card {
-    background: rgba(255, 255, 255, 0.95);
+// Performance Section
+.performance-section {
+  margin-bottom: 3rem;
+  padding: 0 1rem;
+
+  .contributors-container {
+    background: white;
     border-radius: 20px;
-    padding: 2rem;
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.08),
+      0 8px 16px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+  }
+
+  .contributors-header {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 1.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.3;
+    }
+
+    .contributors-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0 0 0.25rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+      z-index: 1;
+
+      i {
+        font-size: 1rem;
+        opacity: 0.9;
+      }
+    }
+
+    .contributors-subtitle {
+      font-size: 0.875rem;
+      opacity: 0.9;
+      margin: 0;
+      position: relative;
+      z-index: 1;
+    }
+  }
+}
+
+// Insights Section
+.insights-section {
+  padding: 0 1rem;
+
+  .insight-container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.08),
+      0 8px 16px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     margin-bottom: 2rem;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    
+
     &:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+      transform: translateY(-4px);
+      box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.12),
+        0 12px 24px rgba(0, 0, 0, 0.06);
     }
-    
-    .chart-header {
-      margin-bottom: 1.5rem;
-      
-      .chart-title {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #2d3748;
-        margin-bottom: 0.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        
-        i {
-          color: #667eea;
-          font-size: 1.3rem;
-        }
-      }
-      
-      .chart-subtitle {
-        color: #718096;
-        margin: 0;
-        font-size: 0.95rem;
-      }
-    }
-    
-    .chart-content {
-      // Ensure charts have proper spacing
-      ::ng-deep {
-        .apexcharts-canvas {
-          margin: 0 auto;
-        }
-      }
+
+    &:last-child {
+      margin-bottom: 0;
     }
   }
-}
 
-// Contributors Section
-.contributors-section {
-  padding: 2rem 0 4rem;
-  
-  .contributors-card {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 20px;
-    padding: 2rem;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    
-    &:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-    }
-    
-    .contributors-header {
-      margin-bottom: 1.5rem;
-      
-      .contributors-title {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #2d3748;
-        margin-bottom: 0.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        
-        i {
-          color: #f6ad55;
-          font-size: 1.3rem;
-        }
-      }
-      
-      .contributors-subtitle {
-        color: #718096;
-        margin: 0;
-        font-size: 0.95rem;
-      }
-    }
-    
-    .contributors-content {
-      // Style the contributors table
-      ::ng-deep {
-        .table {
-          background: transparent;
-          
-          th {
-            background: rgba(102, 126, 234, 0.1);
-            border: none;
-            color: #2d3748;
-            font-weight: 600;
-            padding: 1rem;
-          }
-          
-          td {
-            border: none;
-            padding: 1rem;
-            vertical-align: middle;
-          }
-          
-          tbody tr {
-            transition: background-color 0.2s ease;
-            
-            &:hover {
-              background: rgba(102, 126, 234, 0.05);
-            }
-          }
-        }
-      }
+  .row {
+    margin-bottom: 2rem;
+
+    &:last-child {
+      margin-bottom: 0;
     }
   }
 }
 
 // Responsive Design
+@media (max-width: 1200px) {
+  .dashboard-container {
+    padding: 1.5rem 0;
+  }
+
+  .section-header .section-title {
+    font-size: 1.75rem;
+  }
+}
+
 @media (max-width: 768px) {
-  .welcome-section {
-    padding: 2rem 0 1rem;
-    
-    .welcome-card {
-      padding: 1.5rem;
-      
-      .welcome-content {
-        .welcome-title {
-          font-size: 2rem;
-        }
-        
-        .welcome-subtitle {
-          font-size: 1rem;
-        }
-      }
-    }
-  }
-  
-  .charts-section {
+  .dashboard-container {
     padding: 1rem 0;
-    
-    .chart-card {
-      padding: 1.5rem;
+  }
+
+  .section-header {
+    margin-bottom: 1.5rem;
+
+    .section-title {
+      font-size: 1.5rem;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .section-subtitle {
+      font-size: 1rem;
+    }
+  }
+
+  .analytics-section,
+  .performance-section,
+  .insights-section {
+    padding: 0 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .chart-header,
+  .feed-header,
+  .contributors-header {
+    padding: 1.25rem 1.5rem;
+
+    .chart-title,
+    .feed-title,
+    .contributors-title {
+      font-size: 1.1rem;
+    }
+
+    .chart-subtitle,
+    .feed-subtitle,
+    .contributors-subtitle {
+      font-size: 0.8rem;
+    }
+  }
+
+  .insights-section {
+    .insight-container {
+      margin-bottom: 1.5rem;
+    }
+
+    .row {
+      margin-bottom: 1.5rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-container {
+    padding: 0.5rem 0;
+  }
+
+  .section-header {
+    padding: 0 0.5rem;
+
+    .section-title {
+      font-size: 1.25rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+    }
+  }
+
+  .analytics-section,
+  .performance-section,
+  .insights-section {
+    padding: 0 0.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .chart-header,
+  .feed-header,
+  .contributors-header {
+    padding: 1rem 1.25rem;
+
+    .chart-title,
+    .feed-title,
+    .contributors-title {
+      font-size: 1rem;
+    }
+  }
+
+  .insights-section {
+    .insight-container {
       margin-bottom: 1rem;
-      
-      .chart-header {
-        .chart-title {
-          font-size: 1.3rem;
-        }
-      }
     }
-  }
-  
-  .contributors-section {
-    padding: 1rem 0 2rem;
-    
-    .contributors-card {
-      padding: 1.5rem;
-      
-      .contributors-header {
-        .contributors-title {
-          font-size: 1.3rem;
-        }
-      }
-    }
-  }
-}
 
-// Animation for page load
-.dashboard-container {
-  animation: fadeInUp 0.6s ease-out;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-// Custom scrollbar for better UX
-.dashboard-container {
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  &::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-  }
-  
-  &::-webkit-scrollbar-thumb {
-    background: rgba(102, 126, 234, 0.5);
-    border-radius: 4px;
-    
-    &:hover {
-      background: rgba(102, 126, 234, 0.7);
+    .row {
+      margin-bottom: 1rem;
     }
   }
 } 

@@ -1,99 +1,103 @@
-<!-- Dashboard Container -->
+<!-- Modern Professional Dashboard Layout -->
 <div class="dashboard-container">
   <!-- Header Section -->
   <div class="dashboard-header">
     <app-organization-header></app-organization-header>
   </div>
 
-  <!-- Welcome Section -->
-  <div class="welcome-section">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <div class="welcome-card">
-            <div class="welcome-content">
-              <h1 class="welcome-title">Welcome to CodeSync</h1>
-              <p class="welcome-subtitle">Your collaborative development platform</p>
-            </div>
-            <div class="welcome-decoration">
-              <div class="decoration-circle"></div>
-              <div class="decoration-circle"></div>
-              <div class="decoration-circle"></div>
-            </div>
+  <!-- Key Metrics Section -->
+  <div class="metrics-section">
+    <div class="section-header">
+      <h2 class="section-title">
+        <i class="fas fa-chart-pie"></i>
+        Key Performance Metrics
+      </h2>
+      <p class="section-subtitle">Real-time insights into your development activity</p>
+    </div>
+    <app-top-cards></app-top-cards>
+  </div>
+
+  <!-- Main Analytics Section -->
+  <div class="analytics-section">
+    <div class="row">
+      <!-- Primary Chart -->
+      <div class="col-lg-8">
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3 class="chart-title">
+              <i class="fas fa-chart-line"></i>
+              Development Activity Overview
+            </h3>
+          
           </div>
+          <app-sales-ratio></app-sales-ratio>
+          <app-top-repositories></app-top-repositories>
+        </div>
+      </div>
+      
+      <!-- Activity Feed -->
+      <div class="col-lg-4">
+        <div class="feed-container">
+          <div class="feed-header">
+            <h3 class="feed-title">
+              <i class="fas fa-rss"></i>
+              Recent Activity
+            </h3>
+            <p class="feed-subtitle">Latest team interactions and events</p>
+          </div>
+          <app-feeds></app-feeds>
+          
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Stats Cards Section -->
-  <div class="stats-section">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <app-top-cards></app-top-cards>
+  <!-- Team Performance Section -->
+  <div class="performance-section">
+    <div class="section-header">
+      <h2 class="section-title">
+        <i class="fas fa-users"></i>
+        Team Performance
+      </h2>
+      <p class="section-subtitle">Individual contributions and team dynamics</p>
+    </div>
+    
+    <div class="row">
+      <!-- Top Contributors -->
+      <div class="col-12">
+        <div class="contributors-container">
+          <div class="contributors-header">
+            <h3 class="contributors-title">
+              <i class="fas fa-trophy"></i>
+              Top Contributors
+            </h3>
+            <p class="contributors-subtitle">Most active team members this period</p>
+          </div>
+          <top-contribution></top-contribution>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Charts Section -->
-  <div class="charts-section">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-8">
-          <div class="chart-card">
-            <div class="chart-header">
-              <h3 class="chart-title">
-                <i class="bi bi-graph-up"></i>
-                Contribution Analytics
-              </h3>
-              <p class="chart-subtitle">Track your team's development activity</p>
-            </div>
-            <div class="chart-content">
-              <app-sales-ratio></app-sales-ratio>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="chart-card">
-            <div class="chart-header">
-              <h3 class="chart-title">
-                <i class="bi bi-activity"></i>
-                Recent Activity
-              </h3>
-              <p class="chart-subtitle">Latest updates and notifications</p>
-            </div>
-            <div class="chart-content">
-              <app-feeds></app-feeds>
-            </div>
-          </div>
+  <!-- Development Insights Section -->
+  <div class="insights-section">
+    <div class="section-header">
+      <h2 class="section-title">
+        <i class="fas fa-lightbulb"></i>
+        Development Insights
+      </h2>
+      <p class="section-subtitle">Detailed analysis of coding patterns and repository activity</p>
+    </div>
+    
+    <div class="row">
+      <!-- Commit Frequency -->
+      <div class="col-12">
+        <div class="insight-container">
+          <app-commit-frequency></app-commit-frequency>
         </div>
       </div>
     </div>
-  </div>
+    
 
-  <!-- Contributors Section -->
-  <div class="contributors-section">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <div class="contributors-card">
-            <div class="contributors-header">
-              <h3 class="contributors-title">
-                <i class="bi bi-trophy"></i>
-                Top Contributors
-              </h3>
-              <p class="contributors-subtitle">Recognizing outstanding team members</p>
-            </div>
-            <div class="contributors-content">
-              <top-contribution></top-contribution>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
-
-

@@ -1,0 +1,55 @@
+<div class="commit-frequency-container">
+  <!-- Header Section -->
+  <div class="header-section">
+    <div class="header-content">
+      <div class="title-section">
+        <i class="fas fa-chart-line title-icon"></i>
+        <h2 class="component-title">Commit Activity</h2>
+      </div>
+      <p class="subtitle">Weekly development activity overview</p>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="loading-spinner">
+      <div class="spinner"></div>
+    </div>
+    <p class="loading-text">Analyzing commit patterns...</p>
+  </div>
+
+  <!-- Data Table -->
+  <div *ngIf="!loading" class="data-section">
+    <div class="table-container">
+      <table class="commit-table">
+
+        <tbody>
+          <tr *ngFor="let day of objectKeys(commitFrequency)" class="table-row">
+            <td class="day-cell">
+              <span class="day-name">{{ day }}</span>
+            </td>
+            <td class="commits-cell">
+              <div class="commits-badge">
+                <span class="commits-count">{{ commitFrequency[day] }}</span>
+                <span class="commits-label">commits</span>
+              </div>
+            </td>
+            <td class="activity-cell">
+              <div class="activity-indicator">
+                <div class="progress-container">
+                  <div class="progress-bar">
+                    <div
+                      class="progress-fill"
+                      [style.width.%]="(commitFrequency[day] / maxCommits) * 100"
+                    ></div>
+                  </div>
+                  <span class="percentage">{{ ((commitFrequency[day] / maxCommits) * 100).toFixed(0) }}%</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
