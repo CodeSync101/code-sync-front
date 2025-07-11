@@ -15,8 +15,9 @@ export class StatsComponent implements OnInit{
 
 
   getStats(){
-    this.http.get("http://localhost:8080/stats").subscribe({
-      next:(res)=>{this.stats=res},
+   // this.http.get("http://localhost:8080/stats").subscribe({
+    this.http.get("http://localhost:8082/task/api/stats").subscribe({  
+   next:(res)=>{this.stats=res},
       error:(err)=>{console.log(err);
       }
     })

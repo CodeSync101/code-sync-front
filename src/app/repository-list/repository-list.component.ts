@@ -10,7 +10,7 @@ import { RepositoryService } from 'src/app/services/repository.service';
 })
 export class RepositoryListComponent implements OnInit {
   repositories: any[] = [];
-   token ="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";
+   token ="token";
 
   org_name:string="CodeSync101"
 //sync_url=`http://localhost:8080/sync-org?org=${this.org_name}&token=${this.token}`
