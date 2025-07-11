@@ -9,7 +9,7 @@ import { StatsService } from 'src/app/services/stats.service';
   styleUrls: ['./commits.component.css']
 })
 export class CommitsComponent implements OnInit, OnDestroy {
-
+  //this is for force push
   commits: any[] = [];
   loading = true;
   private orgSubscription: Subscription = new Subscription();
