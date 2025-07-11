@@ -1,64 +1,75 @@
-<div class="card w-100 mt-4">
-  <div class="border-bottom p-3">
-    <h4 class="card-title mb-0">Génération de Rapport</h4>
+<div class="report-generator__card w-100">
+  <div class="report-generator__header">
+    <h4>Génération de Rapport</h4>
   </div>
-  <div class="card-body">
-    <!-- Dates -->
-    <div class="row mb-3">
-      <div class="col-md-6">
-        <label for="startDate" class="form-label">Date de début :</label>
-        <input type="date" class="form-control" [(ngModel)]="startDate" id="startDate">
-      </div>
-      <div class="col-md-6">
-        <label for="endDate" class="form-label">Date de fin :</label>
-        <input type="date" class="form-control" [(ngModel)]="endDate" id="endDate">
-      </div>
-    </div>
-
-    <!-- Étudiants -->
-    <label for="studentSelect" class="form-label">Choisissez des étudiants :</label>
-    <select id="studentSelect" multiple class="form-select" [(ngModel)]="selectedStudents" size="5">
-      <option *ngFor="let student of students" [value]="student">
-        {{ student }}
-      </option>
-    </select>
-
-    <!-- Sections -->
-    <div class="mt-3">
-      <h5>Sections à inclure :</h5>
-      <div class="form-check" *ngFor="let section of ['Commits', 'Pull Requests', 'Issues', 'Branches', 'Tickets', 'Aide à la prise de décision']">
-        <input
-          type="checkbox"
-          class="form-check-input"
-          [id]="section"
-          [checked]="selectedSections.includes(section)"
-          (change)="onSectionChange(section, $event)">
-        <label class="form-check-label" [for]="section">{{ section }}</label>
-      </div>
-    </div>
-
-    <!-- Boutons -->
-    <div class="mt-3">
   
-      <button class="btn btn-success" (click)="onDownload()">Télécharger le rapport</button>
-      <button class="btn btn-outline-secondary btn-sm ms-2" (click)="resetSelection()">Réinitialiser</button>
+  <div class="report-generator__body">
+    <!-- Date Section -->
+    <div class="report-generator__section report-generator__date-section">
+      <h5 class="report-generator__section-title">Période de rapport</h5>
+      <div class="row">
+        <div class="col-md-6">
+          <label for="startDate" class="form-label">Date de début :</label>
+          <input type="date" class="form-control" [(ngModel)]="startDate" id="startDate">
+        </div>
+        <div class="col-md-6">
+          <label for="endDate" class="form-label">Date de fin :</label>
+          <input type="date" class="form-control" [(ngModel)]="endDate" id="endDate">
+        </div>
+      </div>
     </div>
 
-    <!-- Aperçu -->
-    <div class="mt-3" *ngIf="reportPreview">
+    <!-- Student Selection Section -->
+    <div class="report-generator__section report-generator__student-section">
+      <label for="studentSelect" class="form-label">Choisissez des étudiants :</label>
+      <select id="studentSelect" multiple class="form-select" [(ngModel)]="selectedStudents" size="5">
+        <option *ngFor="let student of students" [value]="student">
+          {{ student }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Sections Selection -->
+    <div class="report-generator__section report-generator__checkbox-section">
+      <h5 class="report-generator__section-title">Sections à inclure</h5>
+      <div class="checkbox-grid">
+        <div class="checkbox-item" *ngFor="let section of ['Commits', 'Pull Requests', 'Issues', 'Branches', 'Tickets', 'Aide à la prise de décision']">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            [id]="section"
+            [checked]="selectedSections.includes(section)"
+            (change)="onSectionChange(section, $event)">
+          <label class="form-check-label" [for]="section">{{ section }}</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="report-generator__actions">
+      <button class="btn btn-success" (click)="onDownload()">
+        Télécharger le rapport
+      </button>
+      <button class="btn btn-reset" (click)="resetSelection()">
+        Réinitialiser
+      </button>
+    </div>
+
+    <!-- Preview Section -->
+    <div class="report-generator__section report-generator__preview" *ngIf="reportPreview">
       <h5>Aperçu du rapport :</h5>
       <pre>{{ reportPreview }}</pre>
     </div>
 
-    <!-- Étudiants sélectionnés -->
-    <div class="mt-3">
+    <!-- Selected Students Display -->
+    <div class="report-generator__section report-generator__selected-students">
       <h5>Étudiants sélectionnés :</h5>
-      <ul>
+      <ul *ngIf="selectedStudents.length > 0">
         <li *ngFor="let selected of selectedStudents">
           {{ selected }}
         </li>
       </ul>
-      <p *ngIf="selectedStudents.length === 0" class="text-muted">
+      <p class="empty-state" *ngIf="selectedStudents.length === 0">
         Aucun étudiant sélectionné.
       </p>
     </div>

@@ -5,6 +5,7 @@ import { formatDate } from '@angular/common';
 @Component({
   selector: 'app-badge',
   templateUrl: './badge.component.html',
+  styleUrls: ['./badge.component.scss'],
 })
 export class BadgeComponent implements OnInit {
   students: string[] = [];

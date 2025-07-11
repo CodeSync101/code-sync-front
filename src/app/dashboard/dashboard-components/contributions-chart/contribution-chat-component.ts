@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { CommitService } from '../../../services/commit.service';
 import { OrganizationService } from '../../../services/organization.service';
+import { StatsService } from '../../../services/stats.service';
 import { Subscription, forkJoin } from 'rxjs';
 import {
   ApexAxisChartSeries,
@@ -42,16 +43,16 @@ export class ContributionChartComponent implements OnInit, OnDestroy {
   public endDate: string = '';
   public selectedCollaborators: string[] = [];
   public isLoading: boolean = false;
-  public collaborators: string[] = [
-    'badisjl99', 'Farah-Saad1', 'scriptsl0th', '=walidbechri', 'smiriaziz21', 'FetenDridi'
-  ];
+  public collaborators: string[] = []; // Now dynamic
+  public isLoadingCollaborators: boolean = false;
 
   private orgSubscription: Subscription = new Subscription();
   private currentOrganization: string = '';
 
   constructor(
     private commitService: CommitService,
-    private organizationService: OrganizationService
+    private organizationService: OrganizationService,
+    private statsService: StatsService
   ) {
     this.salesChartOptions = {
       series: [],
@@ -108,13 +109,12 @@ export class ContributionChartComponent implements OnInit, OnDestroy {
 
     this.startDate = this.formatDate(thirtyDaysAgo);
     this.endDate = this.formatDate(today);
-    this.selectedCollaborators = [this.collaborators[0]];
 
     // Subscribe to organization changes
     this.orgSubscription = this.organizationService.getCurrentOrganization().subscribe(org => {
       if (org && org.trim()) {
         this.currentOrganization = org;
-        this.fetchData();
+        this.fetchCollaborators();
       }
     });
   }
@@ -127,6 +127,55 @@ export class ContributionChartComponent implements OnInit, OnDestroy {
 
   formatDate(date: Date): string {
     return date.toISOString().split('T')[0];
+  }
+
+  fetchCollaborators(): void {
+    this.isLoadingCollaborators = true;
+    
+    const ignoredCollaborators = [
+      'Badis Jlassi',
+      'smiri',
+      'smiriaziz21',
+      'mrdrag0n',
+      'unknown',
+      'walidbechri',
+      'Mohamed Mbarek'
+    ];
+    
+    this.statsService.getActiveCollaboratorsCount(this.currentOrganization).subscribe({
+      next: (response) => {
+        let rawCollaborators: string[] = [];
+      
+        if (Array.isArray(response)) {
+          rawCollaborators = response;
+        } else if (response && Array.isArray(response.collaborators)) {
+          rawCollaborators = response.collaborators;
+        } else if (response && Array.isArray(response.authors)) {
+          rawCollaborators = response.authors;
+        } else {
+          console.warn('Unexpected response format for collaborators:', response);
+          rawCollaborators = [];
+        }
+        
+        this.collaborators = rawCollaborators.filter(collaborator => 
+          !ignoredCollaborators.some(ignored => 
+            ignored.toLowerCase() === collaborator.toLowerCase()
+          )
+        );
+        
+        if (this.collaborators.length > 0) {
+          this.selectedCollaborators = [this.collaborators[0]];
+          this.fetchData();
+        }
+        
+        this.isLoadingCollaborators = false;
+      },
+      error: (error) => {
+        console.error('Error fetching collaborators:', error);
+        this.isLoadingCollaborators = false;
+        this.collaborators = [];
+      }
+    });
   }
 
   toggleCollaborator(collaborator: string): void {
@@ -185,5 +234,9 @@ export class ContributionChartComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       }
     });
+  }
+
+  refreshCollaborators(): void {
+    this.fetchCollaborators();
   }
 }

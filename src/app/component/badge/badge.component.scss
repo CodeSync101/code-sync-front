@@ -1,0 +1,327 @@
+// Variables
+$primary-color: #2c3e50;
+$secondary-color: #3498db;
+$success-color: #27ae60;
+$warning-color: #f39c12;
+$danger-color: #e74c3c;
+$light-gray: #ecf0f1;
+$dark-gray: #7f8c8d;
+$white: #ffffff;
+$border-radius: 8px;
+$box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+$transition: all 0.3s ease;
+
+// Mixins
+@mixin button-style($bg-color, $text-color: $white) {
+  background-color: $bg-color;
+  color: $text-color;
+  border: none;
+  padding: 10px 20px;
+  border-radius: $border-radius;
+  font-weight: 500;
+  cursor: pointer;
+  transition: $transition;
+  
+  &:hover {
+    background-color: darken($bg-color, 10%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+@mixin form-control-style {
+  border: 2px solid #e0e0e0;
+  border-radius: $border-radius;
+  padding: 12px 16px;
+  font-size: 14px;
+  transition: $transition;
+  
+  &:focus {
+    border-color: $secondary-color;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    outline: none;
+  }
+}
+
+// Main component styling
+.report-generator {
+  &__card {
+    background: $white;
+    border-radius: 12px;
+    box-shadow: $box-shadow;
+    overflow: hidden;
+    margin-top: 2rem;
+    border: none;
+  }
+
+  &__header {
+    background: linear-gradient(135deg, $primary-color, $secondary-color);
+    color: $white;
+    padding: 1.5rem;
+    border-bottom: none;
+    
+    h4 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      
+      &::before {
+        content: "📊";
+        margin-right: 0.5rem;
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  &__body {
+    padding: 2rem;
+  }
+
+  &__section {
+    margin-bottom: 2rem;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__section-title {
+    color: $primary-color;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    
+    &::before {
+      content: "";
+      width: 4px;
+      height: 20px;
+      background: $secondary-color;
+      margin-right: 0.5rem;
+      border-radius: 2px;
+    }
+  }
+
+  // Date inputs
+  &__date-section {
+    .row {
+      margin-bottom: 1.5rem;
+    }
+    
+    label {
+      color: $primary-color;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    
+    input[type="date"] {
+      @include form-control-style;
+    }
+  }
+
+  // Student selection
+  &__student-section {
+    label {
+      color: $primary-color;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    
+    select {
+      @include form-control-style;
+      min-height: 120px;
+      
+      option {
+        padding: 8px;
+        
+        &:hover {
+          background-color: $light-gray;
+        }
+      }
+    }
+  }
+
+  // Checkboxes section
+  &__checkbox-section {
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem;
+      background: $light-gray;
+      border-radius: $border-radius;
+      transition: $transition;
+      
+      &:hover {
+        background: darken($light-gray, 5%);
+      }
+      
+      input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        margin-right: 0.75rem;
+        cursor: pointer;
+        accent-color: $secondary-color;
+      }
+      
+      label {
+        cursor: pointer;
+        margin: 0;
+        color: $primary-color;
+        font-weight: 500;
+      }
+    }
+  }
+
+  // Buttons
+  &__actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+    
+    .btn-primary {
+      @include button-style($secondary-color);
+    }
+    
+    .btn-success {
+      @include button-style($success-color);
+      
+      &::before {
+        content: "⬇ ";
+      }
+    }
+    
+    .btn-reset {
+      @include button-style($light-gray, $primary-color);
+      
+      &::before {
+        content: "🔄 ";
+      }
+    }
+  }
+
+  // Preview section
+  &__preview {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: $border-radius;
+    border-left: 4px solid $secondary-color;
+    
+    h5 {
+      color: $primary-color;
+      margin-bottom: 1rem;
+    }
+    
+    pre {
+      background: $white;
+      padding: 1rem;
+      border-radius: $border-radius;
+      border: 1px solid #e0e0e0;
+      font-size: 0.9rem;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+  }
+
+  // Selected students display
+  &__selected-students {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: $border-radius;
+    
+    h5 {
+      color: $primary-color;
+      margin-bottom: 1rem;
+    }
+    
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      
+      li {
+        background: $white;
+        padding: 0.75rem 1rem;
+        margin-bottom: 0.5rem;
+        border-radius: $border-radius;
+        border-left: 4px solid $success-color;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        
+        &::before {
+          content: "👤 ";
+          margin-right: 0.5rem;
+        }
+      }
+    }
+    
+    .empty-state {
+      color: $dark-gray;
+      font-style: italic;
+      text-align: center;
+      padding: 2rem;
+      
+      &::before {
+        content: "🤷‍♂️";
+        display: block;
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .report-generator {
+    &__body {
+      padding: 1rem;
+    }
+    
+    &__actions {
+      flex-direction: column;
+      
+      button {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+    
+    &__checkbox-section {
+      .checkbox-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+}
+
+// Animation for smooth transitions
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.report-generator__card {
+  animation: fadeIn 0.6s ease-out;
+}
