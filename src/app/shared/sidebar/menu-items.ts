@@ -92,5 +92,13 @@ export const ROUTES: RouteInfo[] = [
     class: '',
     extralink: false,
     submenu: []
+  },
+   {
+    path: '/tasks',
+    title: 'Gestion des Tâches',
+    icon: 'bi bi-plus-circle',
+    class: '',
+    extralink: false,
+    submenu: []
   }
 ];
