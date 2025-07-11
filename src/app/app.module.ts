@@ -17,12 +17,18 @@ import { DashboardComponent } from './features/admin/dashboard/dashboard.compone
 
 import { Approutes } from './app-routing.module';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { RepositoryListComponent } from './repository-list/repository-list.component';
+import { TaskListComponent } from './task-list/task-list.component';
+import { StatsComponent } from './stats/stats.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SpinnerComponent,
-    DashboardComponent
+    DashboardComponent,
+    RepositoryListComponent,
+    TaskListComponent,
+    StatsComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,354 @@
+<!--<h2>Tâches du repository : {{ repoName }}</h2>
+
+<div *ngIf="tasks.length === 0">
+  <p>Aucune tâche trouvée.</p>
+</div>
+
+<ul *ngIf="tasks.length > 0">
+  <li *ngFor="let task of tasks" (click)="editTask(task)">
+    <strong>{{ task.name }}</strong> ({{ task.status }}) - Branche : {{ task.branchName }}
+  </li>
+</ul>
+
+<button (click)="openCreateTask()">Créer une tâche</button>
+-->
+
+
+
+
+<div class="header">
+  <h1>Task Management</h1>
+</div>
+
+<div class="container">
+  <div class="kanban-board">
+    <!-- Colonne À FAIRE -->
+    <div class="column">
+      <div class="column-header todo-header">
+        <span>TO DO</span>
+        <span class="badge">{{ getTasksByStatus('TO_DO').length }}</span>
+      </div>
+      <div class="column-content">
+        <div *ngFor="let task of getTasksByStatus('TO_DO')" class="task-card" (click)="editTask(task)">
+        
+          <div class="task-title">{{ task.name }}</div>
+          <div class="task-branch">{{ task.branchName }}</div>
+        </div>
+        
+        <div *ngIf="getTasksByStatus('TO_DO').length === 0" class="add-task-placeholder" (click)="openCreateTask()">
+          <div>Create</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Colonne EN COURS -->
+    <div class="column">
+      <div class="column-header progress-header">
+        <span>IN PROGRESS</span>
+        <span class="badge">{{ getTasksByStatus('IN_PROGRESS').length }}</span>
+      </div>
+      <div class="column-content">
+        <div *ngFor="let task of getTasksByStatus('IN_PROGRESS')" class="task-card" (click)="editTask(task)">
+        
+          <div class="task-title">{{ task.name }}</div>
+          <div class="task-branch">{{ task.branchName }}</div>
+        </div>
+        
+        <div *ngIf="getTasksByStatus('IN_PROGRESS').length === 0" class="empty-state">
+          No tasks in progress
+        </div>
+      </div>
+    </div>
+
+    <!-- Colonne FINI -->
+    <div class="column">
+      <div class="column-header done-header">
+        <span>DONE</span>
+        <span class="badge">{{ getTasksByStatus('DONE').length }}</span>
+      </div>
+      <div class="column-content">
+        <div *ngFor="let task of getTasksByStatus('DONE')" class="task-card" (click)="editTask(task)">
+          <div class="task-title">{{ task.name }}</div>
+          <div class="task-branch">{{ task.branchName }}</div>
+        </div>
+        
+        <div *ngIf="getTasksByStatus('DONE').length === 0" class="empty-state">
+          No completed tasks
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="tasks.length === 0" class="empty-state">
+    <p>No tasks found for the repository : {{ repoName }}</p>
+  </div>
+
+  <div class="create-task-container">
+    <button class="create-task-btn" (click)="openCreateTask()">Create a Task</button>
+  </div>
+</div>
+
+
+
+
+
+<!-- *************************************************************************   -->
+
+
+
+
+
+
+
+
+
+<!-- Popup simple -->
+ <!--
+<div *ngIf="showCreateTask" class="popup">
+  <h3>Créer une nouvelle tâche</h3>
+  <form (submit)="createTask()">
+    <label>
+      Titre: <br />
+      <input type="text" [(ngModel)]="newTask.title" name="title" required />
+    </label>
+    <br />
+
+    <label>
+      Description: <br />
+      <textarea [(ngModel)]="newTask.description" name="description" required></textarea>
+    </label>
+    <br />
+
+    <label>
+      Branche: <br />
+      <select [(ngModel)]="newTask.branchName" name="branchName" required>
+        <option *ngFor="let branch of branches" [value]="branch.name">{{ branch.name }}</option>
+      </select>
+    </label>
+    <br />
+
+    <label>
+      Author: <br />
+      <select [(ngModel)]="newTask.authorId" name="authorId" required>
+        <option *ngFor="let author of authors" [value]="author.id">{{ author.name }}</option>
+      </select>
+    </label>
+    <br />
+
+    <label>
+      Statut: <br />
+      <select [(ngModel)]="newTask.status" name="status" required>
+        <option value="TO_DO">TO_DO</option>
+        <option value="IN_PROGRESS">IN_PROGRESS</option>
+        <option value="DONE">DONE</option>
+      </select>
+    </label>
+    <br />
+
+    <button type="submit">Créer</button>
+    <button type="button" (click)="closeCreateTask()">Annuler</button>
+  </form>
+</div>
+
+-->
+
+
+
+
+<!-- Popup moderne -->
+<div *ngIf="showCreateTask" class="popup">
+  <form (submit)="createTask()">
+    <h3>Create a New Task</h3>
+    
+    <label>
+      Title
+      <input type="text" [(ngModel)]="newTask.title" name="title" required placeholder="Enter the task title" />
+    </label>
+
+    <label>
+      Description
+      <textarea [(ngModel)]="newTask.description" name="description" required placeholder="Describe your task..."></textarea>
+    </label>
+
+    <label>
+      Branch
+      <select [(ngModel)]="newTask.branchName" name="branchName" required>
+        <option value="" disabled selected>Select a branch</option>
+        <option *ngFor="let branch of branches" [value]="branch.name">{{ branch.name }}</option>
+      </select>
+    </label>
+
+    <label>
+      Author
+      <select [(ngModel)]="newTask.authorId" name="authorId" required>
+        <option value="" disabled selected>Select an author</option>
+        <option *ngFor="let author of authors" [value]="author.id">{{ author.name }}</option>
+      </select>
+    </label>
+
+    <label>
+      Status
+      <select [(ngModel)]="newTask.status" name="status" required>
+        <option value="" disabled selected>Select a Status</option>
+        <option value="TO_DO">TO DO</option>
+        
+      </select>
+    </label>
+
+    <div class="button-container">
+      <button type="submit">Create the task</button>
+      <button type="button" (click)="closeCreateTask()">Cancel</button>
+    </div>
+  </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Popup modification -->
+
+<!--
+<div *ngIf="selectedTask" class="popup">
+  <h3>Modifier la tâche</h3>
+  <form (submit)="updateTask()">
+    <label>
+      Titre: <br />
+      <input type="text" [(ngModel)]="selectedTask.name" name="name" required />
+    </label><br />
+
+    <label>
+      Description: <br />
+      <textarea [(ngModel)]="selectedTask.description" name="description" required></textarea>
+    </label><br />
+
+    <label>
+      Branche: <br />
+      <select [(ngModel)]="selectedTask.branchName" name="branchName" required>
+        <option *ngFor="let branch of branches" [value]="branch.name">{{ branch.name }}</option>
+      </select>
+    </label><br />
+
+    <label>
+      Author: <br />
+      <select [(ngModel)]="selectedTask.author" name="author" required>
+        <option *ngFor="let author of authors" [value]="author.name">{{ author.name }}</option>
+      </select>
+    </label><br />
+
+    <label>
+      Statut: <br />
+      <select [(ngModel)]="selectedTask.status" name="status" required>
+        <option value="TO_DO">TO_DO</option>
+        <option value="IN_PROGRESS">IN_PROGRESS</option>
+        <option value="DONE">DONE</option>
+      </select>
+    </label><br />
+
+    <button type="submit">Mettre à jour</button>
+    <button type="button" (click)="deleteTask()">Supprimer</button>
+    <button type="button" (click)="selectedTask = null">Annuler</button>
+  </form>
+</div>
+-->
+
+<!-- Popup modification moderne -->
+<div *ngIf="selectedTask" class="popup">
+  <form (submit)="updateTask()">
+    <h3>Edit the task</h3>
+    
+    <label>
+      Title
+      <input type="text" [(ngModel)]="selectedTask.name" name="name" required placeholder="Enter the task title" />
+    </label>
+
+    <label>
+      Description
+      <textarea [(ngModel)]="selectedTask.description" name="description" required placeholder="Describe your task..."></textarea>
+    </label>
+
+    <label>
+      Branch
+      <select [(ngModel)]="selectedTask.branchName" name="branchName" required>
+        <option value="" disabled>Select a branch</option>
+        <option *ngFor="let branch of branches" [value]="branch.name">{{ branch.name }}</option>
+      </select>
+    </label>
+
+    <label>
+      Author
+      <select [(ngModel)]="selectedTask.author" name="author" required>
+        <option value="" disabled>Select an author</option>
+        <option *ngFor="let author of authors" [value]="author.name">{{ author.name }}</option>
+      </select>
+    </label>
+
+    <label>
+      Status
+      <select [(ngModel)]="selectedTask.status" name="status" required>
+        <option value="" disabled>Select a status</option>
+        <option value="TO_DO">TO DO</option>
+        <option value="IN_PROGRESS">IN PROGRESS</option>
+        <option value="DONE">DONE</option>
+      </select>
+    </label>
+
+    <div class="button-container modify-buttons">
+      <button type="submit" class="update-btn">✓ Update</button>
+      <button type="button" class="delete-btn" (click)="deleteTask()">🗑️ Delete</button>
+      <button type="button" class="cancel-btn" (click)="selectedTask = null">✕ Cancel</button>
+    </div>
+  </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--**********************************************************-->
+
+<!-- Popup de confirmation de suppression -->
+<div *ngIf="showDeleteConfirm" class="confirm-delete-popup">
+  <div class="confirm-delete-content">
+    <div class="confirm-delete-icon">
+      ⚠️
+    </div>
+    
+    <h3 class="confirm-delete-title">Delete the task ?</h3>
+    
+    <p class="confirm-delete-message">
+     Are you sure you want to delete the task
+      <span class="confirm-delete-task-name">{{ taskToDelete?.name }}</span> ?
+    </p>
+    
+    
+    
+    <div class="confirm-delete-buttons">
+      <button class="confirm-delete-btn" (click)="confirmDeleteTask()">
+        🗑️ Delete
+      </button>
+      <button class="confirm-cancel-btn" (click)="cancelDelete()">
+        ✕ Cancel
+      </button>
+    </div>
+  </div>
+</div>

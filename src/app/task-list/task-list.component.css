@@ -1,0 +1,813 @@
+/* Popup de confirmation de suppression */
+.confirm-delete-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Contenu du popup de confirmation */
+.confirm-delete-content {
+  background: white;
+  border-radius: 20px;
+  padding: 32px;
+  width: 90%;
+  max-width: 450px;
+  text-align: center;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  transform: scale(0.9);
+  animation: confirmPopupScale 0.3s ease-out forwards;
+  border: 3px solid #fef2f2;
+}
+
+@keyframes confirmPopupScale {
+  from { 
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to { 
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Icône de danger */
+.confirm-delete-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, #fee2e2, #fecaca);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  animation: dangerPulse 2s infinite;
+}
+
+@keyframes dangerPulse {
+  0%, 100% { 
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+  }
+  50% { 
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+  }
+}
+
+/* Titre de confirmation */
+.confirm-delete-title {
+  color: #dc2626;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  text-align: center;
+}
+
+/* Message de confirmation */
+.confirm-delete-message {
+  color: #6b7280;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0 0 8px 0;
+  text-align: center;
+}
+
+/* Nom de la tâche en surbrillance */
+.confirm-delete-task-name {
+  color: #1f2937;
+  font-weight: 600;
+  background: #f3f4f6;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin: 0 2px;
+}
+
+/* Texte d'avertissement */
+.confirm-delete-warning {
+  color: #dc2626;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 16px 0 24px 0;
+  text-align: center;
+  background: #fef2f2;
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 4px solid #ef4444;
+}
+
+/* Conteneur des boutons de confirmation */
+.confirm-delete-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+/* Bouton de suppression (dangereux) */
+.confirm-delete-btn {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 120px;
+  box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.confirm-delete-btn:hover {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px -3px rgba(239, 68, 68, 0.4);
+}
+
+.confirm-delete-btn:active {
+  transform: translateY(0);
+}
+
+/* Bouton d'annulation */
+.confirm-cancel-btn {
+  background: white;
+  color: #6b7280;
+  border: 2px solid #e5e7eb;
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 120px;
+}
+
+.confirm-cancel-btn:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+  color: #374151;
+  transform: translateY(-1px);
+}
+
+/* Responsive pour confirmation */
+@media (max-width: 640px) {
+  .confirm-delete-content {
+    width: 95%;
+    padding: 24px;
+    margin: 20px;
+  }
+  
+  .confirm-delete-title {
+    font-size: 20px;
+  }
+  
+  .confirm-delete-message {
+    font-size: 14px;
+  }
+  
+  .confirm-delete-buttons {
+    flex-direction: column;
+  }
+  
+  .confirm-delete-btn,
+  .confirm-cancel-btn {
+    width: 100%;
+  }
+  
+  .confirm-delete-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+  }
+}
+
+/* Animation de fermeture */
+.confirm-delete-popup.closing {
+  animation: fadeOut 0.2s ease-in forwards;
+}
+
+.confirm-delete-popup.closing .confirm-delete-content {
+  animation: confirmPopupScaleOut 0.2s ease-in forwards;
+}
+
+@keyframes confirmPopupScaleOut {
+  from { 
+    transform: scale(1);
+    opacity: 1;
+  }
+  to { 
+    transform: scale(0.9);
+    opacity: 0;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  * {
+  box-sizing: border-box;
+}
+
+.header {
+  background: linear-gradient(135deg, #768bf6, #768bf6	);
+  color: white;
+  padding: 20px;
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.header h1 {
+  font-size: 24px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  background-color: white;
+  min-height: calc(100vh - 64px);
+}
+
+.kanban-board {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.column {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.column-header {
+  padding: 15px 20px;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.column-header .badge {
+  background: #6b7280;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.todo-header {
+  background-color: #e5e7eb;
+  color: #6b7280;
+}
+
+.todo-header .badge {
+  background-color: #6b7280;
+}
+
+.progress-header {
+  background-color: #e5e7eb;
+  color: #6b7280;
+}
+
+.done-header {
+  background-color: #e5e7eb;
+  color: #6b7280;
+}
+
+
+
+
+/* Remplacez votre classe .column-content par celle-ci */
+.column-content {
+  padding: 20px;
+  height: 400px; /* Hauteur fixe au lieu de min-height */
+  overflow-y: auto; /* Permet le scroll vertical */
+  overflow-x: hidden; /* Cache le scroll horizontal */
+}
+
+/* Style pour la scrollbar (optionnel pour un meilleur rendu) */
+.column-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.column-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.column-content::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.column-content::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+
+
+
+
+
+
+
+
+
+
+.task-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: #3b82f6;
+}
+
+.task-card:last-child {
+  margin-bottom: 0;
+}
+
+.task-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+.task-branch {
+  font-size: 12px;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+}
+
+.task-branch::before {
+  content: "🌿";
+  margin-right: 5px;
+}
+
+.task-id {
+  font-size: 11px;
+  color: #9ca3af;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.create-task-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.create-task-btn {
+  background: linear-gradient(135deg, #768bf6, #768bf6);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.create-task-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.create-task-btn::before {
+  content: "➕";
+  font-size: 12px;
+}
+
+.empty-state {
+  text-align: center;
+  color: #9ca3af;
+  font-style: italic;
+  padding: 40px 20px;
+}
+
+.add-task-placeholder {
+  border: 2px dashed #d1d5db;
+  border-radius: 6px;
+  padding: 20px;
+  text-align: center;
+  color: #9ca3af;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.add-task-placeholder:hover {
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+
+.add-task-placeholder::before {
+  content: "➕";
+  display: block;
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .kanban-board {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .container {
+    padding: 20px 15px;
+  }
+  
+  .header h1 {
+    font-size: 20px;
+  }
+  
+  .column-content {
+    padding: 15px;
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .kanban-board {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Animation pour les transitions */
+.task-card {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Overlay pour assombrir l'arrière-plan */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Contenu du popup */
+.popup > div,
+.popup form {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 
+              0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: scale(0.95);
+  animation: popupScale 0.3s ease-out forwards;
+}
+
+/* Animation d'apparition */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popupScale {
+  from { 
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to { 
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Titre du popup */
+.popup h3 {
+  color: #1f2937;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 24px 0;
+  text-align: center;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 16px;
+}
+
+/* Style des labels */
+.popup label {
+  display: block;
+  color: #374151;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 8px;
+  margin-top: 20px;
+}
+
+.popup label:first-of-type {
+  margin-top: 0;
+}
+
+/* Style des inputs et textarea */
+.popup input[type="text"],
+.popup textarea,
+.popup select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  background: white;
+  transition: all 0.2s ease;
+  margin-top: 4px;
+}
+
+.popup input[type="text"]:focus,
+.popup textarea:focus,
+.popup select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Style spécifique pour textarea */
+.popup textarea {
+  min-height: 100px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+/* Style pour les selects */
+.popup select {
+  cursor: pointer;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23666" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* Conteneur des boutons */
+.popup form {
+  position: relative;
+}
+
+.popup button {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 24px;
+  margin-right: 12px;
+  border: none;
+  min-width: 100px;
+}
+
+/* Bouton Créer (principal) */
+.popup button[type="submit"] {
+  background: linear-gradient(135deg, #4d7a8b, #4d7a8b);
+  color: white;
+  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
+}
+
+.popup button[type="submit"]:hover {
+  background: linear-gradient(135deg, #4d7a8b, #4d7a8b);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px -3px rgba(59, 130, 246, 0.4);
+}
+
+.popup button[type="submit"]:active {
+  transform: translateY(0);
+}
+
+/* Bouton Annuler (secondaire) */
+.popup button[type="button"] {
+  background: white;
+  color: #6b7280;
+  border: 2px solid #e5e7eb;
+  margin-right: 0;
+}
+
+.popup button[type="button"]:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+  color: #374151;
+  transform: translateY(-1px);
+}
+
+/* Conteneur des boutons centré */
+.popup .button-container {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .popup > div,
+  .popup form {
+    width: 95%;
+    padding: 24px;
+    margin: 20px;
+  }
+  
+  .popup h3 {
+    font-size: 20px;
+  }
+  
+  .popup .button-container {
+    flex-direction: column;
+  }
+  
+  .popup button {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 8px;
+  }
+}
+
+/* États de validation */
+.popup input:invalid,
+.popup textarea:invalid,
+.popup select:invalid {
+  border-color: #ef4444;
+}
+
+.popup input:invalid:focus,
+.popup textarea:invalid:focus,
+.popup select:invalid:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Style pour les options du select */
+.popup select option {
+  padding: 8px;
+  background: white;
+  color: #374151;
+}
+
+/* Animation de fermeture */
+.popup.closing {
+  animation: fadeOut 0.2s ease-in forwards;
+}
+
+.popup.closing > div,
+.popup.closing form {
+  animation: popupScaleOut 0.2s ease-in forwards;
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes popupScaleOut {
+  from { 
+    transform: scale(1);
+    opacity: 1;
+  }
+  to { 
+    transform: scale(0.95);
+    opacity: 0;
+  }
+}

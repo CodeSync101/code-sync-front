@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { FullComponent } from './layouts/full/full.component';
+import { RepositoryListComponent } from './repository-list/repository-list.component';
+import { StatsComponent } from './stats/stats.component';
+import { TaskListComponent } from './task-list/task-list.component';
 
 export const Approutes: Routes = [
   {
@@ -48,7 +51,10 @@ export const Approutes: Routes = [
       {
         path: 'commits',
         loadChildren: () => import('./commits/commits.module').then(m => m.CommitsModule)
-      }
+      },
+       { path: 'tasks', component: RepositoryListComponent },
+  { path: 'stats', component: StatsComponent },
+  { path: 'repos/:repoName/tasks', component: TaskListComponent }
 
     ]
   },

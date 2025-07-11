@@ -1,0 +1,122 @@
+<!-- Template (github-stats.component.html) -->
+<div class="stats-container" *ngIf="stats">
+  <div class="header-section">
+    <h2 class="main-title">
+      <span class="icon">📊</span>
+      GitHub Statistics
+    </h2>
+    <p class="subtitle">Comprehensive overview of your repository metrics</p>
+  </div>
+
+  <div class="stats-grid">
+    <!-- Repository Stats -->
+    <div class="stat-card primary">
+      <div class="stat-icon">🏢</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ stats.totalRepositories }}</div>
+        <div class="stat-label">Total Repositories</div>
+      </div>
+    </div>
+
+    <!-- Branches Stats -->
+    <div class="stat-card secondary">
+      <div class="stat-icon">🌿</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ stats.totalBranches }}</div>
+        <div class="stat-label">Total Branches</div>
+      </div>
+    </div>
+
+    <!-- Merged Branches -->
+    <div class="stat-card success">
+      <div class="stat-icon">✅</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ stats.mergedBranches }}</div>
+        <div class="stat-label">Merged Branches</div>
+      </div>
+    </div>
+
+    <!-- Non-Merged Branches -->
+    <div class="stat-card warning">
+      <div class="stat-icon">⏳</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ stats.nonMergedBranches }}</div>
+        <div class="stat-label">Non-Merged Branches</div>
+      </div>
+    </div>
+
+    <!-- Total Commits -->
+    <div class="stat-card info">
+      <div class="stat-icon">💾</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ stats.totalCommits }}</div>
+        <div class="stat-label">Total Commits</div>
+      </div>
+    </div>
+
+    <!-- Pull Requests -->
+    <div class="stat-card accent">
+      <div class="stat-icon">🔄</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ stats.totalPullRequests }}</div>
+        <div class="stat-label">Pull Requests</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Author Highlight -->
+  <div class="top-author-section" *ngIf="stats.topAuthor">
+    <div class="top-author-card">
+      <div class="crown-icon">👑</div>
+      <div class="author-info">
+        <h3 class="author-name">{{ stats.topAuthor.name }}</h3>
+        <p class="author-stats">Top Contributor with {{ stats.topAuthor.commitCount }} commits</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Authors Table -->
+  <div class="authors-section" *ngIf="stats.authors?.length > 0">
+    <h3 class="section-title">
+      <span class="icon">👥</span>
+      Authors and Commit Counts
+    </h3>
+    
+    <div class="table-container">
+      <table class="authors-table">
+        <thead>
+          <tr>
+            <th>Author</th>
+            <th>Commits</th>
+            <th>Contribution</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let author of stats.authors; let i = index" 
+              [class.top-contributor]="i === 0"
+              [class.second-contributor]="i === 1"
+              [class.third-contributor]="i === 2">
+            <td class="author-cell">
+              <div class="author-avatar">{{ author.name.charAt(0).toUpperCase() }}</div>
+              <span class="author-name">{{ author.name }}</span>
+            </td>
+            <td class="commits-cell">
+              <span class="commit-count">{{ author.commitCount }}</span>
+            </td>
+            <td class="contribution-cell">
+              <div class="contribution-bar">
+                <div class="contribution-fill" 
+                     [style.width.%]="(author.commitCount / stats.totalCommits) * 100">
+                </div>
+              </div>
+              <span class="contribution-percent">
+                {{ ((author.commitCount / stats.totalCommits) * 100).toFixed(1) }}%
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
