@@ -1,0 +1,47 @@
+.commit-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.commit-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #e3e6f0;
+}
+
+.commit-item:last-child {
+  border-bottom: none;
+}
+
+.commit-icon {
+  font-size: 1.5rem;
+  color: #28a745; /* Green for commits */
+  margin-right: 1rem;
+}
+
+.commit-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.commit-message {
+  margin: 0;
+  font-weight: 500;
+  color: #2d3748;
+}
+
+.commit-info {
+  color: #718096;
+  font-size: 0.875rem;
+}
+
+.commit-info a {
+  margin-left: 8px;
+  color: #4f8cff;
+  text-decoration: none;
+}
+
+.commit-info a:hover {
+  text-decoration: underline;
+}
