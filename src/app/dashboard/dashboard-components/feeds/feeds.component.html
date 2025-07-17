@@ -1,19 +1,47 @@
-<div class="card">
-  <div class="card-body">
-    <h4 class="card-title">Latest Events</h4>
-    <h6 class="card-subtitle text-muted">Users Interactions</h6>
-    <div class="feed-widget mt-4">
-<ul>
-  <li class="feed-item d-flex align-items-center mb-3" *ngFor="let feed of feeds">
-    <div class="feed-icon round round-sm text-white d-flex align-items-center justify-content-center rounded-circle {{feed.class}}">
-      <i class="{{feed.icon}}"></i>
+<!-- The card needs a position context for the overlay -->
+<div class="card" style="position: relative;">
+
+  <!-- START: Loading Overlay -->
+  <!-- This div will cover the entire card with a semi-transparent overlay and a spinner when loading is true -->
+  <div *ngIf="loading" class="card-loading-overlay">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
+  </div>
+  <!-- END: Loading Overlay -->
 
-    <h5 class="mb-0 fw-normal ms-3" [innerHTML]="feed.task"></h5>
-    <span class="text-muted ms-auto fs-2">{{feed.time}}</span>
-  </li>
-</ul>
+  <div class="card-body">
+    <!-- START: Modified Header Section -->
+    <div class="d-flex align-items-center justify-content-between mb-4">
+      <div>
+        <h4 class="card-title mb-0">Latest Events</h4>
+        <h6 class="card-subtitle text-muted">Users Interactions</h6>
+      </div>
+      <!-- Changed button to be solid, larger, and with more descriptive text during loading -->
+      <button class="btn btn-primary" (click)="syncBranches()" [disabled]="loading">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+        <i *ngIf="!loading" class="bi bi-arrow-repeat me-1"></i>
+        {{ loading ? 'Syncing...' : 'Sync' }}
+      </button>
+    </div>
+    <!-- END: Modified Header Section -->
+    
+    <div class="feed-widget">
+      <ul>
+        <!-- If there are no feeds, show a message -->
+        <li *ngIf="!loading && feeds.length === 0" class="text-center text-muted">
+          No recent events to display.
+        </li>
+        
+        <li class="feed-item d-flex align-items-center mb-3" *ngFor="let feed of feeds">
+          <div class="feed-icon round round-sm text-white d-flex align-items-center justify-content-center rounded-circle {{feed.class}}">
+            <i class="{{feed.icon}}"></i>
+          </div>
 
+          <h5 class="mb-0 fw-normal ms-3" [innerHTML]="feed.task"></h5>
+          <span class="text-muted ms-auto fs-2">{{feed.time}}</span>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

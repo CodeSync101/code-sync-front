@@ -16,6 +16,7 @@ export class StatsService {
     private http: HttpClient,
     private organizationService: OrganizationService
   ) { }
+
   getTotalCommits(organization?: string): Observable<any> {
     if (organization) {
       return this.http.get(`${this.baseUrl}/reporting/api/commit/total-count`, { params: { organization } });
@@ -65,64 +66,65 @@ export class StatsService {
       );
     }
   }
-getLatestCommits(organization: string) {
-  return this.http.get(`${this.baseUrl}/reporting/api/reporting/get-latest-commits`, {
-    params: { organization }
-  });
-}
 
-getLatestPulls(): Observable<any> {
-  return this.http.get(`${this.baseUrl}/reporting/api/reporting/get-latest-pulls`);
-}
+  getLatestCommits(organization: string) {
+    return this.http.get(`${this.baseUrl}/reporting/api/reporting/get-latest-commits`, {
+      params: { organization }
+    });
+  }
 
-getLatestPushes(organization:string) {
-  return this.http.get(`${this.baseUrl}/reporting/api/reporting/get-latest-pushs`, {
-    params: { organization }
-  });
-}
+  getLatestPulls(org: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/reporting/api/reporting/get-latest-pulls`, {
+      params: { organization: org }
+    });
+  }
 
+  getLatestPushes(organization:string) {
+    return this.http.get(`${this.baseUrl}/reporting/api/reporting/get-latest-pushs`, {
+      params: { organization }
+    });
+  }
 
-getTopContributors(): Observable<{totalContributions: number, topContributors: Contributor[]}> {
-  return this.organizationService.getCurrentOrganization().pipe(
-    switchMap(org => {
-      return this.http.get<{totalContributions: number, topContributors: Contributor[]}>(
-        `${this.baseUrl}/reporting/api/reporting/contribution-summary`, {
-          params: { organization: org }
-        }
+  getTopContributors(): Observable<{totalContributions: number, topContributors: Contributor[]}> {
+    return this.organizationService.getCurrentOrganization().pipe(
+      switchMap(org => {
+        return this.http.get<{totalContributions: number, topContributors: Contributor[]}>(
+          `${this.baseUrl}/reporting/api/reporting/contribution-summary`, {
+            params: { organization: org }
+          }
+        );
+      })
+    );
+  }
+
+  getCommitFrequencyByWeekday(organization?: string): Observable<Record<string, number>> {
+    if (organization) {
+      return this.http.get<Record<string, number>>(
+        `${this.baseUrl}/reporting/api/reporting/day-of-week`, { params: { organization } });
+    } else {
+      return this.organizationService.getCurrentOrganization().pipe(
+        switchMap(org => this.http.get<Record<string, number>>(
+          `${this.baseUrl}/reporting/api/reporting/day-of-week`, { params: { organization: org } })
+        )
       );
-    })
-  );
-}
-
-// src/app/services/stats.service.ts
-
-getCommitFrequencyByWeekday(organization?: string): Observable<Record<string, number>> {
-  if (organization) {
-    return this.http.get<Record<string, number>>(
-      `${this.baseUrl}/reporting/api/reporting/day-of-week`, { params: { organization } });
-  } else {
-    return this.organizationService.getCurrentOrganization().pipe(
-      switchMap(org => this.http.get<Record<string, number>>(
-        `${this.baseUrl}/reporting/api/reporting/day-of-week`, { params: { organization: org } })
-      )
-    );
+    }
   }
-}
 
-getTopRepositoriesByCommitCount(organization?: string, limit = 5): Observable<Record<string, number>> {
-  if (organization) {
-    return this.http.get<Record<string, number>>(
-      `${this.baseUrl}/reporting/api/reporting/top-repositories`, { params: { organization, limit: limit.toString() } });
-  } else {
-    return this.organizationService.getCurrentOrganization().pipe(
-      switchMap(org => this.http.get<Record<string, number>>(
-        `${this.baseUrl}/reporting/api/reporting/top-repositories`, { params: { organization: org, limit: limit.toString() } })
-      )
-    );
+  getTopRepositoriesByCommitCount(organization?: string, limit = 5): Observable<Record<string, number>> {
+    if (organization) {
+      return this.http.get<Record<string, number>>(
+        `${this.baseUrl}/reporting/api/reporting/top-repositories`, { params: { organization, limit: limit.toString() } });
+    } else {
+      return this.organizationService.getCurrentOrganization().pipe(
+        switchMap(org => this.http.get<Record<string, number>>(
+          `${this.baseUrl}/reporting/api/reporting/top-repositories`, { params: { organization: org, limit: limit.toString() } })
+        )
+      );
+    }
   }
-}
-
-
-
-
-}
+  
+  fetchBranches(organization: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/reporting/api/branches/fetch/${organization}`, null);
+  }
+  
+} 
