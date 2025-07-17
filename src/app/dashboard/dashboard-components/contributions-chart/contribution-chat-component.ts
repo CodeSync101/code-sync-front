@@ -139,7 +139,8 @@ export class ContributionChartComponent implements OnInit, OnDestroy {
       'mrdrag0n',
       'unknown',
       'walidbechri',
-      'Mohamed Mbarek'
+      'Mohamed Mbarek',
+      'Abderrahim-belhaj',
     ];
     
     this.statsService.getActiveCollaboratorsCount(this.currentOrganization).subscribe({
