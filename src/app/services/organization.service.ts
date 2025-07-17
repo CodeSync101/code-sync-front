@@ -80,7 +80,7 @@ export class OrganizationService {
 
   private baseUrl = environment.apiUrl;
 
-  private reportingApiUrl = `${this.baseUrl}/reporting/api/organization/all`;
+  private reportingApiUrl = `http://localhost:8083/api/v1/organization/list-orgs`;
   private currentOrganization = new BehaviorSubject<string>('');
 
   getOrganizations(): Observable<string[]> {

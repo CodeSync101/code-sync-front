@@ -6,7 +6,7 @@ import Keycloak from 'keycloak-js';
   providedIn: 'root'
 })
 export class KeycloakService {
-  private readonly keycloakLogoutUrl = 'http://localhost:9090/realms/codesync-auth/protocol/openid-connect/logout'; // end_session_endpoint
+  private readonly keycloakLogoutUrl = 'http://localhost:8080/realms/codesync-auth/protocol/openid-connect/logout'; // end_session_endpoint
 
   constructor(private router: Router) {}
 
@@ -36,7 +36,7 @@ export class KeycloakService {
 }
 
 export const keycloak: Keycloak = new Keycloak({
-  url: 'http://localhost:9090',
+  url: 'http://localhost:8080',
   realm: 'codesync-auth',
   clientId: 'codesync-front'
 });
