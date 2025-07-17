@@ -18,7 +18,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: [],
   },
   {
-    path: '/component/users',
+    path: '/users',
     title: 'Users Management',
     icon: 'bi bi-people',
     class: '',
@@ -27,7 +27,7 @@ export const ROUTES: RouteInfo[] = [
     roles: ['ADMIN']
   },
   {
-    path: '/component/organizations',
+    path: '/organizations',
     title: 'Organizations',
     icon: 'bi bi-building',
     class: '',
@@ -36,7 +36,7 @@ export const ROUTES: RouteInfo[] = [
     roles: ['ADMIN', 'FIELD_MANAGER']
   },
   {
-    path: '/component/repositories',
+    path: '/repositories',
     title: 'Groups Management',
     icon: 'bi bi-git',
     class: '',
@@ -52,14 +52,6 @@ export const ROUTES: RouteInfo[] = [
     extralink: false,
     submenu: [],
     roles: ['ADMIN', 'FIELD_MANAGER', 'TEACHER']
-  },
-  {
-    path: '/component/dropdown',
-    title: 'AbdRahim',
-    icon: 'bi bi-menu-app',
-    class: '',
-    extralink: false,
-    submenu: [],
   },
   {
     path: '/matieres',

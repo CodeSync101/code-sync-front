@@ -1,0 +1,67 @@
+.not-found-container {
+  max-width: 400px;
+  margin: 8vh auto 0 auto;
+  padding: 2.5rem 2rem 2rem 2rem;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(44, 62, 80, 0.15);
+  text-align: center;
+  font-family: 'Rubik', 'Segoe UI', Arial, sans-serif;
+}
+
+.not-found-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1.2rem;
+}
+
+h1 {
+  font-size: 4rem;
+  color: #232946;
+  margin: 0 0 0.2em 0;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 1.5rem;
+  color: #b8c1ec;
+  margin-bottom: 0.5em;
+  font-weight: 500;
+}
+
+p {
+  color: #888;
+  margin-bottom: 2em;
+  font-size: 1.1rem;
+}
+
+.home-btn {
+  display: inline-block;
+  padding: 0.7em 2em;
+  background: #232946;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.home-btn:hover {
+  background: #b8c1ec;
+  color: #232946;
+  box-shadow: 0 4px 16px rgba(44, 62, 80, 0.12);
+}
+
+@media (max-width: 500px) {
+  .not-found-container {
+    max-width: 95vw;
+    padding: 1.5rem 0.5rem;
+  }
+  h1 {
+    font-size: 2.5rem;
+  }
+  h2 {
+    font-size: 1.1rem;
+  }
+} 

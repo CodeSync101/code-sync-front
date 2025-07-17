@@ -21,6 +21,18 @@ export const Approutes: Routes = [
         loadChildren: () => import('./about/about.module').then(m => m.AboutModule)
       },
       {
+        path: 'users',
+        loadChildren: () => import('./component/users-management/users-management.module').then(m => m.UsersManagementModule)
+      },
+      {
+        path: 'organizations',
+        loadChildren: () => import('./component/organization-management/organization-management.module').then(m => m.OrganizationManagementModule)
+      },
+      {
+        path: 'repositories',
+        loadChildren: () => import('./component/repository-management/repository-management.module').then(m => m.RepositoryManagementModule)
+      },
+      {
         path: 'component',
         loadChildren: () => import('./component/component.module').then(m => m.ComponentsModule)
       },

@@ -61,10 +61,6 @@ export const ComponentsRoutes: Routes = [
 			},
 		
 			{
-				path: 'dropdown',
-				component: NgbdDropdownBasicComponent
-			},
-			{
 				path: 'nav',
 				component: NgbdnavBasicComponent
 			},

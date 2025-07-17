@@ -20,6 +20,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { RepositoryListComponent } from './repository-list/repository-list.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { StatsComponent } from './stats/stats.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { StatsComponent } from './stats/stats.component';
     DashboardComponent,
     RepositoryListComponent,
     TaskListComponent,
-    StatsComponent
+    StatsComponent,
+    NotFoundComponent
   ],
   imports: [
     CommonModule,
