@@ -1,12 +1,7 @@
 <!-- Loading State -->
 <div *ngIf="isLoading" class="main-container">
   <div class="contributors-card">
-    <div class="card-header">
-      <h4 class="card-title">
-        <i class="fas fa-trophy"></i>
-        Top Contributors
-      </h4>
-    </div>
+
     <div class="card-body d-flex justify-content-center align-items-center" style="min-height: 300px;">
       <div class="text-center">
         <div class="spinner-border text-primary mb-3" role="status">
@@ -21,12 +16,7 @@
 <!-- Error State -->
 <div *ngIf="hasError && !isLoading" class="main-container">
   <div class="contributors-card">
-    <div class="card-header">
-      <h4 class="card-title">
-        <i class="fas fa-trophy"></i>
-        Top Contributors
-      </h4>
-    </div>
+
     <div class="card-body d-flex justify-content-center align-items-center" style="min-height: 300px;">
       <div class="text-center">
         <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
@@ -42,12 +32,7 @@
 <!-- Main Content -->
 <div *ngIf="!isLoading && !hasError" class="main-container">
   <div class="contributors-card">
-    <div class="card-header">
-      <h4 class="card-title">
-        <i class="fas fa-trophy"></i>
-        Top Contributors
-      </h4>
-    </div>
+
 
     <div class="card-body">
       <div class="table-responsive">
